@@ -13,3 +13,7 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+.idea/
+api.properties
+manifest-api.properties
