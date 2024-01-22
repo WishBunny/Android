@@ -15,4 +15,5 @@
 local.properties
 
 .idea/
-debug.properties
+api.properties
+manifest-api.properties
