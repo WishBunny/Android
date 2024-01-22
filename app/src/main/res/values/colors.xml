@@ -4,4 +4,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="Pink">#DF646E</color>
     <color name="Gray">#FF808080</color>
+    <color name="midPink">#FFE1E3</color>
+    <color name="activePink">#DF646E</color>
+    <color name="txtBasPink">#F7F3F1</color>
 </resources>
