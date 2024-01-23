@@ -1,8 +1,8 @@
 package com.wish.bunny
 
 import android.app.Application
-import com.kakao.sdk.common.KakaoSdk
-import com.wish.bunny.BuildConfig.NATIVE_APP_KEY
+/*import com.kakao.sdk.common.KakaoSdk
+import com.wish.bunny.BuildConfig.NATIVE_APP_KEY*/
 
 /**
     작성자: 엄상은
@@ -12,6 +12,6 @@ class GlobalApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         // Kakao SDK 초기화
-        KakaoSdk.init(this, "${NATIVE_APP_KEY}")
+      //  KakaoSdk.init(this, "${NATIVE_APP_KEY}")
     }
 }
