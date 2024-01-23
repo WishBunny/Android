@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">Android</string>
+    <string name="some_id">
+        천리길도 한 걸음부터\n당신의 소망을 담아보세요!
+    </string>
+    <string name="select_date">
+        날짜를 선택하세요
+    </string>
+    <string name="want_do">
+        하고 싶어요
+    </string>
+    <string name="want_eat">
+        먹고 싶어요
+    </string>
+    <string name="want_get">
+        갖고 싶어요
+    </string>
+    <string name="insert">
+        등록
+    </string>
+    <string name="wish_content">
+        소망을 입력하세요
+    </string>
 </resources>
