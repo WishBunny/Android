@@ -1,7 +1,7 @@
 package com.wish.bunny
-
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import com.kakao.sdk.common.util.Utility
 import com.wish.bunny.databinding.ActivityMainBinding
