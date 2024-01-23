@@ -4,49 +4,41 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.wish.bunny.R
+import com.wish.bunny.wish.domain.WishItem
 
-class CustomAdapter(private val context: Context, private val dataList: List<WishModel>) :
-    RecyclerView.Adapter<CustomAdapter.WishHolder>() {
+class CustomAdapter(private val context: Context, private val wishItemList: List<WishItem>) :
+    RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
-    class WishHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val rvContentTextView: TextView = itemView.findViewById(R.id.rv_content)
-        val rvDDayTextView: TextView = itemView.findViewById(R.id.rv_dDay)
-        val rvTag1TextView: TextView = itemView.findViewById(R.id.rv_tag1)
-        val rvTag2TextView: TextView = itemView.findViewById(R.id.rv_tag2)
-        val rvDoneButton: Button = itemView.findViewById(R.id.rv_done_btn)
-    }
-
-    //추후에 수정
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WishHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_wish, parent, false)
-        return WishHolder(view)
+        return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: WishHolder, position: Int) {
-        val item = dataList[position]
-
-        holder.rvContentTextView.text = item.content
-        holder.rvDDayTextView.text = item.dDay
-        holder.rvTag1TextView.text = item.tag1
-        holder.rvTag2TextView.text = item.tag2
-
-
-        holder.rvDoneButton.setOnClickListener {
-        }
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(wishItemList[position])
     }
 
     override fun getItemCount(): Int {
-        return dataList.size
+        return wishItemList.size
     }
 
-    data class WishModel(
-        val content: String,
-        val dDay: String,
-        val tag1: String,
-        val tag2: String
-    )
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val content = itemView.findViewById<TextView>(R.id.rv_content)
+        private val dDay = itemView.findViewById<TextView>(R.id.rv_dDay)
+
+        fun bind(wishItem: WishItem) {
+            content.text = wishItem.content
+            //content.text = wishItem.wishNo
+            // dDay 설정 등 필요한 데이터 설정
+            // 예시: dDay.text = "D-${calculateDDay(wishItem.deadlineDt)}"
+        }
+
+        // 예시: private fun calculateDDay(deadlineDt: String): Int {
+        // 예시:   // D-Day를 계산하는 로직을 작성하세요.
+        // 예시:   return 0
+        // 예시: }
+    }
 }

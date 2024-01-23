@@ -27,9 +27,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="내용내용"
-                    android:textSize="32dp"
+                    android:textSize="25dp"
                     android:layout_gravity="start"
-                    android:layout_marginStart="15dp"/>
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="10dp"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -37,13 +38,13 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="10dp"
                 android:layout_gravity="start"
-                android:layout_marginStart="15dp">
+                android:layout_marginStart="10dp">
                 <TextView
                     android:id="@+id/rv_dDay"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="D-32"
-                    android:textSize="25dp"
+                    android:textSize="20dp"
                     android:textColor="@color/activePink"
                     />
                 <TextView
@@ -52,7 +53,7 @@
                     android:layout_height="wrap_content"
                     android:text="#운동"
                     android:layout_marginLeft="10dp"
-                    android:textSize="25dp"
+                    android:textSize="20dp"
                     android:textColor="@color/activePink"
                     />
                 <TextView
@@ -61,7 +62,7 @@
                     android:layout_height="wrap_content"
                     android:text="#다이어트"
                     android:layout_marginLeft="5dp"
-                    android:textSize="25dp"
+                    android:textSize="18dp"
                     android:textColor="@color/activePink"
                     />
             </LinearLayout>

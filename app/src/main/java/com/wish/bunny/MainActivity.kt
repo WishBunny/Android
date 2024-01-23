@@ -2,6 +2,8 @@ package com.wish.bunny
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import com.kakao.sdk.common.util.Utility
 import com.wish.bunny.databinding.ActivityMainBinding
 import com.wish.bunny.friend.FriendFragment
 import com.wish.bunny.home.HomeFragment
@@ -13,6 +15,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater) // 뷰 바인딩
         setContentView(binding.root)
+        var keyhash = Utility.getKeyHash(this)
+        Log.d("MainActivity", keyhash)
 
         binding.bottomNavi.run { setOnNavigationItemSelectedListener {
             when(it.itemId) {
