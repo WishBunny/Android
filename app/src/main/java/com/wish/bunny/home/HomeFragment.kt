@@ -5,8 +5,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.wish.bunny.R
 import com.wish.bunny.databinding.ActivityWishListBinding
 import com.wish.bunny.retrofit.RetrofitConnection
 import com.wish.bunny.wish.CustomAdapter
@@ -34,6 +36,13 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         loadWishList()
+
+     /*
+        view.findViewById<Button>(R.id.rv_detail_btn).setOnClickListener {
+            val detailFragment = WishDetailFragment();
+            replaceFragment(detailFragment)
+        }
+        */
     }
 
     private fun loadWishList() {
@@ -64,4 +73,12 @@ class HomeFragment : Fragment() {
         binding.wishListRecyclerView.adapter = adapter
         binding.wishListRecyclerView.layoutManager = LinearLayoutManager(requireContext())
     }
+
+    private fun replaceFragment(fragment: Fragment) {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
 }

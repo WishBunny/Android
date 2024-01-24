@@ -5,10 +5,13 @@ import android.content.Intent
 import android.net.Uri
 import android.text.SpannableString
 import android.text.style.ClickableSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.wish.bunny.R
@@ -27,6 +30,11 @@ class CustomAdapter(private val context: Context, private val wishItemList: List
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(wishItemList[position])
+        val currentItem = wishItemList[position]
+
+        holder.itemView.findViewById<Button>(R.id.rv_detail_btn).setOnClickListener {
+            Log.d("Button text","test")
+        }
     }
 
     override fun getItemCount(): Int {

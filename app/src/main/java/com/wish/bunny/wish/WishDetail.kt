@@ -1,6 +1,5 @@
-package com.wish.bunny
+package com.wish.bunny.wish
 
-import android.app.DatePickerDialog
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,15 +8,14 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import com.wish.bunny.R
 import com.wish.bunny.retrofit.RetrofitConnection
-import com.wish.bunny.wish.WishService
 import com.wish.bunny.wish.domain.WishItem
 import retrofit2.Call
 import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
-import javax.security.auth.callback.Callback
 
 class WishDetail : AppCompatActivity() {
 
