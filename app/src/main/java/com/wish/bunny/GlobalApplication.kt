@@ -19,6 +19,6 @@ class GlobalApplication : Application() {
         // Shared Preference 사용을 위한 초기화
         prefs = PreferenceUtil(applicationContext)
         // Kakao SDK 초기화
-        KakaoSdk.init(this, "${NATIVE_APP_KEY}")
+      //  KakaoSdk.init(this, "${NATIVE_APP_KEY}")
     }
 }
