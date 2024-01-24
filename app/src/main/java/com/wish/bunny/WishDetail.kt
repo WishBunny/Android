@@ -25,46 +25,15 @@ class WishDetail : AppCompatActivity() {
     private val tvSelectedDate: TextView by lazy { findViewById<TextView>(R.id.tvSelectedDate) }
     private val selectedDate: Calendar = Calendar.getInstance()
     private val selectedButtons: MutableList<Button> = mutableListOf()
+
+    // 원래의 글자색 저장
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_wish_detail)
 
         loadWishDetail("WISH002")
-        val button1: Button = findViewById(R.id.button1)
-        val button2: Button = findViewById(R.id.button2)
-        val button3: Button = findViewById(R.id.button3)
 
-        val pinkColor = ContextCompat.getColor(this, R.color.pink)
-        val changeTextColor = ContextCompat.getColor(this, R.color.white)
-        val transparentColor = ContextCompat.getColor(this, R.color.ivory)
-        val originalTextColor = ContextCompat.getColor(this, R.color.black) // 원래의 글자색 저장
 
-        button1.setOnClickListener {
-            button1.setBackgroundColor(pinkColor) // 핑크색으로 변경
-            button1.setTextColor(changeTextColor) // 글자색을 원래대로
-            button2.setBackgroundColor(transparentColor) // 다른 버튼은 원래 색으로
-            button2.setTextColor(originalTextColor)
-            button3.setBackgroundColor(transparentColor)
-            button3.setTextColor(originalTextColor)
-        }
-
-        button2.setOnClickListener {
-            button2.setBackgroundColor(pinkColor)
-            button2.setTextColor(changeTextColor) // 글자색을 원래대로
-            button1.setBackgroundColor(transparentColor) // 다른 버튼은 원래 색으로
-            button1.setTextColor(originalTextColor)
-            button3.setBackgroundColor(transparentColor)
-            button3.setTextColor(originalTextColor)
-        }
-
-        button3.setOnClickListener {
-            button3.setBackgroundColor(pinkColor)
-            button3.setTextColor(changeTextColor) // 글자색을 원래대로
-            button1.setBackgroundColor(transparentColor) // 다른 버튼은 원래 색으로
-            button1.setTextColor(originalTextColor)
-            button2.setBackgroundColor(transparentColor)
-            button2.setTextColor(originalTextColor)
-        }
     }
     private fun loadWishDetail(wishNo: String) {
         val retrofitAPI = RetrofitConnection.getInstance().create(WishService::class.java)
@@ -91,33 +60,61 @@ class WishDetail : AppCompatActivity() {
 
     private fun updateUI(wishItem: WishItem) {
         val content = findViewById<TextView>(R.id.content)
+        val hashTag = findViewById<Button>(R.id.hashtagButton1)
+        val deadline = findViewById<TextView>(R.id.tvSelectedDate)
+
         content.text = wishItem.content
+        hashTag.text= '#'+wishItem.tagContents
+        deadline.text = wishItem.deadlineDt
+        EditDeleteButtonShowYn(wishItem.writerYn)
+        setCategroy(wishItem.category)
     }
+    private fun EditDeleteButtonShowYn(writerYn: String){
+        val editBtn = findViewById<Button>(R.id.updateBtn)
+        val deleteBtn = findViewById<Button>(R.id.deleteBtn)
 
-
-    // 클릭 이벤트 핸들러
-    fun onCalendarButtonClick(view: View) {
-        openDatePickerDialog()
-    }
-
-    private fun openDatePickerDialog() {
-        val datePickerDialog = DatePickerDialog(
-            this,
-            dateSetListener,
-            selectedDate[Calendar.YEAR],
-            selectedDate[Calendar.MONTH],
-            selectedDate[Calendar.DAY_OF_MONTH]
-        )
-        datePickerDialog.show()
-    }
-
-    private val dateSetListener =
-        DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
-            selectedDate[Calendar.YEAR] = year
-            selectedDate[Calendar.MONTH] = month
-            selectedDate[Calendar.DAY_OF_MONTH] = dayOfMonth
-            updateSelectedDate()
+        if(writerYn.equals("Y")){
+            editBtn.visibility = View.VISIBLE
+            deleteBtn.visibility = View.VISIBLE
+        }else{
+            editBtn.visibility = View.GONE
+            deleteBtn.visibility = View.GONE
         }
+
+    }
+    private fun setCategroy(category : String){
+        val button1: Button = findViewById(R.id.button1)
+        val button2: Button = findViewById(R.id.button2)
+        val button3: Button = findViewById(R.id.button3)
+
+        val pinkColor = ContextCompat.getColor(this, R.color.pink)
+        val changeTextColor = ContextCompat.getColor(this, R.color.white)
+        val transparentColor = ContextCompat.getColor(this, R.color.ivory)
+        val originalTextColor = ContextCompat.getColor(this, R.color.black)
+
+        if(category.equals("go")){
+            button1.setBackgroundColor(pinkColor) // 핑크색으로 변경
+            button1.setTextColor(changeTextColor) // 글자색을 원래대로
+            button2.setBackgroundColor(transparentColor) // 다른 버튼은 원래 색으로
+            button2.setTextColor(originalTextColor)
+            button3.setBackgroundColor(transparentColor)
+            button3.setTextColor(originalTextColor)
+        }else  if(category.equals("eat")){
+            button2.setBackgroundColor(pinkColor)
+            button2.setTextColor(changeTextColor) // 글자색을 원래대로
+            button1.setBackgroundColor(transparentColor) // 다른 버튼은 원래 색으로
+            button1.setTextColor(originalTextColor)
+            button3.setBackgroundColor(transparentColor)
+            button3.setTextColor(originalTextColor)
+        }else{
+            button3.setBackgroundColor(pinkColor)
+            button3.setTextColor(changeTextColor) // 글자색을 원래대로
+            button1.setBackgroundColor(transparentColor) // 다른 버튼은 원래 색으로
+            button1.setTextColor(originalTextColor)
+            button2.setBackgroundColor(transparentColor)
+            button2.setTextColor(originalTextColor)
+        }
+    }
 
     private fun updateSelectedDate() {
         val dateFormat = SimpleDateFormat("yyyy년 MM월 dd일 EEEE까지", Locale.getDefault())
