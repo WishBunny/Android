@@ -9,6 +9,7 @@ import android.widget.Button
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wish.bunny.R
+import com.wish.bunny.common.ConfirmDialog
 import java.text.ParsePosition
 
 class FriendFragment : Fragment() {
@@ -58,7 +59,19 @@ class FriendFragment : Fragment() {
 
         adapter_profile.setOnItemClickListener(object : ProfileAdapter.OnItemClickListener {
             override fun onRemoveClick(position: Int) {
-                removeItem(position)
+                val dialog = ConfirmDialog(
+                    requireContext(),
+                    "친구 삭제",
+                    "친구를 정말 삭제하시겠습니까?",
+                    {
+                        // 확인 버튼을 눌렀을 때의 처리
+                        removeItem(position)
+                    },
+                    "확인",
+                    0
+                )
+                dialog.isCancelable = false
+                dialog.show(requireActivity().supportFragmentManager, null)
             }
         })
 
