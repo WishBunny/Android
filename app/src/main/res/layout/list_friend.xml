@@ -6,6 +6,10 @@
     android:layout_height="wrap_content"
     tools:context=".friend.FriendFragment">
 
+    <!--
+     작성자: 이혜연
+     처리 내용: 친구 리스트
+ -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

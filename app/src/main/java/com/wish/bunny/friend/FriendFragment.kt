@@ -12,6 +12,10 @@ import com.wish.bunny.R
 import com.wish.bunny.common.ConfirmDialog
 import java.text.ParsePosition
 
+/**
+작성자:  이혜연
+처리 내용: 친구 리스트 조회, 삭제 아이콘 클릭시 삭제 구현
+ */
 class FriendFragment : Fragment() {
     lateinit var rc_friends: RecyclerView
     lateinit var adapter_profile: ProfileAdapter

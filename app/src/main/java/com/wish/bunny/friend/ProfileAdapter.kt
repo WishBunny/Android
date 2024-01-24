@@ -9,7 +9,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.wish.bunny.R
-
+/**
+작성자:  이혜연
+처리 내용: ProfileAdapter 구현
+ */
 class ProfileAdapter(val profileList: ArrayList<Profiles>) : RecyclerView.Adapter<ProfileAdapter.CustomViewHolder>(){
 
     //클릭 리스너
