@@ -61,7 +61,6 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
     private fun updateUI(wishItemList: List<WishItem>) {
         adapter = CustomAdapter(requireContext(), wishItemList)
 
-        // Set the click listener for the button
         adapter?.setOnDetailButtonClickListener(this)
 
         binding.wishListRecyclerView.adapter = adapter
@@ -69,12 +68,15 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
     }
 
     override fun onDetailButtonClick(wishNo: String) {
-        // Handle button click, e.g., open a new fragment
         val newFragment = WishDetailFragment()
 
-        // Pass the wishNo or adapter to the new fragment if needed
+        val bundle = Bundle()
+        bundle.putString("wishNo", wishNo)
+        newFragment.arguments = bundle
+
         replaceFragment(newFragment)
     }
+
 
     private fun replaceFragment(fragment: Fragment) {
         requireActivity().supportFragmentManager.beginTransaction()

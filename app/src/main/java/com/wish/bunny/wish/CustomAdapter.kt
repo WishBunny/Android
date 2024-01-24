@@ -21,14 +21,12 @@ import java.time.temporal.ChronoUnit
 class CustomAdapter(private val context: Context, private val wishItemList: List<WishItem>) :
     RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
-    // Interface for handling button clicks
     interface OnDetailButtonClickListener {
         fun onDetailButtonClick(wishNo: String)
     }
 
     private var onDetailButtonClickListener: OnDetailButtonClickListener? = null
 
-    // Method to set the click listener
     fun setOnDetailButtonClickListener(listener: OnDetailButtonClickListener) {
         this.onDetailButtonClickListener = listener
     }
@@ -53,35 +51,26 @@ class CustomAdapter(private val context: Context, private val wishItemList: List
         private val tag1 = itemView.findViewById<TextView>(R.id.rv_tag1)
 
         init {
-            itemView.findViewById<Button>(R.id.rv_detail_btn).setOnClickListener {
+            //컨텐츠 내용 클릭시
+            itemView.findViewById<TextView>(R.id.rv_content).setOnClickListener {
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     onDetailButtonClickListener?.onDetailButtonClick(wishItemList[position].wishNo)
                 }
             }
+            //버튼클릭시
+            itemView.findViewById<Button>(R.id.rv_detail_btn).setOnClickListener {
+                
+            }
         }
 
         fun bind(wishItem: WishItem) {
-            // Make a part of the text clickable
             val title = wishItem.content
             val wishNo = wishItem.wishNo
-            val clickableText = getWishDetailLink(title, wishNo)
 
             content.text = wishItem.content
             dDay.text = calculateDDay(wishItem.deadlineDt)
             tag1.text = wishItem.tagContents
-        }
-
-        private fun getWishDetailLink(title: String, wishNo: String) {
-            val spannableString = SpannableString(title)
-
-            var clickableSpan = object : ClickableSpan() {
-                override fun onClick(widget: View) {
-                    var uri = Uri.parse("https://naver.com?wishNo=" + wishNo)
-                    var intent = Intent(Intent.ACTION_VIEW, uri)
-                    startActivity(widget.context, intent, null)
-                }
-            }
         }
 
         private fun calculateDDay(deadlineDt: String): String {
@@ -94,7 +83,10 @@ class CustomAdapter(private val context: Context, private val wishItemList: List
             //남은 일수 계산
             val daysRemaining = ChronoUnit.DAYS.between(currentDate, targetDate)
 
-            return "D-${daysRemaining.toString()}"
+            if(daysRemaining>= 0)
+                return "D-${daysRemaining.toString()}"
+            else
+                return "D+${daysRemaining.toString()}"
         }
     }
 }
