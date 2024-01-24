@@ -12,9 +12,9 @@ import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
 import com.wish.bunny.GlobalApplication
 import com.wish.bunny.R
-import com.wish.bunny.login.domain.KakaoAccessToken
+import com.wish.bunny.login.domain.AccessToken
 import com.wish.bunny.login.domain.MemberModel
-import com.wish.bunny.retrofit.RetrofitConnection
+import com.wish.bunny.util.RetrofitConnection
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -48,7 +48,7 @@ class LoginActivity : AppCompatActivity() {
                 Log.e("Login Activity", "카카오계정으로 로그인 실패", error)
             } else if (token != null) {
                 Log.i("Login Activity", "카카오계정으로 로그인 성공 ${token.accessToken}")
-                postLoginAction(retrofitAPI, KakaoAccessToken(accessToken = token.accessToken))
+                postLoginAction(retrofitAPI, AccessToken(accessToken = token.accessToken))
             }
         }
         // 카카오톡이 설치되어 있으면 카카오톡으로 로그인, 아니면 카카오계정으로 로그인
@@ -65,7 +65,7 @@ class LoginActivity : AppCompatActivity() {
                     UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
                 } else if (token != null) {
                     Log.i("Login Activity", "카카오톡으로 로그인 성공 ${token.accessToken}")
-                    postLoginAction(retrofitAPI, KakaoAccessToken(accessToken = token.accessToken))
+                    postLoginAction(retrofitAPI, AccessToken(accessToken = token.accessToken))
                 }
             }
         } else {
@@ -77,7 +77,7 @@ class LoginActivity : AppCompatActivity() {
         작성자: 엄상은
         처리 내용: 서버로 로그인 요청 보내기
     */
-    private fun postLoginAction(retrofitAPI: LoginService, accessToken: KakaoAccessToken) {
+    private fun postLoginAction(retrofitAPI: LoginService, accessToken: AccessToken) {
         Log.d("Login Activity", accessToken.toString())
         retrofitAPI.loginByAccessToken(accessToken).enqueue(object:
             Callback<MemberModel> {

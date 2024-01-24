@@ -6,7 +6,7 @@ import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import com.wish.bunny.R
-import com.wish.bunny.retrofit.RetrofitConnection
+import com.wish.bunny.util.RetrofitConnection
 import com.wish.bunny.sample.domain.Sample
 import retrofit2.Call
 import retrofit2.Callback

@@ -2,19 +2,11 @@ package com.wish.bunny.wish
 
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.wish.bunny.R
 import com.wish.bunny.databinding.ActivityWishListBinding
-import com.wish.bunny.retrofit.RetrofitConnection
-import com.wish.bunny.sample.SampleService
-import com.wish.bunny.sample.domain.Sample
-import com.wish.bunny.wish.domain.Wish
+import com.wish.bunny.util.RetrofitConnection
 import com.wish.bunny.wish.domain.WishItem
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
