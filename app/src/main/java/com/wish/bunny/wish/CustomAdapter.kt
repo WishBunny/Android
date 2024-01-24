@@ -55,7 +55,7 @@ class CustomAdapter(private val context: Context, private val wishItemList: List
 
             var clickableSpan = object : ClickableSpan(){
                 override fun onClick(widget: View) {
-                   var uri = Uri.parse("https://naver.com?wishNo="+wishNo)
+                    var uri = Uri.parse("https://naver.com?wishNo="+wishNo)
                     var intent = Intent(Intent.ACTION_VIEW, uri)
                     startActivity(widget.context, intent, null)
                 }
