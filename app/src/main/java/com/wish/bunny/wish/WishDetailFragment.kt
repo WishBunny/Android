@@ -39,7 +39,16 @@ class WishDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        loadWishDetail("WISH002")
+        val wishNo = arguments?.getString("wishNo")
+
+
+        if (wishNo != null) {
+            Log.d("WishDetailFragment", "Received wishNo: $wishNo")
+
+            loadWishDetail(wishNo)
+        }
+
+
     }
 
     private fun loadWishDetail(wishNo: String) {

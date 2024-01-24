@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wish.bunny.R
@@ -19,7 +18,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
 
     private lateinit var binding: ActivityWishListBinding
     private var adapter: CustomAdapter? = null
@@ -34,15 +33,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         loadWishList()
-
-     /*
-        view.findViewById<Button>(R.id.rv_detail_btn).setOnClickListener {
-            val detailFragment = WishDetailFragment();
-            replaceFragment(detailFragment)
-        }
-        */
     }
 
     private fun loadWishList() {
@@ -69,10 +60,23 @@ class HomeFragment : Fragment() {
 
     private fun updateUI(wishItemList: List<WishItem>) {
         adapter = CustomAdapter(requireContext(), wishItemList)
-        Log.d("wish Context", this.toString())
+
+        adapter?.setOnDetailButtonClickListener(this)
+
         binding.wishListRecyclerView.adapter = adapter
         binding.wishListRecyclerView.layoutManager = LinearLayoutManager(requireContext())
     }
+
+    override fun onDetailButtonClick(wishNo: String) {
+        val newFragment = WishDetailFragment()
+
+        val bundle = Bundle()
+        bundle.putString("wishNo", wishNo)
+        newFragment.arguments = bundle
+
+        replaceFragment(newFragment)
+    }
+
 
     private fun replaceFragment(fragment: Fragment) {
         requireActivity().supportFragmentManager.beginTransaction()
@@ -80,5 +84,4 @@ class HomeFragment : Fragment() {
             .addToBackStack(null)
             .commit()
     }
-
 }
