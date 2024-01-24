@@ -9,10 +9,11 @@ import android.widget.Button
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wish.bunny.R
+import java.text.ParsePosition
 
 class FriendFragment : Fragment() {
     lateinit var rc_friends: RecyclerView
-    lateinit var adapter_profile: RecyclerView.Adapter<*>
+    lateinit var adapter_profile: ProfileAdapter
     var profileList: ArrayList<Profiles> = ArrayList()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -55,6 +56,17 @@ class FriendFragment : Fragment() {
             // 버튼 매치에 대한 처리 추가
         }
 
+        adapter_profile.setOnItemClickListener(object : ProfileAdapter.OnItemClickListener {
+            override fun onRemoveClick(position: Int) {
+                removeItem(position)
+            }
+        })
 
     }
+
+    private fun removeItem(position: Int) {
+        profileList.removeAt(position)
+        adapter_profile.notifyItemRemoved(position)
+    }
+
 }
