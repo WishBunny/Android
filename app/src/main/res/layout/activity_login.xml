@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".home.LoginActivity">
+    tools:context=".login.LoginActivity">
 
     <!--
         작성자: 엄상은
@@ -43,4 +43,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/kakao_login_medium_narrow" />
+
+    <!-- res/layout/activity_member.xml -->
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/textAccessToken"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AccessToken will appear here" />
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
