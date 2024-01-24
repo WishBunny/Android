@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
+    tools:context=".wish.WishDetailFragment">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -82,7 +81,7 @@
                 android:layout_marginStart="10dp"
                 android:textSize="16sp"
                 android:textColor="@color/black"
-              />
+                />
         </LinearLayout>
 
         <HorizontalScrollView
@@ -117,8 +116,7 @@
             android:layout_marginTop="30dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
-            app:srcCompat="@drawable/img" />
-
+            android:src="@drawable/img"/>
 
         <TextView
             android:id="@+id/title"
@@ -128,7 +126,7 @@
             android:layout_marginTop="80dp"
             android:text="@string/some_id"
             android:textStyle="bold"/>
-       <!--     android:textAppearance="@style/some_id" />-->
+        <!--     android:textAppearance="@style/some_id" />-->
 
         <Button
             android:id="@+id/updateBtn"
@@ -170,20 +168,6 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/arrow_back" />
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottom_navi"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            app:itemIconTint="@color/Gray"
-            app:itemTextColor="@color/Gray"
-            app:labelVisibilityMode="labeled"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:menu="@menu/navi_menu" />
-
     </FrameLayout>
 
-    <!-- drawable/some_id.xml -->
-</RelativeLayout>
+</FrameLayout>
