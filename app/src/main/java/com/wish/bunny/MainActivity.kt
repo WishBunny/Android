@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
                     supportFragmentManager.beginTransaction().replace(R.id.fragment_container, settingFragment).commit()
                 }
             }
+
             true
         }
             selectedItemId = R.id.navi_home

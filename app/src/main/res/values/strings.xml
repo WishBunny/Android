@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">위시버니</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>ㄴㄴ
+
+    <string name="jang_won_young">혜연</string>
 </resources>
