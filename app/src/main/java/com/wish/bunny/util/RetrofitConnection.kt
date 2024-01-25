@@ -1,4 +1,4 @@
-package com.wish.bunny.retrofit
+package com.wish.bunny.util
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

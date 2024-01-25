@@ -12,5 +12,7 @@ data class WishItem (
     val writerNo: String,
     val tagNo: String,
     val tagContents: String,
-    val contents: String
+    val contents: String,
+    val writerYn: String,
+    val finishedDt : String
 )
