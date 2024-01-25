@@ -77,7 +77,7 @@ class WishDetailFragment : Fragment() {
         binding.content.text = wishItem.content
         binding.hashtagButton1.text = '#' + wishItem.tagContents
         binding.tvSelectedDate.text = wishItem.deadlineDt
-        EditDeleteButtonShowYn(wishItem.writerYn)
+        // EditDeleteButtonShowYn(wishItem.writerYn)
         setCategroy(wishItem.category)
     }
 

@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/txtBasPink"
     tools:context=".wish.WishList">
 
     <TextView
@@ -51,6 +52,7 @@
             android:layout_weight="1"
             android:backgroundTint="@color/ivory"
             android:textColor="@color/black"
+            android:textStyle="bold"
             android:text="@string/want_do" />
 
         <Button
@@ -58,6 +60,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textStyle="bold"
             android:backgroundTint="@color/ivory"
             android:textColor="@color/black"
             android:text="@string/want_eat" />
@@ -67,6 +70,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textStyle="bold"
             android:backgroundTint="@color/ivory"
             android:textColor="@color/black"
             android:text="@string/want_get" />

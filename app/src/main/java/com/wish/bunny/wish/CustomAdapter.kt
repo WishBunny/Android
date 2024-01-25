@@ -23,6 +23,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import android.app.AlertDialog
+import android.widget.ImageButton
 
 /**
 작성자: 김은솔
@@ -73,7 +74,7 @@ class CustomAdapter(private val context: Context, private val wishItemList: List
                 }
             }
             //완료 버튼 클릭시
-            itemView.findViewById<Button>(R.id.rv_detail_btn).setOnClickListener {
+            itemView.findViewById<ImageButton>(R.id.rv_detail_btn).setOnClickListener {
                 showConfirmationDialog(wishItemList[position].wishNo)
             }
         }
