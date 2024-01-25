@@ -19,7 +19,6 @@
         android:text="당신의 소망을\n위시버니와\n나눠주세요"
         android:textSize="36sp"
         android:textAlignment="center"
-        android:fontFamily="@font/notosanskr_bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
