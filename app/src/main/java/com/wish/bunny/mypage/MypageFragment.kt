@@ -38,7 +38,7 @@ class MypageFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val PICK_IMAGE = 1
-    lateinit var updatedImageUri: Uri
+    var updatedImageUri : Uri? = null
     lateinit var memberNo: String
     lateinit var profileImgUrl: String
 
@@ -61,6 +61,7 @@ class MypageFragment : Fragment() {
         // 사진 변경과 관련된 세팅
         pictureForEditSetting()
         binding.btnConfirm.setOnClickListener{
+            Log.d("MyPageFragment", "프로필 정보 업데이트 시도")
             updateMemberInfo(retrofitAPI)
         }
         return binding.root
@@ -91,6 +92,9 @@ class MypageFragment : Fragment() {
         // 이미지 변경이 있다면 S3에 새 이미지 업로드
         if (updatedImageUri != null) {
             profileUpdateRequest.imgUrl = uploadFileByUri(updatedImageUri)
+            Glide.with(this)
+                .load(profileUpdateRequest.imgUrl)
+                .into(binding.imgProfile)
         }
         retrofitAPI.updateMyProfile(
             GlobalApplication.prefs.getString("accessToken", ""),

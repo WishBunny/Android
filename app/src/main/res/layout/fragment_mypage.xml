@@ -14,34 +14,34 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cv_profile"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:layout_marginTop="100dp"
-            app:cardCornerRadius="50dp"
+            app:cardCornerRadius="75dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/img_profile"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:src="@drawable/default_profile_image" />
 
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cv_editphoto"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            app:cardCornerRadius="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:cardCornerRadius="40dp"
             app:cardBackgroundColor ="#999"
             app:layout_constraintBottom_toBottomOf="@+id/cv_profile"
             app:layout_constraintEnd_toEndOf="@+id/cv_profile">
             <ImageView
                 android:id="@+id/img_editphoto"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_gravity="center"
                 android:src="@drawable/camera_white" />
         </androidx.cardview.widget.CardView>
@@ -50,11 +50,11 @@
             android:id="@+id/edit_nickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/notosanskr_bold"
-            android:text="edit_nickname"
+            android:layout_marginTop="20dp"
+            android:background="@null"
             android:imeOptions="actionDone"
             android:singleLine="true"
-            android:background="@null"
+            android:text="edit_nickname"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -73,7 +73,6 @@
             android:id="@+id/tv_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/notosanskr_bold"
             android:text="tv_email"
             android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -84,43 +83,58 @@
             android:id="@+id/tv_memberId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/notosanskr_bold"
             android:text="tv_memberId"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_email" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_email"/>
 
-        <Button
-            android:id="@+id/btn_confirm"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_confirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#999"
-            android:text="Confirm"
-            app:backgroundTint="@null"
+            android:layout_margin="10dp"
+            app:cardCornerRadius="10dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
+            <TextView
+                android:id="@+id/btn_confirm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/pink"
+                android:paddingHorizontal="10dp"
+                android:src="@drawable/default_profile_image"
+                android:text="변경 완료"
+                android:textColor="@color/white"
+                tools:layout_editor_absoluteX="320dp"
+                tools:layout_editor_absoluteY="16dp" />
+        </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_gravity="bottom">
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="20dp"
+        android:gravity="right">
 
         <Button
             android:id="@+id/LogoutBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="logout" />
+            android:textColor="@color/pink"
+            android:background="@android:color/transparent"
+            android:text="로그아웃" />
 
         <Button
             android:id="@+id/DisconnectBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="disconnect" />
+            android:textColor="@color/pink"
+            android:background="@android:color/transparent"
+            android:text="연결 끊기" />
     </LinearLayout>
 </FrameLayout>
