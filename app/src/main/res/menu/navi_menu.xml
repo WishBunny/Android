@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/navi_home" app:showAsAction="ifRoom" android:enabled="true"
-        android:icon="@drawable/navi_home" android:title="홈" />
+    <item
+        android:id="@+id/navi_home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:enabled="true"
+        android:icon="@drawable/navi_home"
+        android:title="홈"
+        app:showAsAction="ifRoom" />
     <item android:id="@+id/navi_friend" app:showAsAction="ifRoom"
         android:icon="@drawable/navi_friend" android:title="친구" />
+    <item
+        android:id="@+id/navi_wish"
+        android:icon="@drawable/navi_wish"
+        android:title="위시"
+        app:showAsAction="ifRoom" />
     <item android:id="@+id/navi_mypage" app:showAsAction="ifRoom"
         android:enabled="true" android:icon="@drawable/navi_mypage" android:title="마이페이지" />
 </menu>

@@ -29,6 +29,10 @@ class MainActivity : AppCompatActivity() {
                     val boardFragment = FriendFragment()
                     supportFragmentManager.beginTransaction().replace(R.id.fragment_container, boardFragment).commit()
                 }
+                R.id.navi_wish -> {
+                    val wishFragment = FriendFragment() //TODO 위시 글쓰기로 바꾸기
+                    supportFragmentManager.beginTransaction().replace(R.id.fragment_container, wishFragment).commit()
+                }
                 R.id.navi_mypage -> {
                     val settingFragment = MypageFragment()
                     supportFragmentManager.beginTransaction().replace(R.id.fragment_container, settingFragment).commit()
