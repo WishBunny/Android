@@ -1,6 +1,6 @@
 package com.wish.bunny.login
 
-import com.wish.bunny.login.domain.KakaoAccessToken
+import com.wish.bunny.login.domain.AccessToken
 import com.wish.bunny.login.domain.MemberModel
 import retrofit2.Call
 import retrofit2.http.Body
@@ -12,5 +12,5 @@ import retrofit2.http.POST
  */
 interface LoginService {
     @POST("kakao/login")
-    fun loginByAccessToken(@Body accessToken: KakaoAccessToken): Call<MemberModel>
+    fun loginByAccessToken(@Body accessToken: AccessToken): Call<MemberModel>
 }

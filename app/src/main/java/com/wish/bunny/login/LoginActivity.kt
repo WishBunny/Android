@@ -1,5 +1,6 @@
 package com.wish.bunny.login
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -11,10 +12,11 @@ import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
 import com.wish.bunny.GlobalApplication
+import com.wish.bunny.MainActivity
 import com.wish.bunny.R
-import com.wish.bunny.login.domain.KakaoAccessToken
+import com.wish.bunny.login.domain.AccessToken
 import com.wish.bunny.login.domain.MemberModel
-import com.wish.bunny.retrofit.RetrofitConnection
+import com.wish.bunny.util.RetrofitConnection
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -41,6 +43,7 @@ class LoginActivity : AppCompatActivity() {
     private fun kakaoLogin() {
         // 통신을 위한 레트로핏 인스턴스 선언
         val retrofitAPI = RetrofitConnection.getInstance().create(LoginService::class.java)
+        Log.i("Login Activity", "카카오계정으로 로그인 시도")
         // 카카오계정으로 로그인 공통 callback 구성
         // 카카오톡으로 로그인 할 수 없어 카카오계정으로 로그인할 경우 사용됨
         val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
@@ -48,7 +51,10 @@ class LoginActivity : AppCompatActivity() {
                 Log.e("Login Activity", "카카오계정으로 로그인 실패", error)
             } else if (token != null) {
                 Log.i("Login Activity", "카카오계정으로 로그인 성공 ${token.accessToken}")
-                postLoginAction(retrofitAPI, KakaoAccessToken(accessToken = token.accessToken))
+                postLoginAction(retrofitAPI, AccessToken(accessToken = token.accessToken))
+            }
+            else {
+                Log.e("Login Activity", "로그인 시도 실패")
             }
         }
         // 카카오톡이 설치되어 있으면 카카오톡으로 로그인, 아니면 카카오계정으로 로그인
@@ -65,7 +71,7 @@ class LoginActivity : AppCompatActivity() {
                     UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
                 } else if (token != null) {
                     Log.i("Login Activity", "카카오톡으로 로그인 성공 ${token.accessToken}")
-                    postLoginAction(retrofitAPI, KakaoAccessToken(accessToken = token.accessToken))
+                    postLoginAction(retrofitAPI, AccessToken(accessToken = token.accessToken))
                 }
             }
         } else {
@@ -77,7 +83,7 @@ class LoginActivity : AppCompatActivity() {
         작성자: 엄상은
         처리 내용: 서버로 로그인 요청 보내기
     */
-    private fun postLoginAction(retrofitAPI: LoginService, accessToken: KakaoAccessToken) {
+    private fun postLoginAction(retrofitAPI: LoginService, accessToken: AccessToken) {
         Log.d("Login Activity", accessToken.toString())
         retrofitAPI.loginByAccessToken(accessToken).enqueue(object:
             Callback<MemberModel> {
@@ -107,6 +113,8 @@ class LoginActivity : AppCompatActivity() {
         처리 내용: Shared Preferences에 JWT 토큰 저장
     */
     private fun putAccessTokenToSharedPreferences(it: MemberModel) {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
         Log.d("Login Activity", "access token: " + it.toString())
         findViewById<TextView>(R.id.textAccessToken).text = it.accessToken
         GlobalApplication.prefs.setString("accessToken", it.accessToken);
