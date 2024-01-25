@@ -121,7 +121,9 @@ class WishDetailFragment : Fragment() {
 
                  if (wishMapResult != null) {
                      Log.d("delete Wish", "삭제 성공 ${wishMapResult}" )
-
+                    //삭제 성공시 이동
+                     val newFragment = HomeFragment()
+                     replaceFragment(newFragment)
 
                  } else {
                      Log.d("delete Wish", "서버 응답이 null입니다.")
@@ -200,4 +202,5 @@ class WishDetailFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
 }
