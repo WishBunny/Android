@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".friend.MatchFragment">
+
+    <!--
+         작성자: 이혜연
+         처리 내용: 친구 매칭하기
+     -->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/ic_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="96dp"
+            android:src="@drawable/ic_invite"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_matchText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/match"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ic_message" />
+
+        <EditText
+            android:id="@+id/et_match"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="53dp"
+            android:ems="10"
+            android:inputType="text"
+            android:text="@string/match_input"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_matchText" />
+
+        <Button
+            android:id="@+id/btn_match_end"
+            android:layout_width="280dp"
+            android:layout_height="58dp"
+            android:layout_marginTop="52dp"
+            android:background="@color/Lightgray"
+            android:text="@string/match_start"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:textColor="@color/Pink"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_match" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
