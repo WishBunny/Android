@@ -21,12 +21,35 @@ interface WishService {
     @POST("wish")
     fun wishInsert(@Body wvo: WishVo): Call<Response<Message>>
 
+    /**
+    작성자: 김은솔
+    처리 내용: 작성자에 따라 위시리스트 조회
+     */
+    @GET("wish/list/{achieveYn}/{writerNo}")
+    fun getWishList(@Path("achieveYn") achieveYn: String, @Path("writerNo") writerNo: String): Call<WishMapResult>
+    /**
+    작성자: 김은솔
+    처리 내용: 위시리스트 상세 조회
+     */
+
     @GET("wish/list")
     fun getWishList(): Call<WishMapResult>
 
+
     @GET("wish/{wishNo}")
     fun getWishDetail(@Path("wishNo") wishNo: String): Call<WishItem>
-
+    /**
+    작성자: 김은솔
+    처리 내용: 위시리스트 완료처리
+     */
     @PATCH("wish/{wishNo}")
     fun finishWish(@Path("wishNo") wishNo: String): Call<WishMapResult>
+
+    /**
+    작성자: 김은솔
+    처리 내용: 완료된 위시리스트 가져오기
+     */
+    @GET("wish/doneListSize/{writerNo}")
+    fun doneListSize(@Path("writerNo") writerNo: String): Call<WishMapResult>
+
 }

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.text.SpannableString
 import android.text.style.ClickableSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,11 +14,21 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.wish.bunny.R
+import com.wish.bunny.retrofit.RetrofitConnection
 import com.wish.bunny.wish.domain.WishItem
+import com.wish.bunny.wish.domain.WishMapResult
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
-
+import android.app.AlertDialog
+import android.content.DialogInterface
+/**
+작성자: 김은솔
+처리 내용: 위시리스트 CustomAdapter
+ */
 class CustomAdapter(private val context: Context, private val wishItemList: List<WishItem>) :
     RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
@@ -45,23 +56,71 @@ class CustomAdapter(private val context: Context, private val wishItemList: List
         return wishItemList.size
     }
 
+    /**
+    작성자: 김은솔
+    처리 내용: 위시리스트 각각의 상세 내용 Dispathcer
+     */
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val content = itemView.findViewById<TextView>(R.id.rv_content)
         private val dDay = itemView.findViewById<TextView>(R.id.rv_dDay)
         private val tag1 = itemView.findViewById<TextView>(R.id.rv_tag1)
 
         init {
-            //컨텐츠 내용 클릭시
+            //컨텐츠 내용 클릭시 상세 페이지 이동
             itemView.findViewById<TextView>(R.id.rv_content).setOnClickListener {
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     onDetailButtonClickListener?.onDetailButtonClick(wishItemList[position].wishNo)
                 }
             }
-            //버튼클릭시
+            //완료 버튼 클릭시
             itemView.findViewById<Button>(R.id.rv_detail_btn).setOnClickListener {
-                
+                showConfirmationDialog(wishItemList[position].wishNo)
             }
+        }
+
+        //버킷리스트 완료 확인 메세지
+        private fun showConfirmationDialog(wishNo: String) {
+            val context = itemView.context
+            val alertDialogBuilder = AlertDialog.Builder(context)
+            alertDialogBuilder.setTitle("버킷리스트 완료")
+            alertDialogBuilder.setMessage("정말로 해당 버킷리스트를 완료처리 하시겠습니까?")
+
+            //완료처리 Yes시
+            alertDialogBuilder.setPositiveButton("Yes") { dialogInterface, _ ->
+                //해당 버킷리스트 완료
+                doneWishDetail(wishNo)
+                dialogInterface.dismiss()
+            }
+            //완료처리 No시
+            alertDialogBuilder.setNegativeButton("No") { dialogInterface, _ ->
+                dialogInterface.dismiss()
+            }
+
+            val alertDialog = alertDialogBuilder.create()
+            alertDialog.show()
+        }
+
+        //버킷리스트 상세 완료 처리
+        private fun doneWishDetail(wishNo : String) {
+            val retrofitAPI = RetrofitConnection.getInstance().create(WishService::class.java)
+            retrofitAPI.finishWish(wishNo).enqueue(object : Callback<WishMapResult> {
+                override fun onResponse(call: Call<WishMapResult>, response: Response<WishMapResult>) {
+                    val wishMapResult = response.body()
+
+                    if (wishMapResult != null) {
+                        // updateUI(wishMapResult.list)
+                        Log.d("doneWishDetail", wishMapResult.result.toString())
+                    } else {
+                        Log.d("doneWishDetail", "서버 응답이 null입니다.")
+                    }
+                }
+
+                override fun onFailure(call: Call<WishMapResult>, t: Throwable) {
+                    Log.d("doneWishDetail", "불러오기 실패: ${t.message}")
+
+                }
+            })
         }
 
         fun bind(wishItem: WishItem) {
@@ -86,7 +145,7 @@ class CustomAdapter(private val context: Context, private val wishItemList: List
             if(daysRemaining>= 0)
                 return "D-${daysRemaining.toString()}"
             else
-                return "D+${daysRemaining.toString()}"
+                return "D+${Math.abs(daysRemaining).toString()}"
         }
     }
 }

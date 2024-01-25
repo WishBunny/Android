@@ -26,18 +26,18 @@ class WishList : AppCompatActivity() {
         setContentView(binding.root)
 
        //  setRecyclerView()
-        loadWishList() //레트로핏 테스트
+        loadWishList("NOSET","WRITER002")//초기 설정
     }
-    private fun loadWishList() {
+    private fun loadWishList(achieveYn: String, writerNo: String) {
         val retrofitAPI = RetrofitConnection.getInstance().create(WishService::class.java)
-        retrofitAPI.getWishList().enqueue(object : Callback<WishMapResult> {
+        retrofitAPI.getWishList(achieveYn, writerNo).enqueue(object : Callback<WishMapResult> {
             override fun onResponse(call: Call<WishMapResult>, response: Response<WishMapResult>) {
-                // 성공 시 처리
                 val wishMapResult = response.body()
 
                 if (wishMapResult != null) {
                     Log.d("WishList", "불러오기 성공: ${wishMapResult.list.size} 개의 아이템")
                     updateUI(wishMapResult.list)
+
                     Log.d("WishList", wishMapResult.list.toString())
                 } else {
                     Log.d("WishList", "서버 응답이 null입니다.")
@@ -50,8 +50,6 @@ class WishList : AppCompatActivity() {
             }
         })
     }
-
-
 
     private fun updateUI(wishItemList: List<WishItem>) {
         adapter = CustomAdapter(this, wishItemList)
