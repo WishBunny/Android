@@ -7,8 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import com.wish.bunny.R
 
-
-class InviteFragment : Fragment() {
+/**
+작성자:  이혜연
+처리 내용: 친구 매칭하기 구현
+ */
+class MatchFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,8 +20,7 @@ class InviteFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_invite, container, false)
+        return inflater.inflate(R.layout.fragment_match, container, false)
     }
 
 }

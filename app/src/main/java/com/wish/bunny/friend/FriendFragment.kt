@@ -51,14 +51,12 @@ class FriendFragment : Fragment() {
 
         view.findViewById<Button>(R.id.btn_invite).setOnClickListener {
             val inviteFragment = InviteFragment()
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_friend, inviteFragment)
-                .addToBackStack(null) //이전 프래그먼트로 돌아가기
-                .commit()
+            replaceFragment(inviteFragment)
         }
 
         view.findViewById<Button>(R.id.btn_match).setOnClickListener {
-            // 버튼 매치에 대한 처리 추가
+            val matchFragment = MatchFragment()
+            replaceFragment(matchFragment)
         }
 
         adapter_profile.setOnItemClickListener(object : ProfileAdapter.OnItemClickListener {
@@ -84,6 +82,13 @@ class FriendFragment : Fragment() {
     private fun removeItem(position: Int) {
         profileList.removeAt(position)
         adapter_profile.notifyItemRemoved(position)
+    }
+
+    private fun replaceFragment(fragment: Fragment) {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 
 }
