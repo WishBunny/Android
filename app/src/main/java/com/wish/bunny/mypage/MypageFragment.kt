@@ -19,7 +19,6 @@ import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility
 import com.amazonaws.services.s3.model.CannedAccessControlList
 import com.bumptech.glide.Glide
 import com.kakao.sdk.user.UserApiClient
-import com.wish.bunny.BuildConfig.ACCESS_TOKEN
 import com.wish.bunny.BuildConfig.AWS_BUCKET_NAME
 import com.wish.bunny.BuildConfig.AWS_REGION
 import com.wish.bunny.GlobalApplication
@@ -94,7 +93,7 @@ class MypageFragment : Fragment() {
             profileUpdateRequest.imgUrl = uploadFileByUri(updatedImageUri)
         }
         retrofitAPI.updateMyProfile(
-            "${ACCESS_TOKEN}",
+            GlobalApplication.prefs.getString("accessToken", ""),
             profileUpdateRequest
         ).enqueue(object: Callback<ProfileGetResponse> {
             override fun onResponse(
@@ -223,8 +222,7 @@ class MypageFragment : Fragment() {
     */
     private fun loadMyProfileInfo(retrofitAPI: MyPageService) {
         Log.d("loadMyProfileInfo", "프로필 정보 불러오기 시도")
-//        var accessToken = GlobalApplication.prefs.getString("accessToken", "")
-        var accessToken = "${ACCESS_TOKEN}"
+        var accessToken = GlobalApplication.prefs.getString("accessToken", "")
         Log.d("loadMyProfileInfo", accessToken)
         accessToken?.let {
             retrofitAPI.loadMyProfile(it).enqueue(object:
