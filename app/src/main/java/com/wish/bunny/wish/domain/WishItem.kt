@@ -1,5 +1,9 @@
 package com.wish.bunny.wish.domain
 
+/***
+작성자: 김은솔
+처리 내용: 위시리스트 data class
+ */
 data class WishItem (
     val wishNo :String,
     val content : String,

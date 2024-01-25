@@ -25,6 +25,10 @@ import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import android.app.AlertDialog
 import android.content.DialogInterface
+/**
+작성자: 김은솔
+처리 내용: 위시리스트 CustomAdapter
+ */
 class CustomAdapter(private val context: Context, private val wishItemList: List<WishItem>) :
     RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
@@ -52,19 +56,24 @@ class CustomAdapter(private val context: Context, private val wishItemList: List
         return wishItemList.size
     }
 
+    /**
+    작성자: 김은솔
+    처리 내용: 위시리스트 각각의 상세 내용 Dispathcer
+     */
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val content = itemView.findViewById<TextView>(R.id.rv_content)
         private val dDay = itemView.findViewById<TextView>(R.id.rv_dDay)
         private val tag1 = itemView.findViewById<TextView>(R.id.rv_tag1)
 
         init {
-            //컨텐츠 내용 클릭시
+            //컨텐츠 내용 클릭시 상세 페이지 이동
             itemView.findViewById<TextView>(R.id.rv_content).setOnClickListener {
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     onDetailButtonClickListener?.onDetailButtonClick(wishItemList[position].wishNo)
                 }
             }
+            //완료 버튼 클릭시
             itemView.findViewById<Button>(R.id.rv_detail_btn).setOnClickListener {
                 showConfirmationDialog(wishItemList[position].wishNo)
             }
@@ -76,10 +85,14 @@ class CustomAdapter(private val context: Context, private val wishItemList: List
             val alertDialogBuilder = AlertDialog.Builder(context)
             alertDialogBuilder.setTitle("버킷리스트 완료")
             alertDialogBuilder.setMessage("정말로 해당 버킷리스트를 완료처리 하시겠습니까?")
+
+            //완료처리 Yes시
             alertDialogBuilder.setPositiveButton("Yes") { dialogInterface, _ ->
+                //해당 버킷리스트 완료
                 doneWishDetail(wishNo)
                 dialogInterface.dismiss()
             }
+            //완료처리 No시
             alertDialogBuilder.setNegativeButton("No") { dialogInterface, _ ->
                 dialogInterface.dismiss()
             }
@@ -88,7 +101,7 @@ class CustomAdapter(private val context: Context, private val wishItemList: List
             alertDialog.show()
         }
 
-
+        //버킷리스트 상세 완료 처리
         private fun doneWishDetail(wishNo : String) {
             val retrofitAPI = RetrofitConnection.getInstance().create(WishService::class.java)
             retrofitAPI.finishWish(wishNo).enqueue(object : Callback<WishMapResult> {
@@ -132,7 +145,7 @@ class CustomAdapter(private val context: Context, private val wishItemList: List
             if(daysRemaining>= 0)
                 return "D-${daysRemaining.toString()}"
             else
-                return "D+${daysRemaining.toString()}"
+                return "D+${Math.abs(daysRemaining).toString()}"
         }
     }
 }

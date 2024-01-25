@@ -19,7 +19,10 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
-
+ /*
+   작성자: 김은솔
+   처리 내용: 위시리스트 디테일
+ */
 class WishDetailFragment : Fragment() {
 
     private var _binding: FragmentWishDetailBinding? = null
@@ -40,7 +43,6 @@ class WishDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val wishNo = arguments?.getString("wishNo")
-
 
         if (wishNo != null) {
             Log.d("WishDetailFragment", "Received wishNo: $wishNo")
