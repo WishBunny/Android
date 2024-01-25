@@ -11,10 +11,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.wish.bunny.R
-import com.wish.bunny.retrofit.RetrofitConnection
+import com.wish.bunny.util.RetrofitConnection
 import com.wish.bunny.wish.domain.WishItem
 import com.wish.bunny.wish.domain.WishMapResult
 import retrofit2.Call
@@ -24,7 +23,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import android.app.AlertDialog
-import android.content.DialogInterface
+
 /**
 작성자: 김은솔
 처리 내용: 위시리스트 CustomAdapter
