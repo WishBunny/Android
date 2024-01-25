@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wish.bunny.R
@@ -37,11 +38,49 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
         super.onViewCreated(view, savedInstanceState)
         loadWishList("NOSET","WRITER002")
         loadDoneWishSize(view, "WRITER002")
-
+        btnClickEvent(view)
         //지금까지 완료한 리스트 확인하기
         val donsListSize = view.findViewById<Button>(R.id.GetDoneButton)
         donsListSize.setOnClickListener {
             loadWishList("Y","WRITER002")
+        }
+    }
+
+    private fun btnClickEvent(view: View) {
+        val button1: Button = view.findViewById(R.id.button1)
+        val button2: Button = view.findViewById(R.id.button2)
+        val button3: Button = view.findViewById(R.id.button3)
+
+        val pinkColor = ContextCompat.getColor(requireContext(), R.color.pink)
+        val changeTextColor = ContextCompat.getColor(requireContext(), R.color.white)
+        val transparentColor = ContextCompat.getColor(requireContext(), R.color.ivory)
+        val originalTextColor = ContextCompat.getColor(requireContext(), R.color.black) // 원래의 글자색 저장
+
+        button1.setOnClickListener {
+            button1.setBackgroundColor(pinkColor) // 핑크색으로 변경
+            button1.setTextColor(changeTextColor) // 글자색을 원래대로
+            button2.setBackgroundColor(transparentColor) // 다른 버튼은 원래 색으로
+            button2.setTextColor(originalTextColor)
+            button3.setBackgroundColor(transparentColor)
+            button3.setTextColor(originalTextColor)
+        }
+
+        button2.setOnClickListener {
+            button2.setBackgroundColor(pinkColor)
+            button2.setTextColor(changeTextColor) // 글자색을 원래대로
+            button1.setBackgroundColor(transparentColor) // 다른 버튼은 원래 색으로
+            button1.setTextColor(originalTextColor)
+            button3.setBackgroundColor(transparentColor)
+            button3.setTextColor(originalTextColor)
+        }
+
+        button3.setOnClickListener {
+            button3.setBackgroundColor(pinkColor)
+            button3.setTextColor(changeTextColor) // 글자색을 원래대로
+            button1.setBackgroundColor(transparentColor) // 다른 버튼은 원래 색으로
+            button1.setTextColor(originalTextColor)
+            button2.setBackgroundColor(transparentColor)
+            button2.setTextColor(originalTextColor)
         }
     }
 
