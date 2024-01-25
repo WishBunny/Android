@@ -6,18 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.wish.bunny.R
 import com.wish.bunny.databinding.FragmentWishDetailBinding
-import com.wish.bunny.retrofit.RetrofitConnection
+import com.wish.bunny.util.RetrofitConnection
 import com.wish.bunny.wish.WishService
 import com.wish.bunny.wish.domain.WishItem
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.text.SimpleDateFormat
 import java.util.*
 
 class WishDetailFragment : Fragment() {
