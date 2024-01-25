@@ -3,20 +3,32 @@ package com.wish.bunny.wish
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
-import androidx.fragment.app.Fragment
+import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import com.wish.bunny.R
+import com.wish.bunny.wish.domain.Message
+import com.wish.bunny.wish.domain.WishVo
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.text.SimpleDateFormat
-import java.util.*
-
+import java.util.Calendar
+import java.util.Locale
+/**
+작성자: 황수연
+처리 내용: 위시 등록 화면 및 API 구현
+ */
 class WishInsertFragment : Fragment() {
     private lateinit var btnOpenCalendar: ImageButton
     private lateinit var tvSelectedDate: TextView
@@ -34,41 +46,10 @@ class WishInsertFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // 카테고리 버튼 처리
-        val button1: Button = view.findViewById(R.id.button1)
-        val button2: Button = view.findViewById(R.id.button2)
-        val button3: Button = view.findViewById(R.id.button3)
-
-        val pinkColor = ContextCompat.getColor(requireContext(), R.color.pink)
-        val changeTextColor = ContextCompat.getColor(requireContext(), R.color.white)
-        val transparentColor = ContextCompat.getColor(requireContext(), R.color.ivory)
-        val originalTextColor = ContextCompat.getColor(requireContext(), R.color.black)
-
-        button1.setOnClickListener {
-            button1.setBackgroundColor(pinkColor) // 핑크색으로 변경
-            button1.setTextColor(changeTextColor) // 글자색을 원래대로
-            button2.setBackgroundColor(transparentColor) // 다른 버튼은 원래 색으로
-            button2.setTextColor(originalTextColor)
-            button3.setBackgroundColor(transparentColor)
-            button3.setTextColor(originalTextColor)
-        }
-
-        button2.setOnClickListener {
-            button2.setBackgroundColor(pinkColor)
-            button2.setTextColor(changeTextColor) // 글자색을 원래대로
-            button1.setBackgroundColor(transparentColor) // 다른 버튼은 원래 색으로
-            button1.setTextColor(originalTextColor)
-            button3.setBackgroundColor(transparentColor)
-            button3.setTextColor(originalTextColor)
-        }
-
-        button3.setOnClickListener {
-            button3.setBackgroundColor(pinkColor)
-            button3.setTextColor(changeTextColor) // 글자색을 원래대로
-            button1.setBackgroundColor(transparentColor) // 다른 버튼은 원래 색으로
-            button1.setTextColor(originalTextColor)
-            button2.setBackgroundColor(transparentColor)
-            button2.setTextColor(originalTextColor)
-        }
+        val button1: Button = view.findViewById(R.id.to_do)
+        val button2: Button = view.findViewById(R.id.to_eat)
+        val button3: Button = view.findViewById(R.id.to_get)
+        val categoryButtons = arrayOf(button1, button2, button3)
 
         // 해시태그 버튼 처리
         val buttons = arrayOf(
@@ -106,6 +87,95 @@ class WishInsertFragment : Fragment() {
             // WishList 클래스로 이동
             val intent = Intent(requireContext(), WishList::class.java)
             startActivity(intent)
+        }
+
+        // Insert API 처리
+        val text_content: EditText = view.findViewById(R.id.content)
+        val tvSelectedDate: TextView = view.findViewById(R.id.tvSelectedDate)
+
+        var selectedCategory = ""
+
+        button1.setOnClickListener {
+            selectedCategory = "do"
+            updateCategoryButtons(button1, categoryButtons)
+        }
+
+        button2.setOnClickListener {
+            selectedCategory = "eat"
+            updateCategoryButtons(button2, categoryButtons)
+        }
+
+        button3.setOnClickListener {
+            selectedCategory = "get"
+            updateCategoryButtons(button3, categoryButtons)
+        }
+
+        val btn_insert: Button = view.findViewById(R.id.insert)
+
+        btn_insert.setOnClickListener {
+            // tagNo를 위한 StringBuilder 객체
+            val tagNoBuilder = StringBuilder()
+
+            // 선택된 버튼의 텍스트를 StringBuilder에 추가
+            for (button in buttons) {
+                if (button.isSelected) {
+                    tagNoBuilder.append(button.text.toString()).append(" ")
+                }
+            }
+
+            // StringBuilder에서 마지막 공백 제거
+            val tagNo = if (tagNoBuilder.isNotEmpty()) {
+                tagNoBuilder.substring(0, tagNoBuilder.length - 1)
+            } else {
+                tagNoBuilder.toString()
+            }
+
+            val wvo = WishVo(
+                category = selectedCategory,
+                content = text_content.text.toString(),
+                deadlineDt = tvSelectedDate.text.toString(),
+                notifyYn = "Y",
+                writerNo = "123",
+                achieveYn = "N",
+                tagNo = tagNo
+            )
+
+            // Retrofit 인스턴스 생성 예시
+            val retrofit = Retrofit.Builder()
+                .baseUrl("http://172.18.160.1:8080/")
+                .addConverterFactory(GsonConverterFactory.create()) // JSON 컨버터 사용
+                .build()
+
+            // 위에서 만든 Retrofit 인스턴스를 사용하여 WishService의 구현체 생성
+            val wishService = retrofit.create(WishService::class.java)
+
+            val call: Call<Response<Message>> = wishService.wishInsert(wvo)
+
+            call.enqueue(object : Callback<Response<Message>> {
+                override fun onResponse(call: Call<Response<Message>>, response: retrofit2.Response<Response<Message>>) {
+                    if (response.isSuccessful) {
+                        // 서버로부터 정상적인 응답을 받았을 때의 처리
+                        val message = response.body()?.message()
+                        Toast.makeText(
+                            requireContext(),
+                            message ?: "성공적으로 값을 전달했습니다",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        // 서버로부터 정상적인 응답을 받지 못했을 때의 처리
+                        Toast.makeText(
+                            requireContext(),
+                            "서버로부터 예상치 못한 응답을 받았습니다: ${response.errorBody()?.string()}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<Response<Message>>, t: Throwable) {
+                    // 네트워크 요청 자체가 실패했을 때의 처리
+                    t.printStackTrace()
+                }
+            })
         }
     }
 
@@ -149,21 +219,24 @@ class WishInsertFragment : Fragment() {
         selectedButton = clickedButton
     }
 
-    // 버튼의 선택 여부에 따라 상태 업데이트하는 함수
-    private fun updateButtonState(button: Button, isSelected: Boolean) {
+    // 버튼 클릭 이벤트 처리
+    private fun updateCategoryButtons(selectedButton: Button, allButtons: Array<Button>) {
         val pinkColor = ContextCompat.getColor(requireContext(), R.color.pink)
+        val changeTextColor = ContextCompat.getColor(requireContext(), R.color.white)
         val transparentColor = ContextCompat.getColor(requireContext(), R.color.ivory)
+        val originalTextColor = ContextCompat.getColor(requireContext(), R.color.black)
 
-        button.isSelected = isSelected
-
-        if (isSelected) {
-            // 선택된 경우
-            button.setTextColor(Color.WHITE)
-            button.setBackgroundColor(pinkColor)
-        } else {
-            // 선택 해제된 경우
-            button.setTextColor(Color.BLACK)
-            button.setBackgroundColor(transparentColor)
+        for (button in allButtons) {
+            if (button == selectedButton) {
+                // 클릭된 버튼인 경우
+                button.setBackgroundColor(pinkColor)
+                button.setTextColor(changeTextColor)
+            } else {
+                // 클릭된 버튼이 아닌 경우
+                button.setBackgroundColor(transparentColor)
+                button.setTextColor(originalTextColor)
+            }
         }
     }
+
 }
