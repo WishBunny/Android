@@ -1,4 +1,4 @@
-package com.wish.bunny.sharedpreferences
+package com.wish.bunny.util
 
 import android.content.Context
 import android.content.SharedPreferences

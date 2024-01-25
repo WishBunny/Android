@@ -3,7 +3,7 @@ package com.wish.bunny
 import android.app.Application
 import com.kakao.sdk.common.KakaoSdk
 import com.wish.bunny.BuildConfig.NATIVE_APP_KEY
-import com.wish.bunny.sharedpreferences.PreferenceUtil
+import com.wish.bunny.util.PreferenceUtil
 
 /**
     작성자: 엄상은
@@ -19,6 +19,6 @@ class GlobalApplication : Application() {
         // Shared Preference 사용을 위한 초기화
         prefs = PreferenceUtil(applicationContext)
         // Kakao SDK 초기화
-      //  KakaoSdk.init(this, "${NATIVE_APP_KEY}")
+        KakaoSdk.init(this, "${NATIVE_APP_KEY}")
     }
 }

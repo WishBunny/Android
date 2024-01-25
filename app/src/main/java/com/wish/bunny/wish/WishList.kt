@@ -6,7 +6,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wish.bunny.databinding.ActivityWishListBinding
-import com.wish.bunny.retrofit.RetrofitConnection
+import com.wish.bunny.util.RetrofitConnection
 import com.wish.bunny.wish.domain.WishItem
 import retrofit2.Call
 import retrofit2.Callback

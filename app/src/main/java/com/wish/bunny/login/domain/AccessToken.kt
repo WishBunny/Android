@@ -1,5 +1,5 @@
 package com.wish.bunny.login.domain
 
-data class KakaoAccessToken(
+data class AccessToken(
     val accessToken: String
 )

@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wish.bunny.R
 import com.wish.bunny.databinding.ActivityWishListBinding
-import com.wish.bunny.retrofit.RetrofitConnection
+import com.wish.bunny.util.RetrofitConnection
 import com.wish.bunny.wish.CustomAdapter
 import com.wish.bunny.wish.WishService
 import com.wish.bunny.wish.domain.WishItem
