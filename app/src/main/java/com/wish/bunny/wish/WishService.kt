@@ -7,6 +7,7 @@ import com.wish.bunny.wish.domain.WishItem
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
@@ -52,5 +53,10 @@ interface WishService {
      */
     @GET("wish/doneListSize/{writerNo}")
     fun doneListSize(@Path("writerNo") writerNo: String): Call<WishMapResult>
-
+    /**
+    작성자: 김은솔
+    처리 내용: 위시리스트 삭제처리
+     */
+    @DELETE("wish/{wishNo}")
+    fun deleteWish(@Path("wishNo") wishNo: String): Call<WishMapResult>
 }

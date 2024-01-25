@@ -1,5 +1,6 @@
 package com.wish.bunny.home
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import com.wish.bunny.databinding.FragmentWishDetailBinding
 import com.wish.bunny.util.RetrofitConnection
 import com.wish.bunny.wish.WishService
 import com.wish.bunny.wish.domain.WishItem
+import com.wish.bunny.wish.domain.WishMapResult
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -46,11 +48,29 @@ class WishDetailFragment : Fragment() {
             Log.d("WishDetailFragment", "Received wishNo: $wishNo")
 
             loadWishDetail(wishNo)
+            view.findViewById<Button>(R.id.deleteBtn).setOnClickListener {
+                showConfirmationDialog(wishNo)
+            }
         }
+        
+        view.findViewById<Button>(R.id.updateBtn).setOnClickListener {
+            val newFragment = WishDetailFragment()
 
+            val bundle = Bundle()
+            bundle.putString("wishNo", wishNo)
+            newFragment.arguments = bundle
+
+            replaceFragment(newFragment)
+        }
 
     }
 
+     private fun replaceFragment(fragment: Fragment) {
+         requireActivity().supportFragmentManager.beginTransaction()
+             .replace(R.id.fragment_container, fragment)
+             .addToBackStack(null)
+             .commit()
+     }
     private fun loadWishDetail(wishNo: String) {
         val retrofitAPI = RetrofitConnection.getInstance().create(WishService::class.java)
         retrofitAPI.getWishDetail(wishNo).enqueue(object : Callback<WishItem> {
@@ -72,7 +92,48 @@ class WishDetailFragment : Fragment() {
             }
         })
     }
+     private fun showConfirmationDialog(wishNo: String) {
 
+         val alertDialogBuilder = AlertDialog.Builder(context)
+         alertDialogBuilder.setTitle("버킷리스트 삭제")
+         alertDialogBuilder.setMessage("정말로 해당 버킷리스트를 삭제처리 하시겠습니까?")
+
+         //완료처리 Yes시
+         alertDialogBuilder.setPositiveButton("Yes") { dialogInterface, _ ->
+             //해당 버킷리스트 완료
+             deleteWishDetail(wishNo)
+             dialogInterface.dismiss()
+         }
+         //완료처리 No시
+         alertDialogBuilder.setNegativeButton("No") { dialogInterface, _ ->
+             dialogInterface.dismiss()
+         }
+
+         val alertDialog = alertDialogBuilder.create()
+         alertDialog.show()
+     }
+     private fun deleteWishDetail(wishNo: String){
+         val retrofitAPI = RetrofitConnection.getInstance().create(WishService::class.java)
+         val call = retrofitAPI.deleteWish(wishNo)
+         call.enqueue(object : Callback<WishMapResult> {
+             override fun onResponse(call: Call<WishMapResult>, response: Response<WishMapResult>) {
+                 val wishMapResult = response.body()
+
+                 if (wishMapResult != null) {
+                     Log.d("delete Wish", "삭제 성공 ${wishMapResult}" )
+
+
+                 } else {
+                     Log.d("delete Wish", "서버 응답이 null입니다.")
+                 }
+             }
+
+             override fun onFailure(call: Call<WishMapResult>, t: Throwable) {
+                 Log.d("WishList2", "불러오기 실패: ${t.message}")
+                 // TODO: 실패 시 처리 구현
+             }
+         })
+     }
     private fun updateUI(wishItem: WishItem) {
         binding.content.text = wishItem.content
         binding.hashtagButton1.text = '#' + wishItem.tagContents
@@ -94,6 +155,7 @@ class WishDetailFragment : Fragment() {
         }
     }
 
+
     private fun setCategroy(category: String) {
         val button1 = binding.button1
         val button2 = binding.button2
@@ -105,7 +167,7 @@ class WishDetailFragment : Fragment() {
         val originalTextColor = ContextCompat.getColor(requireContext(), R.color.black)
 
         when (category) {
-            "go" -> {
+            "do" -> {
                 updateCategoryButton(button1, pinkColor, changeTextColor, transparentColor, originalTextColor)
             }
             "eat" -> {
