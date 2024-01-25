@@ -1,6 +1,5 @@
 package com.wish.bunny
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import com.kakao.sdk.common.util.Utility
@@ -44,7 +43,4 @@ class MainActivity : AppCompatActivity() {
             selectedItemId = R.id.navi_home
         }
     }
-
-
-
 }
