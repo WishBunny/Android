@@ -8,6 +8,7 @@ import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.PATCH
 import retrofit2.http.Path
@@ -25,8 +26,8 @@ interface WishService {
     작성자: 김은솔
     처리 내용: 작성자에 따라 위시리스트 조회
      */
-    @GET("wish/list/{achieveYn}/{writerNo}")
-    fun getWishList(@Path("achieveYn") achieveYn: String, @Path("writerNo") writerNo: String): Call<WishMapResult>
+    @GET("wish/list/{achieveYn}/{writerNo}/{category}")
+    fun getWishList(@Path("achieveYn") achieveYn: String, @Path("writerNo") writerNo: String, @Header("Authorization") accessToken: String,@Path("category") category: String): Call<WishMapResult>
     /**
     작성자: 김은솔
     처리 내용: 위시리스트 상세 조회
