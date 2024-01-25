@@ -142,7 +142,7 @@ class WishInsertFragment : Fragment() {
 
             // Retrofit 인스턴스 생성 예시
             val retrofit = Retrofit.Builder()
-                .baseUrl("http://172.18.160.1:8080/")
+                .baseUrl("http://10.0.2.2:8080/")
                 .addConverterFactory(GsonConverterFactory.create()) // JSON 컨버터 사용
                 .build()
 
