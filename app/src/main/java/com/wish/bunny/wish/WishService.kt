@@ -39,7 +39,7 @@ interface WishService {
 
 
     @GET("wish/{wishNo}")
-    fun getWishDetail(@Path("wishNo") wishNo: String): Call<WishItem>
+    fun getWishDetail(@Path("wishNo") wishNo: String,  @Header("Authorization") accessToken: String): Call<WishItem>
     /**
     작성자: 김은솔
     처리 내용: 위시리스트 완료처리
