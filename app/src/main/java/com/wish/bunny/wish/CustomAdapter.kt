@@ -128,7 +128,7 @@ class CustomAdapter(private val context: Context, private val wishItemList: List
             val wishNo = wishItem.wishNo
 
             content.text = wishItem.content
-            dDay.text = calculateDDay(wishItem.deadlineDt)
+           // dDay.text = calculateDDay(wishItem.deadlineDt)
             tag1.text = wishItem.tagContents
         }
 
