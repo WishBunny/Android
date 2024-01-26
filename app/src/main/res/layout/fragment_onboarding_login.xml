@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".login.LoginActivity">
+    android:layout_height="match_parent">
 
     <!--
         작성자: 엄상은
@@ -17,6 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
         android:text="당신의 소망을\n위시버니와\n나눠주세요"
+        android:fontFamily="@font/spoqahansansneo_bold"
         android:textSize="36sp"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,19 +41,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/kakao_login_medium_narrow" />
-
-    <!-- res/layout/activity_member.xml -->
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp">
-
-        <TextView
-            android:id="@+id/textAccessToken"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="AccessToken will appear here" />
-    </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

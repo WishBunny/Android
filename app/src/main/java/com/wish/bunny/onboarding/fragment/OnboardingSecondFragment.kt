@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.wish.bunny.R
 
-class SecondFragment : Fragment() {
+class OnboardingSecondFragment : Fragment() {
     // TODO: Rename and change types of parameters
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,7 +20,7 @@ class SecondFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_second, container, false)
+        return inflater.inflate(R.layout.fragment_onboarding_second, container, false)
     }
 
 

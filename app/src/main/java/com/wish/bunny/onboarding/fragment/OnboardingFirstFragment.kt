@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.wish.bunny.R
 
-class FirstFragment : Fragment() {
+class OnboardingFirstFragment : Fragment() {
     // TODO: Rename and change types of parameters
 
 
@@ -21,7 +21,7 @@ class FirstFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_first, container, false)
+        return inflater.inflate(R.layout.fragment_onboarding_first, container, false)
     }
 
 }
