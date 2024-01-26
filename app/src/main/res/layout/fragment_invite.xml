@@ -72,7 +72,7 @@
             android:id="@+id/btn_invite_copy"
                 android:layout_width="184dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="40dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/button_selector"
                 android:onClick="onClick"
@@ -84,19 +84,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_invite_code" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_invite_match"
-            android:layout_width="184dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="56dp"
-            android:background="@color/black"
-            android:onClick="onClick"
-            android:text="@string/invite_result"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.502"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
