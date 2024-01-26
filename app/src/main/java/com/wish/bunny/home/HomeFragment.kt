@@ -28,7 +28,8 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
     private var adapter: CustomAdapter? = null
     private val accessToken = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2ZWE3NTFmOS1lNDhlLTQ1OWEtYjYwYi02MzFkMDM4ZmUwZmIiLCJpYXQiOjE3MDYyMjgzMDMsImV4cCI6MTcwODgyMDMwM30.x7mvX8xzWhd-lzB0xooHYIH9pSJfmsgzB7fe7tJhoUI"
     //private val accessToken = GlobalApplication.prefs.getString("accessToken", "")
-    private val writerNo = "6ea751f9-e48e-459a-b60b-631d038fe0fb"
+   private val writerNo = "6ea751f9-e48e-459a-b60b-631d038fe0fb"
+  //  val writerNo = arguments?.getString("writerNo")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,13 +41,15 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         defaultClick(view)
-        loadWishList("NOSET",writerNo,accessToken,"do")
-        loadDoneWishSize(view, writerNo)
-        btnClickEvent(view)
-        //지금까지 완료한 리스트 확인하기
-        val donsListSize = view.findViewById<Button>(R.id.GetDoneButton)
-        donsListSize.setOnClickListener {
-            loadWishList("Y",writerNo,accessToken,"")
+        if(writerNo!= null){
+            loadWishList("NOSET",writerNo,accessToken,"do")
+            loadDoneWishSize(view, writerNo)
+            btnClickEvent(view)
+            //지금까지 완료한 리스트 확인하기
+            val donsListSize = view.findViewById<Button>(R.id.GetDoneButton)
+            donsListSize.setOnClickListener {
+                loadWishList("Y",writerNo,accessToken,"")
+            }
         }
     }
     private fun defaultClick(view: View){
@@ -83,7 +86,10 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
             button2.setTextColor(originalTextColor)
             button3.setBackgroundColor(transparentColor)
             button3.setTextColor(originalTextColor)
-            loadWishList("NOSET",writerNo,accessToken,"do")
+            if(writerNo!= null){
+                loadWishList("NOSET",writerNo,accessToken,"do")
+            }
+
         }
 
         button2.setOnClickListener {
@@ -93,7 +99,10 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
             button1.setTextColor(originalTextColor)
             button3.setBackgroundColor(transparentColor)
             button3.setTextColor(originalTextColor)
-            loadWishList("NOSET",writerNo,accessToken,"eat")
+            if(writerNo!= null){
+                loadWishList("NOSET",writerNo,accessToken,"eat")
+            }
+
         }
 
         button3.setOnClickListener {
@@ -103,7 +112,10 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
             button1.setTextColor(originalTextColor)
             button2.setBackgroundColor(transparentColor)
             button2.setTextColor(originalTextColor)
-            loadWishList("NOSET",writerNo,accessToken,"get")
+            if(writerNo!= null){
+                loadWishList("NOSET",writerNo,accessToken,"get")
+            }
+
         }
     }
 
@@ -169,6 +181,7 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
 
         val bundle = Bundle()
         bundle.putString("wishNo", wishNo)
+        // bundle.putString("writerNo", memberNo)
         newFragment.arguments = bundle
 
         replaceFragment(newFragment)

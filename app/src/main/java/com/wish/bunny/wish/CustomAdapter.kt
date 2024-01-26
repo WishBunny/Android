@@ -66,6 +66,7 @@ class CustomAdapter(private val context: Context, private val wishItemList: List
         private val dDay = itemView.findViewById<TextView>(R.id.rv_dDay)
         private val tag1 = itemView.findViewById<TextView>(R.id.rv_tag1)
         private val doneBtn = itemView.findViewById<ImageButton>(R.id.rv_detail_btn)
+
         init {
             //컨텐츠 내용 클릭시 상세 페이지 이동
             itemView.findViewById<TextView>(R.id.rv_content).setOnClickListener {
@@ -136,6 +137,11 @@ class CustomAdapter(private val context: Context, private val wishItemList: List
             //로그인 아이디와 작성자가 다른 경우 완료버튼 안보이게
             if(writerYn.equals("Y")){
                 doneBtn.visibility = View.VISIBLE
+                if(wishItem.achieveYn.equals("Y")){
+                  //성취했을 경우 색깔 변화
+
+                }
+
             }else{
                 doneBtn.visibility = View.GONE
             }
