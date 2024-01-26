@@ -9,7 +9,5 @@ data class WishVo(
     val deadlineDt: String,
     val category: String,
     val notifyYn: String,
-    val writerNo: String,
-    val achieveYn: String,
     val tagNo: String
 )
