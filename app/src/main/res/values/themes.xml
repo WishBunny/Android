@@ -1,11 +1,11 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.Android" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/pink</item> <!-- 앱 맨 위 배경색, 버튼 색 -->
-        <item name="colorPrimaryVariant">@color/Gray</item> <!-- 상단바 -->
-        <item name="colorOnPrimary">@color/white</item> <!-- 버튼 글자 색 -->
+        <item name="colorPrimary">@color/wishbunny_pink</item> <!-- 앱 맨 위 배경색, 버튼 색 -->
+        <item name="colorPrimaryVariant">@color/wishbunny_gray500</item> <!-- 상단바 -->
+        <item name="colorOnPrimary">@color/wishbunny_white</item> <!-- 버튼 글자 색 -->
         <item name="android:statusBarColor" tools:targetApi='l'>?attr/colorPrimaryVariant</item>
-        <item name="android:colorBackground">@color/Lightgray</item>
+        <item name="android:colorBackground">@color/wishbunny_background</item>
     </style>
     <style name="Theme.Android" parent="Base.Theme.Android" />
 </resources>

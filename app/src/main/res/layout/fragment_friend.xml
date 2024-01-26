@@ -20,19 +20,12 @@
         android:layout_marginEnd="16dp"
         android:text="나의 위시버니"
         android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/wishbunny_gray700"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="39dp"
-        android:layout_height="46dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:src="@drawable/wish_bunny"
-        app:layout_constraintStart_toEndOf="@+id/tv_title"
-        app:layout_constraintTop_toTopOf="parent" />
 
 <!--    <androidx.constraintlayout.widget.ConstraintLayout-->
 <!--        android:id="@+id/constraintLayout2"-->
@@ -91,28 +84,32 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_invite"
-        android:layout_width="184dp"
+        android:layout_width="178dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:background="@drawable/button_selector"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/button_border"
         android:onClick="onClick"
         android:text="친구 초대"
-        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textColor="@color/wishbunny_pink"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_match"
-        android:layout_width="184dp"
+        android:layout_width="178dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/button_selector"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/button_border"
         android:onClick="onClick"
         android:text="친구 매칭"
-        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textColor="@color/wishbunny_pink"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btn_invite"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
     <!-- 가운데 정렬 -->
 </androidx.constraintlayout.widget.ConstraintLayout>
