@@ -26,6 +26,8 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
 
     private lateinit var binding: ActivityWishListBinding
     private var adapter: CustomAdapter? = null
+    private val accessToken = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2ZWE3NTFmOS1lNDhlLTQ1OWEtYjYwYi02MzFkMDM4ZmUwZmIiLCJpYXQiOjE3MDYyMjgzMDMsImV4cCI6MTcwODgyMDMwM30.x7mvX8xzWhd-lzB0xooHYIH9pSJfmsgzB7fe7tJhoUI"
+    //private val accessToken = GlobalApplication.prefs.getString("accessToken", "")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,13 +40,13 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         defaultClick(view)
-        loadWishList("NOSET","WRITER002","accessTOKEN","do")
+        loadWishList("NOSET","WRITER002",accessToken,"do")
         loadDoneWishSize(view, "WRITER002")
         btnClickEvent(view)
         //지금까지 완료한 리스트 확인하기
         val donsListSize = view.findViewById<Button>(R.id.GetDoneButton)
         donsListSize.setOnClickListener {
-            loadWishList("Y","WRITER002","accessTOKEN","")
+            loadWishList("Y","WRITER002",accessToken,"")
         }
     }
     private fun defaultClick(view: View){
@@ -81,7 +83,7 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
             button2.setTextColor(originalTextColor)
             button3.setBackgroundColor(transparentColor)
             button3.setTextColor(originalTextColor)
-            loadWishList("NOSET","WRITER002","accessTOKEN","do")
+            loadWishList("NOSET","WRITER002",accessToken,"do")
         }
 
         button2.setOnClickListener {
@@ -91,7 +93,7 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
             button1.setTextColor(originalTextColor)
             button3.setBackgroundColor(transparentColor)
             button3.setTextColor(originalTextColor)
-            loadWishList("NOSET","WRITER002","accessTOKEN","eat")
+            loadWishList("NOSET","WRITER002",accessToken,"eat")
         }
 
         button3.setOnClickListener {
@@ -101,7 +103,7 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
             button1.setTextColor(originalTextColor)
             button2.setBackgroundColor(transparentColor)
             button2.setTextColor(originalTextColor)
-            loadWishList("NOSET","WRITER002","accessTOKEN","get")
+            loadWishList("NOSET","WRITER002",accessToken,"get")
         }
     }
 
@@ -131,7 +133,7 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
     private fun loadWishList(achieveYn: String, writerNo: String, accessToken: String, category:String) {
         val retrofitAPI = RetrofitConnection.getInstance().create(WishService::class.java)
 
-        val call = retrofitAPI.getWishList(achieveYn, writerNo, "Bearer $accessToken",category)
+        val call = retrofitAPI.getWishList(achieveYn, writerNo, "$accessToken",category)
         call.enqueue(object : Callback<WishMapResult> {
             override fun onResponse(call: Call<WishMapResult>, response: Response<WishMapResult>) {
                 val wishMapResult = response.body()
