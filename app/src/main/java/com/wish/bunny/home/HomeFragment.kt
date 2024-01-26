@@ -141,7 +141,7 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
                 if (wishMapResult != null) {
                     Log.d("WishList2", "불러오기 성공: ${wishMapResult.list.size} 개의 아이템")
                     Log.d("writerYn",wishMapResult.writerYn)
-                    updateUI(wishMapResult.list)
+                    updateUI(wishMapResult.list, wishMapResult.writerYn)
 
                     Log.d("WishList2", wishMapResult.list.toString())
                 } else {
@@ -156,11 +156,8 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
         })
     }
 
-
-
-
-    private fun updateUI(wishItemList: List<WishItem>) {
-        adapter = CustomAdapter(requireContext(), wishItemList)
+    private fun updateUI(wishItemList: List<WishItem>, writerYn: String) {
+        adapter = CustomAdapter(requireContext(), wishItemList, writerYn)
         adapter?.setOnDetailButtonClickListener(this)
 
         binding.wishListRecyclerView.adapter = adapter

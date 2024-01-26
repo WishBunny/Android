@@ -38,8 +38,7 @@ class WishList : AppCompatActivity() {
 
                 if (wishMapResult != null) {
                     Log.d("WishList2", "불러오기 성공: ${wishMapResult.list.size} 개의 아이템")
-                    updateUI(wishMapResult.list)
-
+                    updateUI(wishMapResult.list, wishMapResult.writerYn)
                     Log.d("WishList2", wishMapResult.list.toString())
                 } else {
                     Log.d("WishList2", "서버 응답이 null입니다.")
@@ -53,8 +52,10 @@ class WishList : AppCompatActivity() {
         })
     }
 
-    private fun updateUI(wishItemList: List<WishItem>) {
-        adapter = CustomAdapter(this, wishItemList)
+    private fun updateUI(wishItemList: List<WishItem>, writerYn: String) {
+       // adapter = CustomAdapter(this, wishItemList, writerYn)
+
+        adapter = CustomAdapter(this, wishItemList, "N")
         Log.d("wish Context",this.toString());
         binding.wishListRecyclerView.adapter = adapter
         binding.wishListRecyclerView.layoutManager = LinearLayoutManager(this)
