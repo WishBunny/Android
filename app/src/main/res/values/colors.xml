@@ -12,10 +12,16 @@
     <color name="txtBasPink">#F7F3F1</color>
 
 <!--    wishbunny   -->
+
+    <color name="wishbunny_white">#FFFFFF</color>
     <color name="wishbunny_ivory">#F7F3F1</color>
     <color name="wishbunny_pink">#DF646E</color>
     <color name="wishbunny_background">#F4F5F7</color>
+    <color name="wishbunny_gray100">#EFEFEF</color>
     <color name="wishbunny_gray200">#DADADA</color>
     <color name="wishbunny_gray500">#808080</color>
+    <color name="wishbunny_gray700">#4D4D4D</color>
+    <color name="wishbunny_gray900">#1A1A1A</color>
+    <color name="wishbunny_black">#000000</color>
 
 </resources>

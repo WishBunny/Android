@@ -38,14 +38,14 @@
     <string name="confirm_remove_question">정말 삭제하시겠습니까?</string>
 
     <!-- 친구 초대-->
-    <string name="invite">함께 할 친구에게 \n 초대코드를 공유해주세요!</string>
-    <string name="invite_code">초대코드</string>
+    <string name="invite">함께 할 친구에게\n 초대코드를 공유해주세요!</string>
+    <string name="invite_code">초대코드 복사</string>
     <string name="invite_copy">복사하기</string>
     <string name="invite_result">매칭 확인하기</string>
 
 
     <!-- 친구 매칭-->
-    <string name="match">초대받은 코드를 \n 붙여넣거나 입력해주세요</string>
+    <string name="match">초대받은 코드를\n 붙여넣거나 입력해주세요</string>
     <string name="match_input">초대코드를 입력해주세요</string>
     <string name="match_start">위시버니와 함께 하기</string>
 </resources>
