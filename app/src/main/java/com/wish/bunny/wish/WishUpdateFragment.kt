@@ -16,12 +16,14 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import com.wish.bunny.GlobalApplication
 import com.wish.bunny.R
 import com.wish.bunny.home.HomeFragment
 import com.wish.bunny.util.RetrofitConnection
 import com.wish.bunny.wish.domain.Message
 import com.wish.bunny.wish.domain.WishItem
 import com.wish.bunny.wish.domain.WishVo2
+import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -33,8 +35,8 @@ import java.util.Locale
 
 class WishUpdateFragment : Fragment() {
 
-    //private val accessToken = GlobalApplication.prefs.getString("accessToken", "")
-    private val accessToken = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2ZWE3NTFmOS1lNDhlLTQ1OWEtYjYwYi02MzFkMDM4ZmUwZmIiLCJpYXQiOjE3MDYyMjgzMDMsImV4cCI6MTcwODgyMDMwM30.x7mvX8xzWhd-lzB0xooHYIH9pSJfmsgzB7fe7tJhoUI"
+    private val accessToken = GlobalApplication.prefs.getString("accessToken", "")
+//    private val accessToken = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2ZWE3NTFmOS1lNDhlLTQ1OWEtYjYwYi02MzFkMDM4ZmUwZmIiLCJpYXQiOjE3MDYyMjgzMDMsImV4cCI6MTcwODgyMDMwM30.x7mvX8xzWhd-lzB0xooHYIH9pSJfmsgzB7fe7tJhoUI"
     private lateinit var btnOpenCalendar: ImageButton
     private lateinit var tvSelectedDate: TextView
     private lateinit var backButton: ImageButton
@@ -170,13 +172,10 @@ class WishUpdateFragment : Fragment() {
 
             btn_update.setOnClickListener {
                 val wvo2 = WishVo2(
-                    wishNo = wishNo,
                     category = selectedCategory,
                     content = text_content.text.toString(),
                     deadlineDt = tvSelectedDate.text.toString(),
                     notifyYn = "Y",
-                    writerNo = "123",
-                    achieveYn = "N",
                     tagNo = selectedHashtag,
                     deleteTag = hashtagNo
                 )
@@ -189,6 +188,12 @@ class WishUpdateFragment : Fragment() {
                 val retrofit = Retrofit.Builder()
                     .baseUrl("http://10.0.2.2:8080/")
                     .addConverterFactory(GsonConverterFactory.create()) // JSON 컨버터 사용
+                    .client(OkHttpClient.Builder().addInterceptor { chain ->
+                        val newRequest = chain.request().newBuilder()
+                            .addHeader("Authorization", "Bearer $accessToken")
+                            .build()
+                        chain.proceed(newRequest)
+                    }.build())
                     .build()
 
                 // 위에서 만든 Retrofit 인스턴스를 사용하여 WishService의 구현체 생성
@@ -197,24 +202,18 @@ class WishUpdateFragment : Fragment() {
                 val call: Call<Response<Message>> = wishService.wishUpdate(wvo2)
 
                 call.enqueue(object : Callback<Response<Message>> {
-                    override fun onResponse(
-                        call: Call<Response<Message>>,
-                        response: retrofit2.Response<Response<Message>>
-                    ) {
+                    override fun onResponse(call: Call<Response<Message>>, response: retrofit2.Response<Response<Message>>) {
                         if (response.isSuccessful) {
                             // 서버로부터 정상적인 응답을 받았을 때의 처리
-                            val message = response.body()?.message()
-                            Toast.makeText(
-                                requireContext(),
-                                message ?: "성공적으로 값을 전달했습니다",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            Toast.makeText(requireContext(), "성공적으로 값을 전달했습니다", Toast.LENGTH_SHORT).show()
+                            val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
+                            val transaction: FragmentTransaction = fragmentManager.beginTransaction()
+                            transaction.replace(R.id.fragment_container, HomeFragment()).commit()
                         } else {
                             // 서버로부터 정상적인 응답을 받지 못했을 때의 처리
-                            val errorBody = if (response.errorBody() != null) response.errorBody()?.string() else "에러 메시지를 받지 못했습니다."
                             Toast.makeText(
                                 requireContext(),
-                                "서버로부터 예상치 못한 응답을 받았습니다: $errorBody",
+                                "서버로부터 예상치 못한 응답을 받았습니다: ${response.errorBody()?.string()}",
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
@@ -223,6 +222,9 @@ class WishUpdateFragment : Fragment() {
                     override fun onFailure(call: Call<Response<Message>>, t: Throwable) {
                         // 네트워크 요청 자체가 실패했을 때의 처리
                         t.printStackTrace()
+                        val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
+                        val transaction: FragmentTransaction = fragmentManager.beginTransaction()
+                        transaction.replace(R.id.fragment_container, HomeFragment()).commit()
                     }
                 })
             }
@@ -313,7 +315,7 @@ class WishUpdateFragment : Fragment() {
                 val wishItem = response.body()
 
                 if (wishItem != null) {
-                    //updateUI(wishItem)
+                    updateUI(wishItem)
                     Log.d("wishItem 수정", wishItem.toString())
 
                 } else {

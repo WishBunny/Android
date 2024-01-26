@@ -16,11 +16,13 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import com.wish.bunny.GlobalApplication
 import com.wish.bunny.R
 import com.wish.bunny.home.HomeFragment
 import com.wish.bunny.wish.domain.Message
 import com.wish.bunny.wish.domain.WishVo
 import com.wish.bunny.wish.domain.WishVo2
+import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -34,6 +36,7 @@ import java.util.Locale
 처리 내용: 위시 등록 화면 및 API 구현
  */
 class WishInsertFragment : Fragment() {
+    private val accessToken = GlobalApplication.prefs.getString("accessToken", "")
     private lateinit var btnOpenCalendar: ImageButton
     private lateinit var tvSelectedDate: TextView
     private var selectedButton: Button? = null
@@ -158,19 +161,19 @@ class WishInsertFragment : Fragment() {
                 content = text_content.text.toString(),
                 deadlineDt = tvSelectedDate.text.toString(),
                 notifyYn = "Y",
-                writerNo = "123",
-                achieveYn = "N",
                 tagNo = selectedHashtag
             )
-
-            val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
-            val transaction: FragmentTransaction = fragmentManager.beginTransaction()
-            transaction.replace(R.id.fragment_container, HomeFragment()).commit()
 
             // Retrofit 인스턴스 생성 예시
             val retrofit = Retrofit.Builder()
                 .baseUrl("http://10.0.2.2:8080/")
                 .addConverterFactory(GsonConverterFactory.create()) // JSON 컨버터 사용
+                .client(OkHttpClient.Builder().addInterceptor { chain ->
+                    val newRequest = chain.request().newBuilder()
+                        .addHeader("Authorization", "Bearer $accessToken")
+                        .build()
+                    chain.proceed(newRequest)
+                }.build())
                 .build()
 
             // 위에서 만든 Retrofit 인스턴스를 사용하여 WishService의 구현체 생성
@@ -182,12 +185,10 @@ class WishInsertFragment : Fragment() {
                 override fun onResponse(call: Call<Response<Message>>, response: retrofit2.Response<Response<Message>>) {
                     if (response.isSuccessful) {
                         // 서버로부터 정상적인 응답을 받았을 때의 처리
-                        val message = response.body()?.message()
-                        Toast.makeText(
-                            requireContext(),
-                            message ?: "성공적으로 값을 전달했습니다",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        Toast.makeText(requireContext(), "성공적으로 값을 전달했습니다", Toast.LENGTH_SHORT).show()
+                        val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
+                        val transaction: FragmentTransaction = fragmentManager.beginTransaction()
+                        transaction.replace(R.id.fragment_container, HomeFragment()).commit()
                     } else {
                         // 서버로부터 정상적인 응답을 받지 못했을 때의 처리
                         Toast.makeText(
@@ -201,6 +202,9 @@ class WishInsertFragment : Fragment() {
                 override fun onFailure(call: Call<Response<Message>>, t: Throwable) {
                     // 네트워크 요청 자체가 실패했을 때의 처리
                     t.printStackTrace()
+                    val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
+                    val transaction: FragmentTransaction = fragmentManager.beginTransaction()
+                    transaction.replace(R.id.fragment_container, HomeFragment()).commit()
                 }
             })
         }
