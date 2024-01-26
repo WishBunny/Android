@@ -14,9 +14,13 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import com.wish.bunny.R
+import com.wish.bunny.home.HomeFragment
 import com.wish.bunny.wish.domain.Message
 import com.wish.bunny.wish.domain.WishVo
+import com.wish.bunny.wish.domain.WishVo2
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -52,19 +56,55 @@ class WishInsertFragment : Fragment() {
         val categoryButtons = arrayOf(button1, button2, button3)
 
         // 해시태그 버튼 처리
-        val buttons = arrayOf(
-            view.findViewById<Button>(R.id.hashtagButton1),
-            view.findViewById<Button>(R.id.hashtagButton2),
-            view.findViewById<Button>(R.id.hashtagButton3),
-            view.findViewById<Button>(R.id.hashtagButton4),
-            view.findViewById<Button>(R.id.hashtagButton5),
-            view.findViewById<Button>(R.id.hashtagButton6),
-            view.findViewById<Button>(R.id.hashtagButton7),
-            view.findViewById<Button>(R.id.hashtagButton8),
-        )
+        val hashtagButton1: Button = view.findViewById(R.id.hashtagButton1)
+        val hashtagButton2: Button = view.findViewById(R.id.hashtagButton2)
+        val hashtagButton3: Button = view.findViewById(R.id.hashtagButton3)
+        val hashtagButton4: Button = view.findViewById(R.id.hashtagButton4)
+        val hashtagButton5: Button = view.findViewById(R.id.hashtagButton5)
+        val hashtagButton6: Button = view.findViewById(R.id.hashtagButton6)
+        val hashtagButton7: Button = view.findViewById(R.id.hashtagButton7)
+        val hashtagButton8: Button = view.findViewById(R.id.hashtagButton8)
 
-        buttons.forEach { button ->
-            button.setOnClickListener { handleButtonClick(it as Button) }
+        var selectedHashtag = ""
+
+        hashtagButton1.setOnClickListener {
+            selectedHashtag = "1"
+            handleButtonClick(hashtagButton1)
+        }
+
+        hashtagButton2.setOnClickListener {
+            selectedHashtag = "2"
+            handleButtonClick(hashtagButton2)
+        }
+
+        hashtagButton3.setOnClickListener {
+            selectedHashtag = "3"
+            handleButtonClick(hashtagButton3)
+        }
+
+        hashtagButton4.setOnClickListener {
+            selectedHashtag = "4"
+            handleButtonClick(hashtagButton4)
+        }
+
+        hashtagButton5.setOnClickListener {
+            selectedHashtag = "5"
+            handleButtonClick(hashtagButton5)
+        }
+
+        hashtagButton6.setOnClickListener {
+            selectedHashtag = "6"
+            handleButtonClick(hashtagButton6)
+        }
+
+        hashtagButton7.setOnClickListener {
+            selectedHashtag = "7"
+            handleButtonClick(hashtagButton7)
+        }
+
+        hashtagButton8.setOnClickListener {
+            selectedHashtag = "8"
+            handleButtonClick(hashtagButton8)
         }
 
         // 달력 버튼 처리
@@ -84,9 +124,9 @@ class WishInsertFragment : Fragment() {
 
         // 뒤로가기 버튼에 클릭 리스너 추가
         backButton.setOnClickListener {
-            // WishList 클래스로 이동
-            val intent = Intent(requireContext(), WishList::class.java)
-            startActivity(intent)
+            val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
+            val transaction: FragmentTransaction = fragmentManager.beginTransaction()
+            transaction.replace(R.id.fragment_container, HomeFragment()).commit()
         }
 
         // Insert API 처리
@@ -113,23 +153,6 @@ class WishInsertFragment : Fragment() {
         val btn_insert: Button = view.findViewById(R.id.insert)
 
         btn_insert.setOnClickListener {
-            // tagNo를 위한 StringBuilder 객체
-            val tagNoBuilder = StringBuilder()
-
-            // 선택된 버튼의 텍스트를 StringBuilder에 추가
-            for (button in buttons) {
-                if (button.isSelected) {
-                    tagNoBuilder.append(button.text.toString()).append(" ")
-                }
-            }
-
-            // StringBuilder에서 마지막 공백 제거
-            val tagNo = if (tagNoBuilder.isNotEmpty()) {
-                tagNoBuilder.substring(0, tagNoBuilder.length - 1)
-            } else {
-                tagNoBuilder.toString()
-            }
-
             val wvo = WishVo(
                 category = selectedCategory,
                 content = text_content.text.toString(),
@@ -137,8 +160,12 @@ class WishInsertFragment : Fragment() {
                 notifyYn = "Y",
                 writerNo = "123",
                 achieveYn = "N",
-                tagNo = tagNo
+                tagNo = selectedHashtag
             )
+
+            val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
+            val transaction: FragmentTransaction = fragmentManager.beginTransaction()
+            transaction.replace(R.id.fragment_container, HomeFragment()).commit()
 
             // Retrofit 인스턴스 생성 예시
             val retrofit = Retrofit.Builder()
