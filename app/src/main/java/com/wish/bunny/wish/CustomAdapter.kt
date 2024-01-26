@@ -24,6 +24,7 @@ import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import android.app.AlertDialog
 import android.widget.ImageButton
+import androidx.core.content.ContextCompat
 
 /**
 작성자: 김은솔
@@ -137,9 +138,9 @@ class CustomAdapter(private val context: Context, private val wishItemList: List
             //로그인 아이디와 작성자가 다른 경우 완료버튼 안보이게
             if(writerYn.equals("Y")){
                 doneBtn.visibility = View.VISIBLE
+                //성취했을 경우 색깔 변화
                 if(wishItem.achieveYn.equals("Y")){
-                  //성취했을 경우 색깔 변화
-
+                    doneBtn.setImageDrawable(ContextCompat.getDrawable(itemView.context, R.drawable.active_circle))
                 }
 
             }else{
