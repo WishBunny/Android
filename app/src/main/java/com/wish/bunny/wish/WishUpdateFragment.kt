@@ -33,6 +33,8 @@ import java.util.Locale
 
 class WishUpdateFragment : Fragment() {
 
+    //private val accessToken = GlobalApplication.prefs.getString("accessToken", "")
+    private val accessToken = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2ZWE3NTFmOS1lNDhlLTQ1OWEtYjYwYi02MzFkMDM4ZmUwZmIiLCJpYXQiOjE3MDYyMjgzMDMsImV4cCI6MTcwODgyMDMwM30.x7mvX8xzWhd-lzB0xooHYIH9pSJfmsgzB7fe7tJhoUI"
     private lateinit var btnOpenCalendar: ImageButton
     private lateinit var tvSelectedDate: TextView
     private lateinit var backButton: ImageButton
@@ -306,16 +308,16 @@ class WishUpdateFragment : Fragment() {
 
     private fun loadWishDetail(wishNo: String) {
         val retrofitAPI = RetrofitConnection.getInstance().create(WishService::class.java)
-        retrofitAPI.getWishDetail(wishNo).enqueue(object : Callback<WishItem> {
+        retrofitAPI.getWishDetail(wishNo, "$accessToken").enqueue(object : Callback<WishItem> {
             override fun onResponse(call: Call<WishItem>, response: Response<WishItem>) {
                 val wishItem = response.body()
 
                 if (wishItem != null) {
-                    updateUI(wishItem)
-                    Log.d("wishItem", wishItem.toString())
+                    //updateUI(wishItem)
+                    Log.d("wishItem 수정", wishItem.toString())
 
                 } else {
-                    Log.d("wishItem", "서버 응답이 null입니다.")
+                    Log.d("wishItem 수정", "서버 응답이 null입니다.")
                 }
             }
 

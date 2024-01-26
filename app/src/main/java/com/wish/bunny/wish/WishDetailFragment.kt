@@ -14,6 +14,7 @@ import com.wish.bunny.R
 import com.wish.bunny.databinding.FragmentWishDetailBinding
 import com.wish.bunny.util.RetrofitConnection
 import com.wish.bunny.wish.WishService
+import com.wish.bunny.wish.WishUpdateFragment
 import com.wish.bunny.wish.domain.WishItem
 import com.wish.bunny.wish.domain.WishMapResult
 import retrofit2.Call
@@ -48,22 +49,21 @@ class WishDetailFragment : Fragment() {
         val wishNo = arguments?.getString("wishNo")
 
         if (wishNo != null) {
-            Log.d("WishDetailFragment", "Received wishNo: $wishNo")
+            Log.d("WishDetailFragment", wishNo)
 
             loadWishDetail(wishNo, accessToken)
             view.findViewById<Button>(R.id.deleteBtn).setOnClickListener {
                 showConfirmationDialog(wishNo)
             }
-        }
-        
-        view.findViewById<Button>(R.id.updateBtn).setOnClickListener {
-            val newFragment = WishDetailFragment()
+            view.findViewById<Button>(R.id.updateBtn).setOnClickListener {
+                val newFragment = WishUpdateFragment()
 
-            val bundle = Bundle()
-            bundle.putString("wishNo", wishNo)
-            newFragment.arguments = bundle
+                val bundle = Bundle()
+                bundle.putString("wishNo", wishNo)
+                newFragment.arguments = bundle
 
-            replaceFragment(newFragment)
+                replaceFragment(newFragment)
+            }
         }
 
     }
