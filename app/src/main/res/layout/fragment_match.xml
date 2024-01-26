@@ -54,8 +54,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_matchText" />
 
-        <Button
-            android:id="@+id/btn_match_end"
+        <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_match_end"
             android:layout_width="280dp"
             android:layout_height="58dp"
             android:layout_marginTop="52dp"

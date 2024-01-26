@@ -3,12 +3,12 @@ package com.wish.bunny.friend
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView.OnItemClickListener
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.wish.bunny.R
+import com.wish.bunny.friend.domain.Profiles
+
 /**
 작성자:  이혜연
 처리 내용: ProfileAdapter 구현
