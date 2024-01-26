@@ -26,26 +26,28 @@ class WishList : AppCompatActivity() {
         setContentView(binding.root)
 
        //  setRecyclerView()
-        loadWishList("NOSET","WRITER002")//초기 설정
+        loadWishList("NOSET","WRITER002","accessTOKEN","do")//초기 설정
     }
-    private fun loadWishList(achieveYn: String, writerNo: String) {
+    private fun loadWishList(achieveYn: String, writerNo: String, accessToken: String, category: String) {
         val retrofitAPI = RetrofitConnection.getInstance().create(WishService::class.java)
-        retrofitAPI.getWishList(achieveYn, writerNo).enqueue(object : Callback<WishMapResult> {
+
+        val call = retrofitAPI.getWishList(achieveYn, writerNo, "Bearer $accessToken",category)
+        call.enqueue(object : Callback<WishMapResult> {
             override fun onResponse(call: Call<WishMapResult>, response: Response<WishMapResult>) {
                 val wishMapResult = response.body()
 
                 if (wishMapResult != null) {
-                    Log.d("WishList", "불러오기 성공: ${wishMapResult.list.size} 개의 아이템")
+                    Log.d("WishList2", "불러오기 성공: ${wishMapResult.list.size} 개의 아이템")
                     updateUI(wishMapResult.list)
 
-                    Log.d("WishList", wishMapResult.list.toString())
+                    Log.d("WishList2", wishMapResult.list.toString())
                 } else {
-                    Log.d("WishList", "서버 응답이 null입니다.")
+                    Log.d("WishList2", "서버 응답이 null입니다.")
                 }
             }
 
             override fun onFailure(call: Call<WishMapResult>, t: Throwable) {
-                Log.d("WishList", "불러오기 실패: ${t.message}")
+                Log.d("WishList2", "불러오기 실패: ${t.message}")
                 // TODO: 실패 시 처리 구현
             }
         })
