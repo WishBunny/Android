@@ -4,6 +4,7 @@ import com.wish.bunny.wish.domain.Message
 import com.wish.bunny.wish.domain.WishVo
 import com.wish.bunny.wish.domain.WishMapResult
 import com.wish.bunny.wish.domain.WishItem
+import com.wish.bunny.wish.domain.WishVo2
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
@@ -12,6 +13,7 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.PATCH
+import retrofit2.http.PUT
 import retrofit2.http.Path
 
 
@@ -22,6 +24,13 @@ interface WishService {
      */
     @POST("wish")
     fun wishInsert(@Body wvo: WishVo): Call<Response<Message>>
+
+    /**
+    작성자: 황수연
+    처리 내용: 위시 데이터 수정 서비스
+     */
+    @PUT("wish/{wishNo}")
+    fun wishUpdate(@Body wvo2: WishVo2): Call<Response<Message>>
 
     /**
     작성자: 김은솔

@@ -7,6 +7,7 @@ import com.wish.bunny.databinding.ActivityMainBinding
 import com.wish.bunny.friend.FriendFragment
 import com.wish.bunny.home.HomeFragment
 import com.wish.bunny.mypage.MypageFragment
+import com.wish.bunny.wish.WishInsertFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -32,8 +33,8 @@ class MainActivity : AppCompatActivity() {
                     supportFragmentManager.beginTransaction().replace(R.id.fragment_container, boardFragment).commit()
                 }
                 R.id.navi_wish -> {
-                    val wishFragment = FriendFragment() //TODO 위시 글쓰기로 바꾸기
-                    supportFragmentManager.beginTransaction().replace(R.id.fragment_container, wishFragment).commit()
+                    val wishInsertFragment = WishInsertFragment()
+                    supportFragmentManager.beginTransaction().replace(R.id.fragment_container, wishInsertFragment).commit()
                 }
                 R.id.navi_mypage -> {
                     val settingFragment = MypageFragment()
