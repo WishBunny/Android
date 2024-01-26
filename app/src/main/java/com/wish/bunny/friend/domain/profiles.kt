@@ -1,3 +1,3 @@
 package com.wish.bunny.friend.domain
 
-class Profiles(val image: Int, val name: String, val dday: String, val remove: Int)
+class Profiles(val image: String, val name: String, val dday: String, val remove: Int, val friendId: String)
