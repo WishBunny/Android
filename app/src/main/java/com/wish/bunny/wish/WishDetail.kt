@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import com.wish.bunny.GlobalApplication
 import com.wish.bunny.R
 import com.wish.bunny.util.RetrofitConnection
 import com.wish.bunny.wish.domain.WishItem
@@ -23,19 +24,20 @@ class WishDetail : AppCompatActivity() {
     private val tvSelectedDate: TextView by lazy { findViewById<TextView>(R.id.tvSelectedDate) }
     private val selectedDate: Calendar = Calendar.getInstance()
     private val selectedButtons: MutableList<Button> = mutableListOf()
+    private val accessToken = GlobalApplication.prefs.getString("accessToken", "")
 
     // 원래의 글자색 저장
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_wish_detail)
 
-        loadWishDetail("WISH002")
+        loadWishDetail("WISH002", accessToken)
 
 
     }
-    private fun loadWishDetail(wishNo: String) {
+    private fun loadWishDetail(wishNo: String, accessToken: String) {
         val retrofitAPI = RetrofitConnection.getInstance().create(WishService::class.java)
-        retrofitAPI.getWishDetail(wishNo).enqueue(object : retrofit2.Callback<WishItem> {
+        retrofitAPI.getWishDetail(wishNo, accessToken).enqueue(object : retrofit2.Callback<WishItem> {
             override fun onResponse(call: Call<WishItem>, response: Response<WishItem>) {
                 // 성공 시 처리
                 val wishItem = response.body()

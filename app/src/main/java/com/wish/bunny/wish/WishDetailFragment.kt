@@ -9,10 +9,12 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.wish.bunny.GlobalApplication
 import com.wish.bunny.R
 import com.wish.bunny.databinding.FragmentWishDetailBinding
 import com.wish.bunny.util.RetrofitConnection
 import com.wish.bunny.wish.WishService
+import com.wish.bunny.wish.WishUpdateFragment
 import com.wish.bunny.wish.domain.WishItem
 import com.wish.bunny.wish.domain.WishMapResult
 import retrofit2.Call
@@ -31,6 +33,8 @@ class WishDetailFragment : Fragment() {
     private val selectedDate: Calendar = Calendar.getInstance()
     private val selectedButtons: MutableList<Button> = mutableListOf()
 
+     //private val accessToken = GlobalApplication.prefs.getString("accessToken", "")
+     private val accessToken = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2ZWE3NTFmOS1lNDhlLTQ1OWEtYjYwYi02MzFkMDM4ZmUwZmIiLCJpYXQiOjE3MDYyMjgzMDMsImV4cCI6MTcwODgyMDMwM30.x7mvX8xzWhd-lzB0xooHYIH9pSJfmsgzB7fe7tJhoUI"
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,22 +49,21 @@ class WishDetailFragment : Fragment() {
         val wishNo = arguments?.getString("wishNo")
 
         if (wishNo != null) {
-            Log.d("WishDetailFragment", "Received wishNo: $wishNo")
+            Log.d("WishDetailFragment", wishNo)
 
-            loadWishDetail(wishNo)
+            loadWishDetail(wishNo, accessToken)
             view.findViewById<Button>(R.id.deleteBtn).setOnClickListener {
                 showConfirmationDialog(wishNo)
             }
-        }
-        
-        view.findViewById<Button>(R.id.updateBtn).setOnClickListener {
-            val newFragment = WishDetailFragment()
+            view.findViewById<Button>(R.id.updateBtn).setOnClickListener {
+                val newFragment = WishUpdateFragment()
 
-            val bundle = Bundle()
-            bundle.putString("wishNo", wishNo)
-            newFragment.arguments = bundle
+                val bundle = Bundle()
+                bundle.putString("wishNo", wishNo)
+                newFragment.arguments = bundle
 
-            replaceFragment(newFragment)
+                replaceFragment(newFragment)
+            }
         }
 
     }
@@ -71,9 +74,9 @@ class WishDetailFragment : Fragment() {
              .addToBackStack(null)
              .commit()
      }
-    private fun loadWishDetail(wishNo: String) {
+    private fun loadWishDetail(wishNo: String, accessToken:String) {
         val retrofitAPI = RetrofitConnection.getInstance().create(WishService::class.java)
-        retrofitAPI.getWishDetail(wishNo).enqueue(object : Callback<WishItem> {
+        retrofitAPI.getWishDetail(wishNo, "$accessToken").enqueue(object : Callback<WishItem> {
             override fun onResponse(call: Call<WishItem>, response: Response<WishItem>) {
                 val wishItem = response.body()
 
@@ -140,7 +143,7 @@ class WishDetailFragment : Fragment() {
         binding.content.text = wishItem.content
         binding.hashtagButton1.text = '#' + wishItem.tagContents
         binding.tvSelectedDate.text = wishItem.deadlineDt
-        // EditDeleteButtonShowYn(wishItem.writerYn)
+        EditDeleteButtonShowYn(wishItem.writerYn)
         setCategroy(wishItem.category)
     }
 

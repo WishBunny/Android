@@ -7,5 +7,6 @@ data class WishMapResult(
     val result: Objects,
     val list : List<WishItem>,
     val size: Int,
-    val udResult: Int
+    val udResult: Int,
+    var writerYn: String
 )
