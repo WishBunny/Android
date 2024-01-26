@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wish.bunny.R
 import com.wish.bunny.common.ConfirmDialog
-import java.text.ParsePosition
+import com.wish.bunny.friend.domain.Profiles
 
 /**
 작성자:  이혜연

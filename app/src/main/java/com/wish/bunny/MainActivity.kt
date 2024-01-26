@@ -1,6 +1,5 @@
 package com.wish.bunny
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import com.kakao.sdk.common.util.Utility
@@ -23,6 +22,9 @@ class MainActivity : AppCompatActivity() {
                 R.id.navi_home -> {
                     // 다른 프래그먼트 화면으로 이동하는 기능
                     val homeFragment = HomeFragment()
+                    val bundle = Bundle()
+                    bundle.putString("isMine", "1")
+                    homeFragment.arguments = bundle
                     supportFragmentManager.beginTransaction().replace(R.id.fragment_container, homeFragment).commit()
                 }
                 R.id.navi_friend -> {
@@ -44,7 +46,4 @@ class MainActivity : AppCompatActivity() {
             selectedItemId = R.id.navi_home
         }
     }
-
-
-
 }
