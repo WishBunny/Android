@@ -5,33 +5,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/txtBasPink"
     tools:context=".wish.WishList">
 
     <TextView
         android:id="@+id/buketBasText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="16dp"
         android:text="토리 2님의 버킷리스트"
         android:textSize="30dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/GetDoneButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:text="지금까지 0개를 이뤘어요!"
         android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="@+id/buketBasText"
         app:layout_constraintTop_toBottomOf="@+id/buketBasText"
-        android:background="@color/midPink"
-        android:padding="10dp"
-        android:radius="8dp" />
+        android:paddingHorizontal="20dp"
+        android:background="@drawable/button_border"
+        android:textStyle="bold"
+        android:textColor="@color/wishbunny_pink"/>
 
     <LinearLayout
         android:id="@+id/buttonLayout"
@@ -50,7 +49,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:backgroundTint="@color/ivory"
+            android:backgroundTint="@color/wishbunny_background"
             android:textColor="@color/black"
             android:textStyle="bold"
             android:text="@string/want_do" />
@@ -61,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textStyle="bold"
-            android:backgroundTint="@color/ivory"
+            android:backgroundTint="@color/wishbunny_background"
             android:textColor="@color/black"
             android:text="@string/want_eat" />
 
@@ -71,7 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textStyle="bold"
-            android:backgroundTint="@color/ivory"
+            android:backgroundTint="@color/wishbunny_background"
             android:textColor="@color/black"
             android:text="@string/want_get" />
     </LinearLayout>

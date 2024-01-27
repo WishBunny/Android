@@ -101,13 +101,9 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
 
 
     private fun defaultClick(view: View){
-        val button1: Button = view.findViewById(R.id.button1)
-        val button2: Button = view.findViewById(R.id.button2)
-        val button3: Button = view.findViewById(R.id.button3)
-
         val pinkColor = ContextCompat.getColor(requireContext(), R.color.pink)
         val changeTextColor = ContextCompat.getColor(requireContext(), R.color.white)
-        val transparentColor = ContextCompat.getColor(requireContext(), R.color.ivory)
+        val transparentColor = ContextCompat.getColor(requireContext(), R.color.wishbunny_background)
         val originalTextColor = ContextCompat.getColor(requireContext(), R.color.black) // 원래의 글
 
         binding.button1.setBackgroundColor(pinkColor) // 핑크색으로 변경
@@ -118,13 +114,9 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
         binding.button3.setTextColor(originalTextColor)
     }
     private fun btnClickEvent(view: View) {
-        val button1: Button = view.findViewById(R.id.button1)
-        val button2: Button = view.findViewById(R.id.button2)
-        val button3: Button = view.findViewById(R.id.button3)
-
         val pinkColor = ContextCompat.getColor(requireContext(), R.color.pink)
         val changeTextColor = ContextCompat.getColor(requireContext(), R.color.white)
-        val transparentColor = ContextCompat.getColor(requireContext(), R.color.ivory)
+        val transparentColor = ContextCompat.getColor(requireContext(), R.color.wishbunny_background)
         val originalTextColor = ContextCompat.getColor(requireContext(), R.color.black) // 원래의 글자색 저장
 
         binding.button1.setOnClickListener {
@@ -137,7 +129,6 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
             if(writerNo!= null){
                 loadWishList("NOSET", writerNo.toString(),accessToken,"do")
             }
-
         }
 
         binding.button2.setOnClickListener {

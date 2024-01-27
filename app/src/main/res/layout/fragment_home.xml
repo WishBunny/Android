@@ -17,17 +17,17 @@
         android:text="버킷리스트"
         android:textSize="30dp"
         android:textStyle="bold" />
-
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/GetDoneButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="지금까지 0개를 이뤘어요!"
         android:layout_marginTop="80dp"
         android:layout_marginLeft="20dp"
-        android:background="@color/midPink"
-        android:padding="10dp"
-        android:radius="8dp" />
+        android:paddingHorizontal="10dp"
+        android:background="@drawable/button_border"
+        android:textStyle="bold"
+        android:textColor="@color/wishbunny_pink"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/wishList_recyclerView"
         android:layout_width="match_parent"

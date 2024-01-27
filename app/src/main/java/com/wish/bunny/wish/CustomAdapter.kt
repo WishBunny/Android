@@ -140,7 +140,7 @@ class CustomAdapter(private val context: Context, private val wishItemList: List
                 doneBtn.visibility = View.VISIBLE
                 //성취했을 경우 색깔 변화
                 if(wishItem.achieveYn.equals("Y")){
-                    doneBtn.setImageDrawable(ContextCompat.getDrawable(itemView.context, R.drawable.active_circle))
+                    doneBtn.setImageDrawable(ContextCompat.getDrawable(itemView.context, R.drawable.ic_check_selected))
                 }
 
             }else{
