@@ -1,7 +1,6 @@
 package com.wish.bunny.wish
 
 import android.app.DatePickerDialog
-import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -245,9 +244,9 @@ class WishInsertFragment : Fragment() {
         // 이전에 선택된 버튼의 상태를 복원합니다.
         selectedButton?.let {
             it.backgroundTintList = ColorStateList.valueOf(
-                ContextCompat.getColor(requireContext(), R.color.ivory)
+                ContextCompat.getColor(requireContext(), R.color.wishbunny_background)
             )
-            it.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+            it.setTextColor(ContextCompat.getColor(requireContext(), R.color.wishbunny_gray500))
         }
 
         // 새로 클릭된 버튼을 선택 상태로 만듭니다.
@@ -264,8 +263,8 @@ class WishInsertFragment : Fragment() {
     private fun updateCategoryButtons(selectedButton: Button, allButtons: Array<Button>) {
         val pinkColor = ContextCompat.getColor(requireContext(), R.color.pink)
         val changeTextColor = ContextCompat.getColor(requireContext(), R.color.white)
-        val transparentColor = ContextCompat.getColor(requireContext(), R.color.ivory)
-        val originalTextColor = ContextCompat.getColor(requireContext(), R.color.black)
+        val transparentColor = ContextCompat.getColor(requireContext(), R.color.white)
+        val originalTextColor = ContextCompat.getColor(requireContext(), R.color.wishbunny_gray500)
 
         for (button in allButtons) {
             if (button == selectedButton) {

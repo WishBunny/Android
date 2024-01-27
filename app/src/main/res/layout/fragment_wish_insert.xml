@@ -4,87 +4,139 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="horizontal" >
 
-        <View
-            android:id="@+id/some_id"
-            android:layout_width="match_parent"
-            android:layout_height="39dp"
-            android:layout_marginStart="22dp"
-            android:layout_marginEnd="22dp"
-            android:layout_marginTop="153dp"
-            android:background="@drawable/some_id" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="52dp"
+            android:fontFamily="@font/spoqahansansneo_bold"
+            android:text="작은 것부터\n시작해보세요!"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/back" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_emoji"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="15dp"
+            app:cardCornerRadius="75dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title">
+
+            <TextView
+                android:id="@+id/tv_emoji"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@color/wishbunny_background" />
+
+        </androidx.cardview.widget.CardView>
+
+
+        <ImageButton
+            android:id="@+id/back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/arrow_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="39dp"
-            android:layout_marginStart="22dp"
-            android:layout_marginEnd="22dp"
-            android:layout_marginTop="153dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="20dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cv_emoji">
 
             <Button
                 android:id="@+id/to_do"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:backgroundTint="@color/ivory"
-                android:textColor="@color/black"
+                android:backgroundTint="@color/wishbunny_pink"
                 android:text="@string/want_do"
-                />
+                android:textColor="@color/wishbunny_white"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/to_eat"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:backgroundTint="@color/ivory"
-                android:textColor="@color/black"
-                android:text="@string/want_eat" />
+                android:backgroundTint="@color/wishbunny_white"
+                android:text="@string/want_eat"
+                android:textColor="@color/wishbunny_gray500"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/to_get"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:backgroundTint="@color/ivory"
-                android:textColor="@color/black"
-                android:text="@string/want_get" />
+                android:backgroundTint="@color/wishbunny_white"
+                android:text="@string/want_get"
+                android:textColor="@color/wishbunny_gray500"
+                android:textStyle="bold" />
         </LinearLayout>
 
-        <View
+
+        <EditText
+            android:id="@+id/content"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="22dp"
-            android:layout_marginEnd="22dp"
-            android:layout_marginTop="380dp"
-            android:background="@drawable/select_day"
-            />
+            android:layout_height="100dp"
+            android:background="@drawable/content_id"
+            android:ems="10"
+            android:hint="@string/wish_content"
+            android:padding="20dp"
+            android:textSize="16sp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="22dp"
-            android:layout_marginTop="380dp"
-            android:layout_marginEnd="22dp"
-            android:orientation="horizontal">
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="20dp"
+            android:background="@drawable/select_day"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
             <ImageButton
                 android:id="@+id/btnOpenCalendar"
                 android:layout_width="33dp"
                 android:layout_height="33dp"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/img_date"
+                android:background="@drawable/ic_calendar"
                 android:onClick="onCalendarButtonClick" />
 
             <TextView
                 android:id="@+id/tvSelectedDate"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="13dp"
-                android:layout_marginStart="10dp"
+                android:layout_weight="1"
                 android:hint="@string/select_date"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
@@ -94,17 +146,20 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="11dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/cancel" />
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/ic_reset" />
 
         </LinearLayout>
 
         <HorizontalScrollView
+            android:id="@+id/horizontalScrollView"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="22dp"
-            android:layout_marginEnd="22dp"
-            android:layout_marginTop="460dp">
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/insert"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -116,125 +171,104 @@
                     android:id="@+id/hashtagButton1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:backgroundTint="@color/wishbunny_background"
                     android:onClick="onHashtagButtonClick"
-                    android:backgroundTint="@color/ivory"
-                    android:textColor="@color/black"
-                    android:text="#여행" />
+                    android:text="#여행"
+                    android:textColor="@color/wishbunny_gray500"
+                    android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/hashtagButton2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:backgroundTint="@color/wishbunny_background"
                     android:onClick="onHashtagButtonClick"
-                    android:backgroundTint="@color/ivory"
-                    android:textColor="@color/black"
-                    android:text="#데이트" />
+                    android:text="#데이트"
+                    android:textColor="@color/wishbunny_gray500"
+                    android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/hashtagButton3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:backgroundTint="@color/wishbunny_background"
                     android:onClick="onHashtagButtonClick"
-                    android:backgroundTint="@color/ivory"
-                    android:textColor="@color/black"
-                    android:text="#취업" />
+                    android:text="#취업"
+                    android:textColor="@color/wishbunny_gray500"
+                    android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/hashtagButton4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:backgroundTint="@color/wishbunny_background"
                     android:onClick="onHashtagButtonClick"
-                    android:backgroundTint="@color/ivory"
-                    android:textColor="@color/black"
-                    android:text="#운동" />
+                    android:text="#운동"
+                    android:textColor="@color/wishbunny_gray500"
+                    android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/hashtagButton5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:backgroundTint="@color/wishbunny_background"
                     android:onClick="onHashtagButtonClick"
-                    android:backgroundTint="@color/ivory"
-                    android:textColor="@color/black"
-                    android:text="#자기계발" />
+                    android:text="#자기계발"
+                    android:textColor="@color/wishbunny_gray500"
+                    android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/hashtagButton6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:backgroundTint="@color/wishbunny_background"
                     android:onClick="onHashtagButtonClick"
-                    android:backgroundTint="@color/ivory"
-                    android:textColor="@color/black"
-                    android:text="#맛집" />
+                    android:text="#맛집"
+                    android:textColor="@color/wishbunny_gray500"
+                    android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/hashtagButton7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:backgroundTint="@color/wishbunny_background"
                     android:onClick="onHashtagButtonClick"
-                    android:backgroundTint="@color/ivory"
-                    android:textColor="@color/black"
-                    android:text="#스터디" />
+                    android:text="#스터디"
+                    android:textColor="@color/wishbunny_gray500"
+                    android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/hashtagButton8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:backgroundTint="@color/wishbunny_background"
                     android:onClick="onHashtagButtonClick"
-                    android:backgroundTint="@color/ivory"
-                    android:textColor="@color/black"
-                    android:text="#일상" />
+                    android:text="#일상"
+                    android:textColor="@color/wishbunny_gray500"
+                    android:textStyle="bold" />
             </LinearLayout>
         </HorizontalScrollView>
 
-        <ImageView
-            android:id="@+id/imageView7"
-            android:layout_width="108dp"
-            android:layout_height="115dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"
-            app:srcCompat="@drawable/img" />
-
-
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="59dp"
-            android:layout_marginStart="160dp"
-            android:layout_marginTop="80dp"
-            android:text="@string/some_id"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/insert"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="160dp"
-            android:layout_marginTop="530dp"
-            android:layout_marginEnd="20dp"
-            android:backgroundTint="@color/pink"
-            android:text="@string/insert" />
+            android:layout_marginVertical="20dp"
+            android:background="@drawable/button_border_white"
+            android:text="@string/insert"
+            android:textColor="@color/wishbunny_pink"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-        <EditText
-            android:id="@+id/content"
-            android:layout_width="match_parent"
-            android:layout_height="130dp"
-            android:layout_marginStart="22dp"
-            android:layout_marginEnd="22dp"
-            android:layout_marginTop="220dp"
-            android:background="@drawable/content_id"
-            android:ems="10"
-            android:textSize="17sp"
-            android:hint="@string/wish_content" />
-
-        <ImageButton
-            android:id="@+id/back"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/arrow_back" />
-
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
