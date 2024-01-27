@@ -50,13 +50,14 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
             loadMyProfileInfo(retrofitAPI, view)
         }
         else{
-            loadWishList("NOSET", writerNo.toString(),accessToken,"do")
+            loadWishList("n", writerNo.toString(),accessToken,"do")
             loadDoneWishSize(view, writerNo.toString())
             btnClickEvent(view)
             //지금까지 완료한 리스트 확인하기
             val donsListSize = view.findViewById<Button>(R.id.GetDoneButton)
             donsListSize.setOnClickListener {
-                loadWishList("Y", writerNo.toString(),accessToken,"")
+                Log.d("테스트","테스트");
+                loadWishList("Y", writerNo.toString(),accessToken,"do")
             }
         }
     }
@@ -83,7 +84,8 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
                             //지금까지 완료한 리스트 확인하기
                             val donsListSize = view.findViewById<Button>(R.id.GetDoneButton)
                             donsListSize.setOnClickListener {
-                                loadWishList("Y", writerNo.toString(),accessToken,"")
+                                Log.d("테스트2", writerNo.toString());
+                                loadWishList("Y", writerNo.toString(),accessToken,"do")
                             }
                         }
                     } else {
