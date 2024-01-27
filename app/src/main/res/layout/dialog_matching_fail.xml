@@ -22,7 +22,7 @@
             android:layout_marginEnd="8dp"
             android:text="초대 코드를 잘못 입력하셨습니다"
             android:textColor="@android:color/black"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:textStyle="normal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
