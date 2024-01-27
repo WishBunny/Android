@@ -91,6 +91,7 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
                                 val originalTextColor = ContextCompat.getColor(requireContext(), R.color.black) // 원래의 글
                                 binding.GetDoneButton.setBackgroundResource(R.drawable.button_border_pink)
                                 binding.GetDoneButton.setTextColor(changeTextColor) // 글자색을 원래대로
+                                binding.tvAcheivetext.setText("지금까지 이룬 것들")
                                 binding.button1.setBackgroundColor(transparentColor) // 다른 버튼은 원래 색으로
                                 binding.button1.setTextColor(originalTextColor)
                                 binding.button2.setBackgroundColor(transparentColor)
@@ -137,6 +138,7 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
         binding.button1.setOnClickListener{
             binding.GetDoneButton.setBackgroundResource(R.drawable.button_border)
             binding.GetDoneButton.setTextColor(pinkColor)
+            binding.tvAcheivetext.setText("꼭 이룰 거예요")
             binding.button1.setBackgroundColor(pinkColor) // 핑크색으로 변경
             binding.button1.setTextColor(changeTextColor) // 글자색을 원래대로
             binding.button2.setBackgroundColor(transparentColor) // 다른 버튼은 원래 색으로
@@ -151,6 +153,7 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
         binding.button2.setOnClickListener {
             binding.GetDoneButton.setBackgroundResource(R.drawable.button_border)
             binding.GetDoneButton.setTextColor(pinkColor)
+            binding.tvAcheivetext.setText("꼭 이룰 거예요")
             binding.button2.setBackgroundColor(pinkColor)
             binding.button2.setTextColor(changeTextColor) // 글자색을 원래대로
             binding.button1.setBackgroundColor(transparentColor) // 다른 버튼은 원래 색으로
@@ -166,6 +169,7 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
         binding.button3.setOnClickListener {
             binding.GetDoneButton.setBackgroundResource(R.drawable.button_border)
             binding.GetDoneButton.setTextColor(pinkColor)
+            binding.tvAcheivetext.setText("꼭 이룰 거예요")
             binding.button3.setBackgroundColor(pinkColor)
             binding.button3.setTextColor(changeTextColor) // 글자색을 원래대로
             binding.button1.setBackgroundColor(transparentColor) // 다른 버튼은 원래 색으로
