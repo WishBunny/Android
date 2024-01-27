@@ -149,6 +149,8 @@ class CustomAdapter(private val context: Context, private val wishItemList: List
         }
 
         private fun calculateDDay(deadlineDt: String): String {
+            if (deadlineDt == null)
+                return ""
             val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
             val targetDate = LocalDate.parse(deadlineDt, dateFormatter)
 
@@ -158,7 +160,9 @@ class CustomAdapter(private val context: Context, private val wishItemList: List
             //남은 일수 계산
             val daysRemaining = ChronoUnit.DAYS.between(currentDate, targetDate)
 
-            if(daysRemaining>= 0)
+            if (daysRemaining == 0L)
+                return "D-Day"
+            else if(daysRemaining >= 0)
                 return "D-${daysRemaining.toString()}"
             else
                 return "D+${Math.abs(daysRemaining).toString()}"
