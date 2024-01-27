@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--
+        작성자: 엄상은
+        처리 내용: 카카오 로그인 뷰 작성
+    -->
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:text="당신의 소망을\n위시버니와\n나눠주세요"
+        android:fontFamily="@font/spoqahansansneo_bold"
+        android:textSize="36sp"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/wish_bunny_logo"
+        android:layout_width="202dp"
+        android:layout_height="228dp"
+        app:layout_constraintBottom_toTopOf="@+id/kakao_login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:srcCompat="@drawable/wish_bunny" />
+
+    <ImageView
+        android:id="@+id/kakao_login"
+        android:layout_width="212dp"
+        android:layout_height="54dp"
+        android:layout_marginBottom="108dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/kakao_login_medium_narrow" />
+</androidx.constraintlayout.widget.ConstraintLayout>
