@@ -11,34 +11,54 @@
         android:id="@+id/buketBasText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="16dp"
-        android:text="토리 2님의 버킷리스트"
-        android:textSize="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:text="토리"
+        android:textSize="23sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="7dp"
+        android:text="님이"
+        android:textSize="23sp"
+        app:layout_constraintStart_toEndOf="@+id/buketBasText"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_want_to_do"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="꼭 이룰 거예요"
+        android:textSize="23sp"
+        app:layout_constraintStart_toStartOf="@+id/buketBasText"
+        app:layout_constraintTop_toBottomOf="@+id/buketBasText" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/GetDoneButton"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
-        android:text="지금까지 0개를 이뤘어요!"
-        android:layout_marginTop="20dp"
-        app:layout_constraintStart_toStartOf="@+id/buketBasText"
-        app:layout_constraintTop_toBottomOf="@+id/buketBasText"
-        android:paddingHorizontal="20dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/button_border"
+        android:paddingHorizontal="20dp"
+        android:text="지금까지 1개를 이뤘어요!"
+        android:textColor="@color/wishbunny_pink"
         android:textStyle="bold"
-        android:textColor="@color/wishbunny_pink"/>
+        app:layout_constraintStart_toStartOf="@+id/buketBasText"
+        app:layout_constraintTop_toBottomOf="@+id/tv_want_to_do" />
 
     <LinearLayout
         android:id="@+id/buttonLayout"
         android:layout_width="0dp"
         android:layout_height="39dp"
         android:layout_marginTop="16dp"
-        android:layout_marginStart="22dp"
-        android:layout_marginEnd="22dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@+id/GetDoneButton"
         app:layout_constraintStart_toStartOf="parent"

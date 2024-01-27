@@ -128,6 +128,10 @@ class WishInsertFragment : Fragment() {
             showDatePicker()
         }
 
+        view.findViewById<TextView>(R.id.tvSelectedDate).setOnClickListener {
+            showDatePicker()
+        }
+
         view.findViewById<ImageButton>(R.id.reset).setOnClickListener {
             resetDate()
         }
@@ -171,7 +175,8 @@ class WishInsertFragment : Fragment() {
                 content = text_content.text.toString(),
                 deadlineDt = tvSelectedDate.text.toString(),
                 notifyYn = "Y",
-                tagNo = selectedHashtag
+                tagNo = selectedHashtag,
+                emoji = editText.text.toString()
             )
 
             // Retrofit 인스턴스 생성 예시
@@ -237,7 +242,7 @@ class WishInsertFragment : Fragment() {
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-        DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
+        DatePickerDialog(requireContext(), R.style.WishbunnyDatePickerDialogTheme, { _, selectedYear, selectedMonth, selectedDay ->
             val selectedDate = Calendar.getInstance()
             selectedDate.set(selectedYear, selectedMonth, selectedDay)
             val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())

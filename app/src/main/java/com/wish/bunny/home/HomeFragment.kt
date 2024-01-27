@@ -160,7 +160,7 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
     }
     private fun setMyProfileInfo(it: ProfileGetResponse, view: View) : String {
         Log.d("setMyProfileInfo",it.data.toString())
-        view.findViewById<TextView>(R.id.buketBasText).text = it.data.nickname+"님의 버킷 리스트 "
+        view.findViewById<TextView>(R.id.buketBasText).text = it.data.nickname
         writerNo = it.data.memberId
         Log.d("writerNo: ", writerNo.toString());
         return it.data.memberId
