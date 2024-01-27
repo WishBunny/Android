@@ -11,26 +11,26 @@
         android:id="@+id/buketBasText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="16dp"
         android:text="토리 2님의 버킷리스트"
         android:textSize="30dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/GetDoneButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:text="지금까지 0개를 이뤘어요!"
         android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="@+id/buketBasText"
         app:layout_constraintTop_toBottomOf="@+id/buketBasText"
-        android:background="@color/midPink"
-        android:padding="10dp"
-        android:radius="8dp" />
+        android:paddingHorizontal="20dp"
+        android:background="@drawable/button_border"
+        android:textStyle="bold"
+        android:textColor="@color/wishbunny_pink"/>
 
     <LinearLayout
         android:id="@+id/buttonLayout"
