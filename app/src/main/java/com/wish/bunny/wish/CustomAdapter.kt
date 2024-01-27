@@ -132,7 +132,7 @@ class CustomAdapter(private val context: Context, private val wishItemList: List
 
 
             content.text = wishItem.content
-           // dDay.text = calculateDDay(wishItem.deadlineDt)
+            dDay.text = calculateDDay(wishItem.deadlineDt)
             tag1.text = wishItem.tagContents
          
             //로그인 아이디와 작성자가 다른 경우 완료버튼 안보이게
