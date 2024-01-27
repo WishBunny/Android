@@ -176,7 +176,7 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
                     Log.d("loadDoneWishSize", wishMapResult.size.toString())
                     // GetDoneButton을 찾아 텍스트 변경
                     val donsListSize = view.findViewById<Button>(R.id.GetDoneButton)
-                    donsListSize.text="지금까지"+wishMapResult.size.toString()+"개를 이뤘어요!"
+                    donsListSize.text="지금까지 "+wishMapResult.size.toString()+"개를 이뤘어요!"
                 } else {
                     Log.d("loadDoneWishSize", "서버 응답이 null입니다.")
                 }
