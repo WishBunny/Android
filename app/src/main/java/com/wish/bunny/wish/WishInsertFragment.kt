@@ -186,9 +186,14 @@ class WishInsertFragment : Fragment() {
                     if (response.isSuccessful) {
                         // 서버로부터 정상적인 응답을 받았을 때의 처리
                         Toast.makeText(requireContext(), "성공적으로 값을 전달했습니다", Toast.LENGTH_SHORT).show()
+                        val homeFragment = HomeFragment().apply {
+                            arguments = Bundle().apply {
+                                putString("isMine", "1")
+                            }
+                        }
                         val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
                         val transaction: FragmentTransaction = fragmentManager.beginTransaction()
-                        transaction.replace(R.id.fragment_container, HomeFragment()).commit()
+                        transaction.replace(R.id.fragment_container, homeFragment).commit()
                     } else {
                         // 서버로부터 정상적인 응답을 받지 못했을 때의 처리
                         Toast.makeText(
@@ -202,9 +207,14 @@ class WishInsertFragment : Fragment() {
                 override fun onFailure(call: Call<Response<Message>>, t: Throwable) {
                     // 네트워크 요청 자체가 실패했을 때의 처리
                     t.printStackTrace()
+                    val homeFragment = HomeFragment().apply {
+                        arguments = Bundle().apply {
+                            putString("isMine", "1")
+                        }
+                    }
                     val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
                     val transaction: FragmentTransaction = fragmentManager.beginTransaction()
-                    transaction.replace(R.id.fragment_container, HomeFragment()).commit()
+                    transaction.replace(R.id.fragment_container, homeFragment).commit()
                 }
             })
         }
