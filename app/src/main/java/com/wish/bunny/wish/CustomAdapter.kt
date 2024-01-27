@@ -113,7 +113,7 @@ class CustomAdapter(private val context: Context, private val wishItemList: List
 
                     if (wishMapResult != null) {
                         // updateUI(wishMapResult.list)
-                        Log.d("doneWishDetail", wishMapResult.result.toString())
+                        //Log.d("doneWishDetail", wishMapResult.result.toString())
                     } else {
                         Log.d("doneWishDetail", "서버 응답이 null입니다.")
                     }
