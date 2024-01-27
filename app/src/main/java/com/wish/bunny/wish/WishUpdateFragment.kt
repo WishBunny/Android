@@ -43,6 +43,7 @@ class WishUpdateFragment : Fragment() {
     private lateinit var text_content: EditText
     private var selectedButton: Button? = null
     private lateinit var hashtagNo: String
+    private var loadedWishDetailFromServer: WishItem? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -171,12 +172,17 @@ class WishUpdateFragment : Fragment() {
             val btn_update: Button = view.findViewById(R.id.update)
 
             btn_update.setOnClickListener {
+                val updatedContent = if (text_content.text.isEmpty()) loadedWishDetailFromServer?.content ?: "" else text_content.text.toString()
+                val updatedDate = if (tvSelectedDate.text.isEmpty()) loadedWishDetailFromServer?.deadlineDt ?: "" else tvSelectedDate.text.toString()
+                val updatedCategory = if (selectedCategory.isEmpty()) loadedWishDetailFromServer?.category ?: "" else selectedCategory
+                val updatedHashtag = if (selectedHashtag.isEmpty()) loadedWishDetailFromServer?.tagNo ?: "" else selectedHashtag
+
                 val wvo2 = WishVo2(
-                    category = selectedCategory,
-                    content = text_content.text.toString(),
-                    deadlineDt = tvSelectedDate.text.toString(),
-                    notifyYn = "Y",
-                    tagNo = selectedHashtag,
+                    category = updatedCategory,
+                    content = updatedContent,
+                    deadlineDt = updatedDate,
+                    notifyYn = "y",
+                    tagNo = updatedHashtag,
                     deleteTag = hashtagNo
                 )
 
@@ -206,9 +212,14 @@ class WishUpdateFragment : Fragment() {
                         if (response.isSuccessful) {
                             // 서버로부터 정상적인 응답을 받았을 때의 처리
                             Toast.makeText(requireContext(), "성공적으로 값을 전달했습니다", Toast.LENGTH_SHORT).show()
+                            val homeFragment = HomeFragment().apply {
+                                arguments = Bundle().apply {
+                                    putString("isMine", "1")
+                                }
+                            }
                             val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
                             val transaction: FragmentTransaction = fragmentManager.beginTransaction()
-                            transaction.replace(R.id.fragment_container, HomeFragment()).commit()
+                            transaction.replace(R.id.fragment_container, homeFragment).commit()
                         } else {
                             // 서버로부터 정상적인 응답을 받지 못했을 때의 처리
                             Toast.makeText(
@@ -222,9 +233,14 @@ class WishUpdateFragment : Fragment() {
                     override fun onFailure(call: Call<Response<Message>>, t: Throwable) {
                         // 네트워크 요청 자체가 실패했을 때의 처리
                         t.printStackTrace()
+                        val homeFragment = HomeFragment().apply {
+                            arguments = Bundle().apply {
+                                putString("isMine", "1")
+                            }
+                        }
                         val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
                         val transaction: FragmentTransaction = fragmentManager.beginTransaction()
-                        transaction.replace(R.id.fragment_container, HomeFragment()).commit()
+                        transaction.replace(R.id.fragment_container, homeFragment).commit()
                     }
                 })
             }
@@ -235,11 +251,30 @@ class WishUpdateFragment : Fragment() {
 
     // UI 업데이트 함수
     private fun updateUI(wishItem: WishItem) {
-        val text_content: EditText = view?.findViewById(R.id.content) ?: return
-        val tvSelectedDate: TextView = view?.findViewById(R.id.tvSelectedDate) ?: return
-        val button1: Button = view?.findViewById(R.id.to_do) ?: return
-        val button2: Button = view?.findViewById(R.id.to_eat) ?: return
-        val button3: Button = view?.findViewById(R.id.to_get) ?: return
+        val text_content: EditText = view?.findViewById(R.id.content) ?: EditText(requireContext()).apply {
+            Log.e("WishUpdateFragment", "content EditText를 찾지 못했습니다.")
+            Toast.makeText(context, "오류가 발생했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
+        }
+
+        val tvSelectedDate: TextView = view?.findViewById(R.id.tvSelectedDate) ?: TextView(requireContext()).apply {
+            Log.e("WishUpdateFragment", "tvSelectedDate TextView를 찾지 못했습니다.")
+            Toast.makeText(context, "오류가 발생했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
+        }
+
+        val button1: Button = view?.findViewById(R.id.to_do) ?: Button(requireContext()).apply {
+            Log.e("WishUpdateFragment", "to_do Button을 찾지 못했습니다.")
+            Toast.makeText(context, "오류가 발생했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
+        }
+
+        val button2: Button = view?.findViewById(R.id.to_eat) ?: Button(requireContext()).apply {
+            Log.e("WishUpdateFragment", "to_eat Button을 찾지 못했습니다.")
+            Toast.makeText(context, "오류가 발생했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
+        }
+
+        val button3: Button = view?.findViewById(R.id.to_get) ?: Button(requireContext()).apply {
+            Log.e("WishUpdateFragment", "to_get Button을 찾지 못했습니다.")
+            Toast.makeText(context, "오류가 발생했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
+        }
         val categoryButtons = arrayOf(button1, button2, button3)
 
         // 서버로부터 받은 데이터로 UI 업데이트
@@ -248,14 +283,46 @@ class WishUpdateFragment : Fragment() {
 
         hashtagNo = wishItem.tagNo
         val hashtagButtons : Button? = when (hashtagNo) {
-            "1" -> view?.findViewById(R.id.hashtagButton1)
-            "2" -> view?.findViewById(R.id.hashtagButton2)
-            "3" -> view?.findViewById(R.id.hashtagButton3)
-            "4" -> view?.findViewById(R.id.hashtagButton4)
-            "5" -> view?.findViewById(R.id.hashtagButton5)
-            "6" -> view?.findViewById(R.id.hashtagButton6)
-            "7" -> view?.findViewById(R.id.hashtagButton7)
-            "8" -> view?.findViewById(R.id.hashtagButton8)
+            "1" -> view?.findViewById(R.id.hashtagButton1) ?: run {
+                Log.e("WishUpdateFragment", "hashtagButton1을 찾지 못했습니다.")
+                Toast.makeText(context, "오류가 발생했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
+                Button(requireContext())
+            }
+            "2" -> view?.findViewById(R.id.hashtagButton2) ?: run {
+                Log.e("WishUpdateFragment", "hashtagButton2을 찾지 못했습니다.")
+                Toast.makeText(context, "오류가 발생했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
+                Button(requireContext())
+            }
+            "3" -> view?.findViewById(R.id.hashtagButton3) ?: run {
+                Log.e("WishUpdateFragment", "hashtagButton3을 찾지 못했습니다.")
+                Toast.makeText(context, "오류가 발생했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
+                Button(requireContext())
+            }
+            "4" -> view?.findViewById(R.id.hashtagButton4) ?: run {
+                Log.e("WishUpdateFragment", "hashtagButton4을 찾지 못했습니다.")
+                Toast.makeText(context, "오류가 발생했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
+                Button(requireContext())
+            }
+            "5" -> view?.findViewById(R.id.hashtagButton5) ?: run {
+                Log.e("WishUpdateFragment", "hashtagButton5을 찾지 못했습니다.")
+                Toast.makeText(context, "오류가 발생했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
+                Button(requireContext())
+            }
+            "6" -> view?.findViewById(R.id.hashtagButton6) ?: run {
+                Log.e("WishUpdateFragment", "hashtagButton6을 찾지 못했습니다.")
+                Toast.makeText(context, "오류가 발생했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
+                Button(requireContext())
+            }
+            "7" -> view?.findViewById(R.id.hashtagButton7) ?: run {
+                Log.e("WishUpdateFragment", "hashtagButton7을 찾지 못했습니다.")
+                Toast.makeText(context, "오류가 발생했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
+                Button(requireContext())
+            }
+            "8" -> view?.findViewById(R.id.hashtagButton8) ?: run {
+                Log.e("WishUpdateFragment", "hashtagButton8을 찾지 못했습니다.")
+                Toast.makeText(context, "오류가 발생했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
+                Button(requireContext())
+            }
             else -> null
         }
 
@@ -315,9 +382,9 @@ class WishUpdateFragment : Fragment() {
                 val wishItem = response.body()
 
                 if (wishItem != null) {
+                    loadedWishDetailFromServer = wishItem
                     updateUI(wishItem)
                     Log.d("wishItem 수정", wishItem.toString())
-
                 } else {
                     Log.d("wishItem 수정", "서버 응답이 null입니다.")
                 }
