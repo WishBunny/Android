@@ -17,6 +17,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.wish.bunny.GlobalApplication
 import com.wish.bunny.R
+import com.wish.bunny.emoji.EmojiDialog
 import com.wish.bunny.home.HomeFragment
 import com.wish.bunny.wish.domain.Message
 import com.wish.bunny.wish.domain.WishVo
@@ -56,6 +57,16 @@ class WishInsertFragment : Fragment() {
         val button2: Button = view.findViewById(R.id.to_eat)
         val button3: Button = view.findViewById(R.id.to_get)
         val categoryButtons = arrayOf(button1, button2, button3)
+
+        // 이모지 처리: 엄상은
+        val editText = view.findViewById(R.id.tv_emoji) as TextView
+        val emojiDialog = EmojiDialog(this.requireContext())
+
+        editText.setOnClickListener {
+            emojiDialog.show { emoji ->
+                editText.setText(emoji)
+            }
+        }
 
         // 해시태그 버튼 처리
         val hashtagButton1: Button = view.findViewById(R.id.hashtagButton1)

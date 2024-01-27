@@ -36,7 +36,12 @@
                 android:id="@+id/tv_emoji"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:background="@color/wishbunny_background" />
+                android:paddingTop="20dp"
+                android:background="@color/wishbunny_background"
+                android:textSize="50sp"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="🥰"
+                android:fontFamily="@font/tossface_font"/>
 
         </androidx.cardview.widget.CardView>
 
