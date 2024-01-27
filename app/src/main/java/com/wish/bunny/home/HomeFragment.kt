@@ -28,15 +28,15 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
 
     private lateinit var binding: ActivityWishListBinding
     private var adapter: CustomAdapter? = null
-    //private val accessToken = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2ZWE3NTFmOS1lNDhlLTQ1OWEtYjYwYi02MzFkMDM4ZmUwZmIiLCJpYXQiOjE3MDYyMjgzMDMsImV4cCI6MTcwODgyMDMwM30.x7mvX8xzWhd-lzB0xooHYIH9pSJfmsgzB7fe7tJhoUI"
     private val accessToken = GlobalApplication.prefs.getString("accessToken", "")
-    //var writerNo = "6ea751f9-e48e-459a-b60b-631d038fe0fb"
-    var writerNo = arguments?.getString("writerNo")
-    val isMine = arguments?.getString("isMine")
+    var writerNo = arguments?.getString("writerNo").toString()
+    var isMine = arguments?.getString("isMine").toString()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        isMine = arguments?.getString("isMine").toString()
+        writerNo = arguments?.getString("writerNo").toString()
         binding = ActivityWishListBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -59,7 +59,6 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
                 loadWishList("Y", writerNo.toString(),accessToken,"")
             }
         }
-
     }
 
     private fun loadMyProfileInfo(retrofitAPI: MyPageService, view: View) {
