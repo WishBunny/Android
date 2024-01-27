@@ -50,13 +50,14 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
             loadMyProfileInfo(retrofitAPI, view)
         }
         else{
-            loadWishList("NOSET", writerNo.toString(),accessToken,"do")
+            loadWishList("n", writerNo.toString(),accessToken,"do")
             loadDoneWishSize(view, writerNo.toString())
             btnClickEvent(view)
             //지금까지 완료한 리스트 확인하기
             val donsListSize = view.findViewById<Button>(R.id.GetDoneButton)
             donsListSize.setOnClickListener {
-                loadWishList("Y", writerNo.toString(),accessToken,"")
+                Log.d("테스트","테스트");
+                loadWishList("Y", writerNo.toString(),accessToken,"do")
             }
         }
     }
@@ -77,13 +78,14 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
                         response.body()?.let {
                             setMyProfileInfo(it, view)
                             //프로필 정보를 가져온 후, writerNo를 변경함
-                            loadWishList("NOSET", writerNo.toString(),accessToken,"do")
+                            loadWishList("n", writerNo.toString(),accessToken,"do")
                             loadDoneWishSize(view, writerNo.toString())
                             btnClickEvent(view)
                             //지금까지 완료한 리스트 확인하기
                             val donsListSize = view.findViewById<Button>(R.id.GetDoneButton)
                             donsListSize.setOnClickListener {
-                                loadWishList("Y", writerNo.toString(),accessToken,"")
+                                Log.d("테스트2", writerNo.toString());
+                                loadWishList("Y", writerNo.toString(),accessToken,"do")
                             }
                         }
                     } else {
@@ -126,7 +128,7 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
             binding.button3.setBackgroundColor(transparentColor)
             binding.button3.setTextColor(originalTextColor)
             if(writerNo!= null){
-                loadWishList("NOSET", writerNo.toString(),accessToken,"do")
+                loadWishList("n", writerNo.toString(),accessToken,"do")
             }
         }
 
@@ -138,7 +140,7 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
             binding.button3.setBackgroundColor(transparentColor)
             binding.button3.setTextColor(originalTextColor)
             if(writerNo!= null){
-                loadWishList("NOSET", writerNo.toString(),accessToken,"eat")
+                loadWishList("n", writerNo.toString(),accessToken,"eat")
             }
 
         }
@@ -151,7 +153,7 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
             binding.button2.setBackgroundColor(transparentColor)
             binding.button2.setTextColor(originalTextColor)
             if(writerNo!= null){
-                loadWishList("NOSET", writerNo.toString(),accessToken,"get")
+                loadWishList("n", writerNo.toString(),accessToken,"get")
             }
 
         }
