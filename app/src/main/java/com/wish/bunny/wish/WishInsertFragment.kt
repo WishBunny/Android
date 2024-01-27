@@ -135,7 +135,7 @@ class WishInsertFragment : Fragment() {
         val text_content: EditText = view.findViewById(R.id.content)
         val tvSelectedDate: TextView = view.findViewById(R.id.tvSelectedDate)
 
-        var selectedCategory = ""
+        var selectedCategory = "do"
 
         button1.setOnClickListener {
             selectedCategory = "do"
