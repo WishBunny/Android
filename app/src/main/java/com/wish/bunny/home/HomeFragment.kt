@@ -28,10 +28,10 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
 
     private lateinit var binding: ActivityWishListBinding
     private var adapter: CustomAdapter? = null
-    //    private val accessToken = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2ZWE3NTFmOS1lNDhlLTQ1OWEtYjYwYi02MzFkMDM4ZmUwZmIiLCJpYXQiOjE3MDYyMjgzMDMsImV4cCI6MTcwODgyMDMwM30.x7mvX8xzWhd-lzB0xooHYIH9pSJfmsgzB7fe7tJhoUI"
+    //private val accessToken = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2ZWE3NTFmOS1lNDhlLTQ1OWEtYjYwYi02MzFkMDM4ZmUwZmIiLCJpYXQiOjE3MDYyMjgzMDMsImV4cCI6MTcwODgyMDMwM30.x7mvX8xzWhd-lzB0xooHYIH9pSJfmsgzB7fe7tJhoUI"
     private val accessToken = GlobalApplication.prefs.getString("accessToken", "")
-    //    private val writerNo = "6ea751f9-e48e-459a-b60b-631d038fe0fb"
-    val writerNo = arguments?.getString("writerNo")
+    //var writerNo = "6ea751f9-e48e-459a-b60b-631d038fe0fb"
+    var writerNo = arguments?.getString("writerNo")
     val isMine = arguments?.getString("isMine")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,21 +47,19 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
 
         if(isMine.equals("1")){
             val retrofitAPI = RetrofitConnection.getInstance().create(MyPageService::class.java)
-            //loadMyProfileInfo(retrofitAPI)
-        }else{
-            val retrofitAPI = RetrofitConnection.getInstance().create(MyPageService::class.java)
-            //loadMyProfileInfo(retrofitAPI, view)
+            loadMyProfileInfo(retrofitAPI, view)
         }
-        if(writerNo!= null){
-            loadWishList("NOSET",writerNo,accessToken,"do")
-            loadDoneWishSize(view, writerNo)
+        else{
+            loadWishList("NOSET", writerNo.toString(),accessToken,"do")
+            loadDoneWishSize(view, writerNo.toString())
             btnClickEvent(view)
             //지금까지 완료한 리스트 확인하기
             val donsListSize = view.findViewById<Button>(R.id.GetDoneButton)
             donsListSize.setOnClickListener {
-                loadWishList("Y",writerNo,accessToken,"")
+                loadWishList("Y", writerNo.toString(),accessToken,"")
             }
         }
+
     }
 
     private fun loadMyProfileInfo(retrofitAPI: MyPageService, view: View) {
@@ -77,7 +75,18 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
                     if (response.isSuccessful) {
                         Log.d("loadMyProfileInfo", "프로필 정보 불러오기 성공")
                         Log.d("loadMyProfileInfo",response. message());
-                        response.body()?.let { setMyProfileInfo(it, view) }
+                        response.body()?.let {
+                            setMyProfileInfo(it, view)
+                            //프로필 정보를 가져온 후, writerNo를 변경함
+                            loadWishList("NOSET", writerNo.toString(),accessToken,"do")
+                            loadDoneWishSize(view, writerNo.toString())
+                            btnClickEvent(view)
+                            //지금까지 완료한 리스트 확인하기
+                            val donsListSize = view.findViewById<Button>(R.id.GetDoneButton)
+                            donsListSize.setOnClickListener {
+                                loadWishList("Y", writerNo.toString(),accessToken,"")
+                            }
+                        }
                     } else {
                         Log.d("loadMyProfileInfo", "프로필 정보 불러오기 시도")
                         Log.d("loadMyProfileInfo", "프로필 정보 불러오기 실패")
@@ -126,7 +135,7 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
             binding.button3.setBackgroundColor(transparentColor)
             binding.button3.setTextColor(originalTextColor)
             if(writerNo!= null){
-                loadWishList("NOSET",writerNo,accessToken,"do")
+                loadWishList("NOSET", writerNo.toString(),accessToken,"do")
             }
 
         }
@@ -139,7 +148,7 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
             binding.button3.setBackgroundColor(transparentColor)
             binding.button3.setTextColor(originalTextColor)
             if(writerNo!= null){
-                loadWishList("NOSET",writerNo,accessToken,"eat")
+                loadWishList("NOSET", writerNo.toString(),accessToken,"eat")
             }
 
         }
@@ -152,12 +161,18 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
             binding.button2.setBackgroundColor(transparentColor)
             binding.button2.setTextColor(originalTextColor)
             if(writerNo!= null){
-                loadWishList("NOSET",writerNo,accessToken,"get")
+                loadWishList("NOSET", writerNo.toString(),accessToken,"get")
             }
 
         }
     }
-
+    private fun setMyProfileInfo(it: ProfileGetResponse, view: View) : String {
+        Log.d("setMyProfileInfo",it.data.toString())
+        view.findViewById<TextView>(R.id.buketBasText).text = it.data.nickname+"님의 버킷 리스트 "
+        writerNo = it.data.memberId
+        Log.d("writerNo: ", writerNo.toString());
+        return it.data.memberId
+    }
     //위시리스트 완료처리한것의 갯수 보여주기
     private fun loadDoneWishSize(view: View, writerNo :String){
         val retrofitAPI = RetrofitConnection.getInstance().create(WishService::class.java)
@@ -215,10 +230,7 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
         binding.wishListRecyclerView.layoutManager = LinearLayoutManager(requireContext())
     }
 
-    private fun setMyProfileInfo(it: ProfileGetResponse, view: View) {
-        Log.d("setMyProfileInfo",it.data.toString())
-        view.findViewById<TextView>(R.id.buketBasText).text = it.data.nickname+"님의 버킷 리스트 "
-    }
+
 
 
     override fun onDetailButtonClick(wishNo: String) {
