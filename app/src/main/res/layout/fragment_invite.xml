@@ -33,8 +33,7 @@
             android:layout_width="300dp"
             android:layout_height="200dp"
             android:layout_marginTop="60dp"
-            android:background="@color/Lightgray"
-            android:padding="16dp"
+            android:background="@color/wishbunny_gray100"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView"
@@ -44,44 +43,56 @@
                 android:id="@+id/btn_invite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="36dp"
                 android:text="@string/invite_code"
-                android:textStyle="bold"
+                android:textColor="@color/wishbunny_gray900"
                 android:textSize="18sp"
-                android:textColor="@color/Gray"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.502"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"></TextView>
 
-            <TextView
-                android:id="@+id/tv_invite_code"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="21dp"
-                android:ems="10"
-                android:inputType="text"
-                android:text="SDdfsfs234j"
-                android:textColor="@color/black"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:textAlignment="center"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_invite" />
-
-            <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_invite_copy"
-                android:layout_width="184dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/button_selector"
-                android:onClick="onClick"
-                android:text="@string/invite_copy"
-                android:textColor="@color/black"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginBottom="48dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_invite_code" />
+                tools:layout_editor_absoluteX="15dp">
+
+                <TextView
+                    android:id="@+id/tv_invite_code"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:background="@color/wishbunny_white"
+                    android:inputType="text"
+                    android:paddingVertical="12dp"
+                    android:paddingLeft="16dp"
+                    android:text="SDdfsfs234j"
+                    android:textColor="@color/wishbunny_pink"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/btn_invite_copy"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_invite_copy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_selector"
+                    android:onClick="onClick"
+                    android:text="@string/invite_copy"
+                    android:textColor="@color/wishbunny_white"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

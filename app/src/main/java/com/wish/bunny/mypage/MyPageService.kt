@@ -9,7 +9,7 @@ import retrofit2.http.Header
 import retrofit2.http.PATCH
 
 interface MyPageService {
-    @GET("member")
+    @GET("member/with-email")
     fun loadMyProfile(@Header("Authorization") accessToken: String): Call<ProfileGetResponse>
 
     @PATCH("member")

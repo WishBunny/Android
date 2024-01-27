@@ -21,15 +21,18 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import com.wish.bunny.GlobalApplication
+import com.wish.bunny.mypage.MyPageService
+import com.wish.bunny.mypage.domain.ProfileGetResponse
 
 class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
 
     private lateinit var binding: ActivityWishListBinding
     private var adapter: CustomAdapter? = null
-//    private val accessToken = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2ZWE3NTFmOS1lNDhlLTQ1OWEtYjYwYi02MzFkMDM4ZmUwZmIiLCJpYXQiOjE3MDYyMjgzMDMsImV4cCI6MTcwODgyMDMwM30.x7mvX8xzWhd-lzB0xooHYIH9pSJfmsgzB7fe7tJhoUI"
+    //    private val accessToken = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2ZWE3NTFmOS1lNDhlLTQ1OWEtYjYwYi02MzFkMDM4ZmUwZmIiLCJpYXQiOjE3MDYyMjgzMDMsImV4cCI6MTcwODgyMDMwM30.x7mvX8xzWhd-lzB0xooHYIH9pSJfmsgzB7fe7tJhoUI"
     private val accessToken = GlobalApplication.prefs.getString("accessToken", "")
-//    private val writerNo = "6ea751f9-e48e-459a-b60b-631d038fe0fb"
+    //    private val writerNo = "6ea751f9-e48e-459a-b60b-631d038fe0fb"
     val writerNo = arguments?.getString("writerNo")
+    val isMine = arguments?.getString("isMine")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,6 +44,14 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         defaultClick(view)
+
+        if(isMine.equals("1")){
+            val retrofitAPI = RetrofitConnection.getInstance().create(MyPageService::class.java)
+            //loadMyProfileInfo(retrofitAPI)
+        }else{
+            val retrofitAPI = RetrofitConnection.getInstance().create(MyPageService::class.java)
+            //loadMyProfileInfo(retrofitAPI, view)
+        }
         if(writerNo!= null){
             loadWishList("NOSET",writerNo,accessToken,"do")
             loadDoneWishSize(view, writerNo)
@@ -52,6 +63,34 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
             }
         }
     }
+
+    private fun loadMyProfileInfo(retrofitAPI: MyPageService, view: View) {
+        Log.d("loadMyProfileInfo", "프로필 정보 불러오기 시도")
+        Log.d("loadMyProfileInfo", accessToken)
+        accessToken?.let {
+            retrofitAPI.loadMyProfile(it).enqueue(object:
+                Callback<ProfileGetResponse> {
+                override fun onResponse(
+                    call: Call<ProfileGetResponse>,
+                    response: Response<ProfileGetResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        Log.d("loadMyProfileInfo", "프로필 정보 불러오기 성공")
+                        Log.d("loadMyProfileInfo",response. message());
+                        response.body()?.let { setMyProfileInfo(it, view) }
+                    } else {
+                        Log.d("loadMyProfileInfo", "프로필 정보 불러오기 시도")
+                        Log.d("loadMyProfileInfo", "프로필 정보 불러오기 실패")
+                    }
+                }
+                override fun onFailure(call: Call<ProfileGetResponse>, t: Throwable) {
+                    t.printStackTrace()
+                }
+            })
+        }
+    }
+
+
     private fun defaultClick(view: View){
         val button1: Button = view.findViewById(R.id.button1)
         val button2: Button = view.findViewById(R.id.button2)
@@ -62,12 +101,12 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
         val transparentColor = ContextCompat.getColor(requireContext(), R.color.ivory)
         val originalTextColor = ContextCompat.getColor(requireContext(), R.color.black) // 원래의 글
 
-        button1.setBackgroundColor(pinkColor) // 핑크색으로 변경
-        button1.setTextColor(changeTextColor) // 글자색을 원래대로
-        button2.setBackgroundColor(transparentColor) // 다른 버튼은 원래 색으로
-        button2.setTextColor(originalTextColor)
-        button3.setBackgroundColor(transparentColor)
-        button3.setTextColor(originalTextColor)
+        binding.button1.setBackgroundColor(pinkColor) // 핑크색으로 변경
+        binding.button1.setTextColor(changeTextColor) // 글자색을 원래대로
+        binding.button2.setBackgroundColor(transparentColor) // 다른 버튼은 원래 색으로
+        binding.button2.setTextColor(originalTextColor)
+        binding.button3.setBackgroundColor(transparentColor)
+        binding.button3.setTextColor(originalTextColor)
     }
     private fun btnClickEvent(view: View) {
         val button1: Button = view.findViewById(R.id.button1)
@@ -79,39 +118,39 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
         val transparentColor = ContextCompat.getColor(requireContext(), R.color.ivory)
         val originalTextColor = ContextCompat.getColor(requireContext(), R.color.black) // 원래의 글자색 저장
 
-        button1.setOnClickListener {
-            button1.setBackgroundColor(pinkColor) // 핑크색으로 변경
-            button1.setTextColor(changeTextColor) // 글자색을 원래대로
-            button2.setBackgroundColor(transparentColor) // 다른 버튼은 원래 색으로
-            button2.setTextColor(originalTextColor)
-            button3.setBackgroundColor(transparentColor)
-            button3.setTextColor(originalTextColor)
+        binding.button1.setOnClickListener {
+            binding.button1.setBackgroundColor(pinkColor) // 핑크색으로 변경
+            binding.button1.setTextColor(changeTextColor) // 글자색을 원래대로
+            binding.button2.setBackgroundColor(transparentColor) // 다른 버튼은 원래 색으로
+            binding.button2.setTextColor(originalTextColor)
+            binding.button3.setBackgroundColor(transparentColor)
+            binding.button3.setTextColor(originalTextColor)
             if(writerNo!= null){
                 loadWishList("NOSET",writerNo,accessToken,"do")
             }
 
         }
 
-        button2.setOnClickListener {
-            button2.setBackgroundColor(pinkColor)
-            button2.setTextColor(changeTextColor) // 글자색을 원래대로
-            button1.setBackgroundColor(transparentColor) // 다른 버튼은 원래 색으로
-            button1.setTextColor(originalTextColor)
-            button3.setBackgroundColor(transparentColor)
-            button3.setTextColor(originalTextColor)
+        binding.button2.setOnClickListener {
+            binding.button2.setBackgroundColor(pinkColor)
+            binding.button2.setTextColor(changeTextColor) // 글자색을 원래대로
+            binding.button1.setBackgroundColor(transparentColor) // 다른 버튼은 원래 색으로
+            binding.button1.setTextColor(originalTextColor)
+            binding.button3.setBackgroundColor(transparentColor)
+            binding.button3.setTextColor(originalTextColor)
             if(writerNo!= null){
                 loadWishList("NOSET",writerNo,accessToken,"eat")
             }
 
         }
 
-        button3.setOnClickListener {
-            button3.setBackgroundColor(pinkColor)
-            button3.setTextColor(changeTextColor) // 글자색을 원래대로
-            button1.setBackgroundColor(transparentColor) // 다른 버튼은 원래 색으로
-            button1.setTextColor(originalTextColor)
-            button2.setBackgroundColor(transparentColor)
-            button2.setTextColor(originalTextColor)
+        binding.button3.setOnClickListener {
+            binding.button3.setBackgroundColor(pinkColor)
+            binding.button3.setTextColor(changeTextColor) // 글자색을 원래대로
+            binding.button1.setBackgroundColor(transparentColor) // 다른 버튼은 원래 색으로
+            binding.button1.setTextColor(originalTextColor)
+            binding.button2.setBackgroundColor(transparentColor)
+            binding.button2.setTextColor(originalTextColor)
             if(writerNo!= null){
                 loadWishList("NOSET",writerNo,accessToken,"get")
             }
@@ -175,6 +214,12 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
         binding.wishListRecyclerView.adapter = adapter
         binding.wishListRecyclerView.layoutManager = LinearLayoutManager(requireContext())
     }
+
+    private fun setMyProfileInfo(it: ProfileGetResponse, view: View) {
+        Log.d("setMyProfileInfo",it.data.toString())
+        view.findViewById<TextView>(R.id.buketBasText).text = it.data.nickname+"님의 버킷 리스트 "
+    }
+
 
     override fun onDetailButtonClick(wishNo: String) {
         val newFragment = WishDetailFragment()
