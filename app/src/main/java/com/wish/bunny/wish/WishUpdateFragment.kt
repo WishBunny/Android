@@ -181,7 +181,7 @@ class WishUpdateFragment : Fragment() {
                     category = updatedCategory,
                     content = updatedContent,
                     deadlineDt = updatedDate,
-                    notifyYn = "y",
+                    notifyYn = "Y",
                     tagNo = updatedHashtag,
                     deleteTag = hashtagNo
                 )
