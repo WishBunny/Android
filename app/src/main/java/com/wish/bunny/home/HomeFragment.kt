@@ -87,6 +87,19 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener, Cust
                             //지금까지 완료한 리스트 확인하기
                             val donsListSize = view.findViewById<Button>(R.id.GetDoneButton)
                             donsListSize.setOnClickListener {
+                                val changeTextColor = ContextCompat.getColor(requireContext(), R.color.white)
+                                val transparentColor = ContextCompat.getColor(requireContext(), R.color.wishbunny_background)
+                                val originalTextColor = ContextCompat.getColor(requireContext(), R.color.black) // 원래의 글
+                                binding.GetDoneButton.setBackgroundResource(R.drawable.button_border_pink)
+                                binding.GetDoneButton.setTextColor(changeTextColor) // 글자색을 원래대로
+                                binding.tvAcheivetext.setText("지금까지 이룬 것들")
+                                binding.button1.setBackgroundColor(transparentColor) // 다른 버튼은 원래 색으로
+                                binding.button1.setTextColor(originalTextColor)
+                                binding.button2.setBackgroundColor(transparentColor)
+                                binding.button2.setTextColor(originalTextColor)
+                                binding.button3.setBackgroundColor(transparentColor)
+                                binding.button3.setTextColor(originalTextColor)
+
                                 setAchieveYn="Y"
                                 loadWishList(setAchieveYn, writerNo.toString(),accessToken,setCategory)
                             }
@@ -124,6 +137,9 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener, Cust
         val originalTextColor = ContextCompat.getColor(requireContext(), R.color.black) // 원래의 글자색 저장
 
         binding.button1.setOnClickListener {
+            binding.GetDoneButton.setBackgroundResource(R.drawable.button_border)
+            binding.GetDoneButton.setTextColor(pinkColor)
+            binding.tvAcheivetext.setText("꼭 이룰 거예요")
             binding.button1.setBackgroundColor(pinkColor) // 핑크색으로 변경
             binding.button1.setTextColor(changeTextColor) // 글자색을 원래대로
             binding.button2.setBackgroundColor(transparentColor) // 다른 버튼은 원래 색으로
@@ -132,11 +148,14 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener, Cust
             binding.button3.setTextColor(originalTextColor)
             setCategory ="do"
             if(writerNo!= null){
-                loadWishList(setAchieveYn, writerNo.toString(),accessToken,setCategory)
+                loadWishList("n", writerNo.toString(),accessToken,setCategory)
             }
         }
 
         binding.button2.setOnClickListener {
+            binding.GetDoneButton.setBackgroundResource(R.drawable.button_border)
+            binding.GetDoneButton.setTextColor(pinkColor)
+            binding.tvAcheivetext.setText("꼭 이룰 거예요")
             binding.button2.setBackgroundColor(pinkColor)
             binding.button2.setTextColor(changeTextColor) // 글자색을 원래대로
             binding.button1.setBackgroundColor(transparentColor) // 다른 버튼은 원래 색으로
@@ -145,12 +164,15 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener, Cust
             binding.button3.setTextColor(originalTextColor)
             setCategory ="eat"
             if(writerNo!= null){
-                loadWishList(setAchieveYn, writerNo.toString(),accessToken,setCategory)
+                loadWishList("n", writerNo.toString(),accessToken,setCategory)
             }
 
         }
 
         binding.button3.setOnClickListener {
+            binding.GetDoneButton.setBackgroundResource(R.drawable.button_border)
+            binding.GetDoneButton.setTextColor(pinkColor)
+            binding.tvAcheivetext.setText("꼭 이룰 거예요")
             binding.button3.setBackgroundColor(pinkColor)
             binding.button3.setTextColor(changeTextColor) // 글자색을 원래대로
             binding.button1.setBackgroundColor(transparentColor) // 다른 버튼은 원래 색으로
@@ -159,14 +181,14 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener, Cust
             binding.button2.setTextColor(originalTextColor)
             setCategory ="get"
             if(writerNo!= null){
-                loadWishList(setAchieveYn, writerNo.toString(),accessToken,setCategory)
+                loadWishList("n", writerNo.toString(),accessToken,setCategory)
             }
 
         }
     }
     private fun setMyProfileInfo(it: ProfileGetResponse, view: View) : String {
         Log.d("setMyProfileInfo",it.data.toString())
-        view.findViewById<TextView>(R.id.buketBasText).text = it.data.nickname+"님의 버킷 리스트 "
+        view.findViewById<TextView>(R.id.buketBasText).text = it.data.nickname
         writerNo = it.data.memberId
         Log.d("writerNo: ", writerNo.toString());
         return it.data.memberId
@@ -206,6 +228,7 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener, Cust
                     Log.d("WishList2", "불러오기 성공: ${wishMapResult.list.size} 개의 아이템")
                     Log.d("writerYn",wishMapResult.writerYn)
                     updateUI(wishMapResult.list, wishMapResult.writerYn)
+                    view?.let { loadDoneWishSize(it, writerNo.toString()) }
 
                     Log.d("WishList2", wishMapResult.list.toString())
                 } else {
