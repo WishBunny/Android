@@ -18,13 +18,16 @@ import com.amazonaws.mobileconnectors.s3.transferutility.TransferState
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility
 import com.amazonaws.services.s3.model.CannedAccessControlList
 import com.bumptech.glide.Glide
+import com.google.android.material.tabs.TabLayout
 import com.kakao.sdk.user.UserApiClient
 import com.wish.bunny.BuildConfig.AWS_BUCKET_NAME
 import com.wish.bunny.BuildConfig.AWS_REGION
 import com.wish.bunny.GlobalApplication
+import com.wish.bunny.R
 import com.wish.bunny.databinding.FragmentMypageBinding
 import com.wish.bunny.mypage.domain.ProfileGetResponse
 import com.wish.bunny.mypage.domain.ProfileUpdateRequest
+import com.wish.bunny.mypage.domain.WishCountResponse
 import com.wish.bunny.onboarding.OnboardingActivity
 import com.wish.bunny.util.RetrofitConnection
 import retrofit2.Call
@@ -32,6 +35,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
 import java.io.FileOutputStream
+import kotlin.properties.Delegates
 
 class MypageFragment : Fragment() {
 
@@ -39,9 +43,17 @@ class MypageFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val PICK_IMAGE = 1
-    var updatedImageUri : Uri? = null
+    var updatedImageUri: Uri? = null
     lateinit var memberNo: String
     lateinit var profileImgUrl: String
+
+    //이룬 위시 리스트 개수
+    var countAchievedDo: Int = 0
+    var countAchievedEat: Int = 0
+    var countAchievedGet: Int = 0
+    var countDo: Int = 0
+    var countEat: Int = 0
+    var countGet: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,16 +67,19 @@ class MypageFragment : Fragment() {
         // 통신을 위한 레트로핏 인스턴스 선언
         val retrofitAPI = RetrofitConnection.getInstance().create(MyPageService::class.java)
         loadMyProfileInfo(retrofitAPI)
+
         // 로그아웃과 관련된 버튼 세팅
         logOutSetting()
         // 닉네임 변경과 관련된 키보드 세팅
         keyboardSetting()
         // 사진 변경과 관련된 세팅
         pictureForEditSetting()
-        binding.btnConfirm.setOnClickListener{
+        binding.btnConfirm.setOnClickListener {
             Log.d("MyPageFragment", "프로필 정보 업데이트 시도")
             updateMemberInfo(retrofitAPI)
         }
+
+
         return binding.root
     }
 
@@ -100,7 +115,7 @@ class MypageFragment : Fragment() {
         retrofitAPI.updateMyProfile(
             GlobalApplication.prefs.getString("accessToken", ""),
             profileUpdateRequest
-        ).enqueue(object: Callback<ProfileGetResponse> {
+        ).enqueue(object : Callback<ProfileGetResponse> {
             override fun onResponse(
                 call: Call<ProfileGetResponse>,
                 response: Response<ProfileGetResponse>
@@ -112,6 +127,7 @@ class MypageFragment : Fragment() {
                     Log.d("updateMemberInfo", "프로필 정보 업데이트 실패")
                 }
             }
+
             override fun onFailure(call: Call<ProfileGetResponse>, t: Throwable) {
                 t.printStackTrace()
             }
@@ -230,7 +246,7 @@ class MypageFragment : Fragment() {
         var accessToken = GlobalApplication.prefs.getString("accessToken", "")
         Log.d("loadMyProfileInfo", accessToken)
         accessToken?.let {
-            retrofitAPI.loadMyProfile(it).enqueue(object:
+            retrofitAPI.loadMyProfile(it).enqueue(object :
                 Callback<ProfileGetResponse> {
                 override fun onResponse(
                     call: Call<ProfileGetResponse>,
@@ -239,11 +255,15 @@ class MypageFragment : Fragment() {
                     if (response.isSuccessful) {
                         Log.d("loadMyProfileInfo", "프로필 정보 불러오기 성공")
                         response.body()?.let { setMyProfileInfo(it) }
+
+                        //이룬 위시리스트 개수 조회
+                        countWish(retrofitAPI, memberNo)
                     } else {
                         Log.d("loadMyProfileInfo", "프로필 정보 불러오기 시도")
                         Log.d("loadMyProfileInfo", "프로필 정보 불러오기 실패")
                     }
                 }
+
                 override fun onFailure(call: Call<ProfileGetResponse>, t: Throwable) {
                     t.printStackTrace()
                 }
@@ -272,13 +292,9 @@ class MypageFragment : Fragment() {
     */
     private fun logOutSetting() {
         binding.LogoutBtn.setOnClickListener {
-            val intent = Intent(activity, OnboardingActivity::class.java)
-            startActivity(intent)
             logout()
         }
         binding.DisconnectBtn.setOnClickListener {
-            val intent = Intent(activity, OnboardingActivity::class.java)
-            startActivity(intent)
             disconnect()
         }
     }
@@ -315,8 +331,133 @@ class MypageFragment : Fragment() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    /**
+    작성자: 이혜연
+    처리 내용: 위시리스트 개수 조회
+     */
+    private fun countWish(retrofitAPI: MyPageService, memberId: String) {
+        retrofitAPI.countWish(memberId).enqueue(object :
+            Callback<WishCountResponse> {
+            override fun onResponse(
+                call: Call<WishCountResponse>,
+                response: Response<WishCountResponse>
+            ) {
+                if (response.isSuccessful) {
+                    Log.d("countWish", "위시 리스트 개수 조회 성공")
+                    response.body()?.let {
+                        Log.d("하고 싶어요 개수", it.data.toString())
+
+                        binding.tvDoCount.text = it.data.countAchievedDo.toString()
+                        binding.tvEatCount.text = it.data.countAchievedEat.toString()
+                        binding.tvGetCount.text = it.data.countAchievedGet.toString()
+
+                        Log.d("하고 싶어요 전체 개수",it.data.toString())
+
+                        countAchievedDo = it.data.countAchievedDo
+                        countAchievedEat = it.data.countAchievedEat
+                        countAchievedGet = it.data.countAchievedGet
+                        countDo = it.data.countDo
+                        countEat = it.data.countEat
+                        countGet = it.data.countGet
+
+                        Log.d("하고싶어요 전체 개수", countDo.toString())
+                        Log.d("하고싶어요 이룬 개수", countAchievedDo.toString())
+                        //탭 레이아웃
+                        val percentDo: Float =
+                            if (countDo != 0) (countAchievedDo.toFloat() / countDo.toFloat()) * 100 else 0.0f
+                        val percentEat: Float =
+                            if (countEat != 0) (countAchievedEat.toFloat() / countEat.toFloat()) * 100 else 0.0f
+                        val percentGet: Float =
+                            if (countGet != 0) (countAchievedGet.toFloat() / countGet.toFloat()) * 100 else 0.0f
+
+                        Log.d("하고싶어요 퍼센트", percentDo.toString())
+                        setTabLayout(percentDo, percentEat, percentGet)
+                    }
+                } else {
+                    Log.d("countWish", "위시 리스트 개수 조회 실패")
+                    Log.d("countWish", response.toString())
+                }
+            }
+
+            override fun onFailure(call: Call<WishCountResponse>, t: Throwable) {
+                Log.e("countWish", "Failed to execute API", t)
+                t.printStackTrace()
+            }
+        })
     }
-}
+
+    private var chartDoFragment: ChartDoFragment? = null
+
+    private fun setTabLayout(percentDo: Float, percentEat: Float, percentGet: Float) {
+
+        showChartFragment(percentDo, percentEat, percentGet)
+
+        binding.fragmentTablayout.addOnTabSelectedListener(object :
+            TabLayout.OnTabSelectedListener {
+            // tab이 선택되었을 때
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                when (tab!!.position) {
+                    0 -> {
+                        //binding.tabHistory.setBackgroundResource(R.color.pink)
+                        replaceFragment(
+                            R.id.fragment_mytab,
+                            ChartDoFragment(percentDo, percentEat, percentGet)
+                        )
+                    }
+
+                    1 -> {
+                        //binding.tabBadge.setBackgroundResource(R.color.white)
+                        replaceFragment(
+                            R.id.fragment_mytab,
+                            ChartEatFragment(percentDo, percentEat, percentGet)
+                        )
+                    }
+                    2 -> {
+                        replaceFragment(
+                            R.id.fragment_mytab,
+                            ChartGetFragment(percentDo, percentEat, percentGet)
+                        )
+                    }
+                }
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+            }
+        })
+    }
+
+    private fun replaceFragment(containerId: Int, fragment: Fragment) {
+        try {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(containerId, fragment)
+                .addToBackStack(null)
+                .commit()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Log.e("replaceFragment", "Fragment transaction failed: ${e.message}")
+        }
+    }
+
+    private fun showChartFragment(percentDo: Float, percentEat: Float, percentGet: Float) {
+        if (chartDoFragment == null) {
+            // 프래그먼트가 생성되지 않았다면 생성하고 추가
+            chartDoFragment = ChartDoFragment(percentDo, percentEat, percentGet)
+            requireActivity().supportFragmentManager.beginTransaction()
+                .add(R.id.fragment_mytab, chartDoFragment!!)
+                .commit()
+        } else {
+            // 이미 생성된 프래그먼트가 있다면 show를 호출하여 보여줌
+            requireActivity().supportFragmentManager.beginTransaction()
+                .show(chartDoFragment!!)
+                .commit()
+        }
+    }
+        override fun onDestroyView() {
+            super.onDestroyView()
+            _binding = null
+        }
+    }

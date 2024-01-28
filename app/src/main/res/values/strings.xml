@@ -56,4 +56,10 @@
     <string name="match">초대받은 코드를\n 붙여넣거나 입력해주세요</string>
     <string name="match_input">초대코드를 입력해주세요</string>
     <string name="match_start">위시버니와 함께 하기</string>
+
+    <!-- 마이 페이지 -->
+    <string name="wish_do">하고 싶어요</string>
+    <string name="wish_eat">먹고 싶어요</string>
+    <string name="wish_get">갖고 싶어요</string>
+
 </resources>

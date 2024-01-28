@@ -36,7 +36,6 @@
                 android:id="@+id/iv_success"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/smilerabbit"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/tv_success"

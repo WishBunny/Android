@@ -7,15 +7,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wish.bunny.GlobalApplication
 import com.wish.bunny.R
+import com.wish.bunny.alarm.AlarmFunctions
 import com.wish.bunny.common.ConfirmDialog
 import com.wish.bunny.databinding.FragmentFriendBinding
-import com.wish.bunny.friend.domain.FriendDeleteRequest
 import com.wish.bunny.friend.domain.FriendDeleteResponse
 import com.wish.bunny.friend.domain.FriendListResponse
 import com.wish.bunny.friend.domain.Profiles
@@ -59,8 +60,10 @@ class FriendFragment : Fragment() {
         adapter_profile = ProfileAdapter(profileList)
         rc_friends.adapter = adapter_profile
 
+        adapter_profile.notifyDataSetChanged()
         return view
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -85,7 +88,8 @@ class FriendFragment : Fragment() {
                         // 확인 버튼을 눌렀을 때의 처리
                         Log.d("친구 관계id", friendId)
 
-                        val retrofitAPI = RetrofitConnection.getInstance().create(FriendService::class.java)
+                        val retrofitAPI =
+                            RetrofitConnection.getInstance().create(FriendService::class.java)
                         deleteFriend(retrofitAPI, friendId, position)
                     },
                     "확인",
@@ -95,13 +99,13 @@ class FriendFragment : Fragment() {
                 dialog.show(requireActivity().supportFragmentManager, null)
             }
         })
-        adapter_profile.setOnGoFriendWishListClickListener(object : ProfileAdapter.OnGoFriendWishListClickListener {
+        adapter_profile.setOnGoFriendWishListClickListener(object :
+            ProfileAdapter.OnGoFriendWishListClickListener {
             override fun goFriendList(memberNo: String, name: String) {
-                Log.d("친구리스트 클릭 로그","친구번호 : "+memberNo)
+                Log.d("친구리스트 클릭 로그", "친구번호 : " + memberNo)
                 goFriendPage(memberNo, name)
             }
         })
-
 
     }
     private fun goFriendPage(memberNo: String, name:String){
@@ -189,7 +193,16 @@ class FriendFragment : Fragment() {
         })
     }
 
+    fun refreshFragment() {
+        val ft = requireFragmentManager().beginTransaction()
+        ft.detach(this).attach(this).commit()
+    }
 
+    override fun onResume() {
+        super.onResume()
 
+        val retrofitAPI = RetrofitConnection.getInstance().create(FriendService::class.java)
+        getFriendList(retrofitAPI)
+    }
 
 }
