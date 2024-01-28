@@ -3,13 +3,45 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <!--
+        작성자: 엄상은
+        처리 내용: 온보딩 뷰 두번째 화면
+    -->
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/tv_onboarding_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="2nd frag"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/spoqahansansneo_bold"
+        android:text="@string/onboarding_2_title"
+        android:textAlignment="center"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_onboarding_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/onboarding_2_content"
+        android:textAlignment="center"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_onboarding_title" />
+
+    <ImageView
+        android:id="@+id/iv_screenshot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.596"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_onboarding_content"
+        app:srcCompat="@drawable/onboarding_2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
