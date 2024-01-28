@@ -13,7 +13,7 @@
             />
         <path
             android:pathData="M0 0V88H299V0"
-            android:fillColor="#F7F3F1"
+            android:fillColor="@color/wishbunny_background"
             />
     </group>
 </vector>

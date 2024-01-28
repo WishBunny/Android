@@ -1,0 +1,40 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/dialogEmoji"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="400dp" >
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <GridLayout
+                android:id="@+id/buttonContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="10">
+
+                <!-- 이모지 버튼들 -->
+                <Button
+                    android:id="@+id/emojiButton1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:text="\uD83D\uDE03"
+                    android:textSize="30sp"
+                    android:fontFamily="@font/tossface_font"/>
+
+                <!-- 여기에 추가적인 이모지 버튼들을 추가할 수 있습니다. -->
+            </GridLayout>
+        </ScrollView>
+
+    </LinearLayout>
+
+
+</LinearLayout>
