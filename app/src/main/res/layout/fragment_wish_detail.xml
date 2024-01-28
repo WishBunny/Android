@@ -2,8 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".wish.WishDetailFragment">
+    android:layout_height="match_parent">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -108,15 +107,7 @@
             </LinearLayout>
         </HorizontalScrollView>
 
-        <ImageView
-            android:id="@+id/imageView7"
-            android:layout_width="108dp"
-            android:layout_height="115dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"
-            android:src="@drawable/img"/>
+        <!--     android:textAppearance="@style/some_id" />-->
 
         <TextView
             android:id="@+id/title"
@@ -125,8 +116,7 @@
             android:layout_marginStart="160dp"
             android:layout_marginTop="80dp"
             android:text="@string/some_id"
-            android:textStyle="bold"/>
-        <!--     android:textAppearance="@style/some_id" />-->
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/updateBtn"
@@ -159,14 +149,6 @@
             android:ems="10"
             android:textSize="17sp"
             android:text="@string/wish_content" />
-
-        <ImageButton
-            android:id="@+id/back"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/arrow_back" />
 
     </FrameLayout>
 
