@@ -142,6 +142,7 @@ class WishDetailFragment : Fragment() {
          })
      }
     private fun updateUI(wishItem: WishItem) {
+        binding.tvEmoji.text = wishItem.emoji
         binding.content.text = wishItem.content
         binding.hashtagButton1.text = '#' + wishItem.tagContents
         binding.tvSelectedDate.text = wishItem.deadlineDt
@@ -164,13 +165,13 @@ class WishDetailFragment : Fragment() {
 
 
     private fun setCategroy(category: String) {
-        val button1 = binding.button1
-        val button2 = binding.button2
-        val button3 = binding.button3
+        val button1 = binding.toDo
+        val button2 = binding.toEat
+        val button3 = binding.toGet
 
         val pinkColor = ContextCompat.getColor(requireContext(), R.color.pink)
         val changeTextColor = ContextCompat.getColor(requireContext(), R.color.white)
-        val transparentColor = ContextCompat.getColor(requireContext(), R.color.ivory)
+        val transparentColor = ContextCompat.getColor(requireContext(), R.color.wishbunny_white)
         val originalTextColor = ContextCompat.getColor(requireContext(), R.color.black)
 
         when (category) {
@@ -195,7 +196,7 @@ class WishDetailFragment : Fragment() {
     ) {
         button.setBackgroundColor(pinkColor)
         button.setTextColor(changeTextColor)
-        for (otherButton in listOf(binding.button1, binding.button2, binding.button3)) {
+        for (otherButton in listOf(binding.toDo, binding.toEat, binding.toGet)) {
             if (otherButton != button) {
                 otherButton.setBackgroundColor(transparentColor)
                 otherButton.setTextColor(originalTextColor)
