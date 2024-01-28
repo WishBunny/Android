@@ -1,15 +1,10 @@
 package com.wish.bunny.wish
 
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
-import android.text.SpannableString
-import android.text.style.ClickableSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.wish.bunny.R
@@ -138,7 +133,9 @@ class CustomAdapter(private val context: Context, private val wishItemList: List
             Log.d("wishItem", wishItem.toString())
             tv_emoji.text = wishItem.emoji
             content.text = wishItem.content
-            dDay.text = calculateDDay(wishItem.deadlineDt)
+            if (wishItem.achieveYn.equals("n")) {
+                dDay.text = calculateDDay(wishItem.deadlineDt)
+            }
             tag1.text = "#" + wishItem.tagContents
          
             //로그인 아이디와 작성자가 다른 경우 완료버튼 안보이게
@@ -156,7 +153,7 @@ class CustomAdapter(private val context: Context, private val wishItemList: List
 
         private fun calculateDDay(deadlineDt: String): String {
             if (deadlineDt == null)
-                return ""
+                return "먼훗날"
             val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
             val targetDate = LocalDate.parse(deadlineDt, dateFormatter)
 

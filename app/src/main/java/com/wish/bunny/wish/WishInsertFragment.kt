@@ -31,10 +31,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+
 /**
-작성자: 황수연
-처리 내용: 위시 등록 화면 및 API 구현
- */
+    작성자: 황수연
+    처리 내용: 위시 등록 화면 및 API 구현
+*/
 class WishInsertFragment : Fragment() {
     private val accessToken = GlobalApplication.prefs.getString("accessToken", "")
     private lateinit var btnOpenCalendar: ImageButton
@@ -240,7 +241,7 @@ class WishInsertFragment : Fragment() {
     }
 
     private fun resetDate() {
-        tvSelectedDate.text = getString(R.string.select_date)
+        tvSelectedDate.hint = getString(R.string.select_date)
     }
 
     // 해시태그 버튼 클릭 이벤트 처리

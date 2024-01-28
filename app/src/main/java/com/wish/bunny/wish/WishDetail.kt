@@ -29,7 +29,7 @@ class WishDetail : AppCompatActivity() {
     // 원래의 글자색 저장
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_wish_detail)
+        setContentView(R.layout.fragment_wish_detail)
 
         loadWishDetail("WISH002", accessToken)
 

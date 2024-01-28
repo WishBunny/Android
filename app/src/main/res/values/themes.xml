@@ -1,5 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+<resources xmlns:tools="http://schemas.android.com/tools">\
     <style name="Base.Theme.Android" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/wishbunny_pink</item> <!-- 앱 맨 위 배경색, 버튼 색 -->
         <item name="colorPrimaryVariant">@color/wishbunny_gray500</item> <!-- 상단바 -->

@@ -89,7 +89,7 @@
                         android:id="@+id/rv_dDay"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="D-32"
+                        android:text=""
                         android:textColor="@color/activePink"
                         android:textSize="15dp"
                         android:textStyle="bold" />

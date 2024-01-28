@@ -129,6 +129,9 @@ class WishUpdateFragment : Fragment() {
         view.findViewById<ImageButton>(R.id.btnOpenCalendar).setOnClickListener {
             showDatePicker()
         }
+        view.findViewById<TextView>(R.id.tvSelectedDate).setOnClickListener {
+            showDatePicker()
+        }
 
         view.findViewById<ImageButton>(R.id.reset).setOnClickListener {
             resetDate()
@@ -203,7 +206,7 @@ class WishUpdateFragment : Fragment() {
                         Log.d("API", response.toString())
                         if (response.isSuccessful) {
                             // 서버로부터 정상적인 응답을 받았을 때의 처리
-                            Toast.makeText(requireContext(), "성공적으로 값을 전달했습니다", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireContext(), "위시리스트가 수정되었습니다", Toast.LENGTH_SHORT).show()
                             val homeFragment = HomeFragment().apply {
                                 arguments = Bundle().apply {
                                     putString("isMine", "1")
@@ -253,27 +256,22 @@ class WishUpdateFragment : Fragment() {
     private fun updateUI(wishItem: WishItem) {
         val text_content: EditText = view?.findViewById(R.id.content) ?: EditText(requireContext()).apply {
             Log.e("WishUpdateFragment", "content EditText를 찾지 못했습니다.")
-            Toast.makeText(context, "오류가 발생했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
         }
 
         val tvSelectedDate: TextView = view?.findViewById(R.id.tvSelectedDate) ?: TextView(requireContext()).apply {
             Log.e("WishUpdateFragment", "tvSelectedDate TextView를 찾지 못했습니다.")
-            Toast.makeText(context, "오류가 발생했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
         }
 
         val button1: Button = view?.findViewById(R.id.to_do) ?: Button(requireContext()).apply {
             Log.e("WishUpdateFragment", "to_do Button을 찾지 못했습니다.")
-            Toast.makeText(context, "오류가 발생했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
         }
 
         val button2: Button = view?.findViewById(R.id.to_eat) ?: Button(requireContext()).apply {
             Log.e("WishUpdateFragment", "to_eat Button을 찾지 못했습니다.")
-            Toast.makeText(context, "오류가 발생했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
         }
 
         val button3: Button = view?.findViewById(R.id.to_get) ?: Button(requireContext()).apply {
             Log.e("WishUpdateFragment", "to_get Button을 찾지 못했습니다.")
-            Toast.makeText(context, "오류가 발생했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
         }
         val categoryButtons = arrayOf(button1, button2, button3)
 
@@ -285,42 +283,34 @@ class WishUpdateFragment : Fragment() {
         val hashtagButtons : Button? = when (hashtagNo) {
             "1" -> view?.findViewById(R.id.hashtagButton1) ?: run {
                 Log.e("WishUpdateFragment", "hashtagButton1을 찾지 못했습니다.")
-                Toast.makeText(context, "오류가 발생했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
                 Button(requireContext())
             }
             "2" -> view?.findViewById(R.id.hashtagButton2) ?: run {
                 Log.e("WishUpdateFragment", "hashtagButton2을 찾지 못했습니다.")
-                Toast.makeText(context, "오류가 발생했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
                 Button(requireContext())
             }
             "3" -> view?.findViewById(R.id.hashtagButton3) ?: run {
                 Log.e("WishUpdateFragment", "hashtagButton3을 찾지 못했습니다.")
-                Toast.makeText(context, "오류가 발생했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
                 Button(requireContext())
             }
             "4" -> view?.findViewById(R.id.hashtagButton4) ?: run {
                 Log.e("WishUpdateFragment", "hashtagButton4을 찾지 못했습니다.")
-                Toast.makeText(context, "오류가 발생했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
                 Button(requireContext())
             }
             "5" -> view?.findViewById(R.id.hashtagButton5) ?: run {
                 Log.e("WishUpdateFragment", "hashtagButton5을 찾지 못했습니다.")
-                Toast.makeText(context, "오류가 발생했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
                 Button(requireContext())
             }
             "6" -> view?.findViewById(R.id.hashtagButton6) ?: run {
                 Log.e("WishUpdateFragment", "hashtagButton6을 찾지 못했습니다.")
-                Toast.makeText(context, "오류가 발생했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
                 Button(requireContext())
             }
             "7" -> view?.findViewById(R.id.hashtagButton7) ?: run {
                 Log.e("WishUpdateFragment", "hashtagButton7을 찾지 못했습니다.")
-                Toast.makeText(context, "오류가 발생했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
                 Button(requireContext())
             }
             "8" -> view?.findViewById(R.id.hashtagButton8) ?: run {
                 Log.e("WishUpdateFragment", "hashtagButton8을 찾지 못했습니다.")
-                Toast.makeText(context, "오류가 발생했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
                 Button(requireContext())
             }
             else -> null
@@ -333,8 +323,8 @@ class WishUpdateFragment : Fragment() {
             // 버튼의 UI 상태를 업데이트합니다.
             val pinkColor = ContextCompat.getColor(requireContext(), R.color.pink)
             val changeTextColor = ContextCompat.getColor(requireContext(), R.color.white)
-            val transparentColor = ContextCompat.getColor(requireContext(), R.color.ivory)
-            val originalTextColor = ContextCompat.getColor(requireContext(), R.color.black)
+            val transparentColor = ContextCompat.getColor(requireContext(), R.color.wishbunny_white)
+            val originalTextColor = ContextCompat.getColor(requireContext(), R.color.wishbunny_gray500)
 
             hashtagButtons?.let {button ->
                 if (button.isSelected) {
@@ -361,8 +351,8 @@ class WishUpdateFragment : Fragment() {
         categoryButtons.forEach { button ->
             val pinkColor = ContextCompat.getColor(requireContext(), R.color.pink)
             val changeTextColor = ContextCompat.getColor(requireContext(), R.color.white)
-            val transparentColor = ContextCompat.getColor(requireContext(), R.color.ivory)
-            val originalTextColor = ContextCompat.getColor(requireContext(), R.color.black)
+            val transparentColor = ContextCompat.getColor(requireContext(), R.color.wishbunny_white)
+            val originalTextColor = ContextCompat.getColor(requireContext(), R.color.wishbunny_gray500)
 
             if (button.isSelected) {
                 button.setBackgroundColor(pinkColor)
@@ -405,7 +395,7 @@ class WishUpdateFragment : Fragment() {
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-        DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
+        DatePickerDialog(requireContext(), R.style.WishbunnyDatePickerDialogTheme, { _, selectedYear, selectedMonth, selectedDay ->
             val selectedDate = Calendar.getInstance()
             selectedDate.set(selectedYear, selectedMonth, selectedDay)
             val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
@@ -414,7 +404,7 @@ class WishUpdateFragment : Fragment() {
     }
 
     private fun resetDate() {
-        tvSelectedDate.text = getString(R.string.select_date)
+        tvSelectedDate.hint = getString(R.string.select_date)
     }
 
     // 해시태그 버튼 클릭 이벤트 처리
@@ -423,9 +413,9 @@ class WishUpdateFragment : Fragment() {
         // 이전에 선택된 버튼의 상태를 복원합니다.
         selectedButton?.let {
             it.backgroundTintList = ColorStateList.valueOf(
-                ContextCompat.getColor(requireContext(), R.color.ivory)
+                ContextCompat.getColor(requireContext(), R.color.wishbunny_background)
             )
-            it.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+            it.setTextColor(ContextCompat.getColor(requireContext(), R.color.wishbunny_gray500))
         }
 
         // 이전에 선택된 버튼과 새로 클릭된 버튼이 다르면, 새로 클릭된 버튼을 활성화 상태로 만듭니다.
@@ -434,7 +424,6 @@ class WishUpdateFragment : Fragment() {
                 ContextCompat.getColor(requireContext(), R.color.pink)
             )
             clickedButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-
             // 선택된 버튼을 업데이트합니다.
             selectedButton = clickedButton
         }
@@ -444,8 +433,8 @@ class WishUpdateFragment : Fragment() {
     private fun updateCategoryButtons(selectedButton: Button, allButtons: Array<Button>) {
         val pinkColor = ContextCompat.getColor(requireContext(), R.color.pink)
         val changeTextColor = ContextCompat.getColor(requireContext(), R.color.white)
-        val transparentColor = ContextCompat.getColor(requireContext(), R.color.ivory)
-        val originalTextColor = ContextCompat.getColor(requireContext(), R.color.black)
+        val transparentColor = ContextCompat.getColor(requireContext(), R.color.wishbunny_white)
+        val originalTextColor = ContextCompat.getColor(requireContext(), R.color.wishbunny_gray500)
 
         for (button in allButtons) {
             if (button == selectedButton) {
