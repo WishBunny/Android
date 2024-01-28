@@ -70,7 +70,7 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener, Cust
     }
     private fun setFriendData(view: View){
         if(friendName!=null){
-            view.findViewById<TextView>(R.id.buketBasText).text = friendName+"님의 버킷 리스트 "
+            view.findViewById<TextView>(R.id.buketBasText).text = friendName
         }
         //지금까지 완료한 리스트 확인하기
         val donsListSize = view.findViewById<Button>(R.id.GetDoneButton)
