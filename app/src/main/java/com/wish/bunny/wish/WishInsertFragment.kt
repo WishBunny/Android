@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.wish.bunny.GlobalApplication
 import com.wish.bunny.R
+import com.wish.bunny.alarm.AlarmFunctions
 import com.wish.bunny.home.HomeFragment
 import com.wish.bunny.wish.domain.Message
 import com.wish.bunny.wish.domain.WishVo
@@ -41,6 +43,12 @@ class WishInsertFragment : Fragment() {
     private lateinit var tvSelectedDate: TextView
     private var selectedButton: Button? = null
     private lateinit var backButton: ImageButton
+
+    //알람
+    private lateinit var alarmFunctions: AlarmFunctions
+    private lateinit var date: String
+    private lateinit var content: String
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -156,6 +164,16 @@ class WishInsertFragment : Fragment() {
         val btn_insert: Button = view.findViewById(R.id.insert)
 
         btn_insert.setOnClickListener {
+
+            // 알람 설정
+            content = text_content.text.toString()
+            alarmFunctions = AlarmFunctions(requireContext())
+
+            setAlarm(date, content)
+            Log.d("알림 날짜",date)
+            Toast.makeText(requireContext(), "당일에 알림을 드릴게요", Toast.LENGTH_LONG).show()
+
+
             val wvo = WishVo(
                 category = selectedCategory,
                 content = text_content.text.toString(),
@@ -194,6 +212,8 @@ class WishInsertFragment : Fragment() {
                         val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
                         val transaction: FragmentTransaction = fragmentManager.beginTransaction()
                         transaction.replace(R.id.fragment_container, homeFragment).commit()
+
+
                     } else {
                         // 서버로부터 정상적인 응답을 받지 못했을 때의 처리
                         Toast.makeText(
@@ -220,12 +240,30 @@ class WishInsertFragment : Fragment() {
         }
     }
 
+    //알람 설정
+    private fun setAlarm(date: String, content: String) {
+        val alarmTime = date + "21:34:10"
+        val alarmCode = 1
+
+        Log.d("setAlarm", "알람 설정: $alarmTime")
+
+
+        try {
+            alarmFunctions.callAlarm(alarmTime, alarmCode, content)
+
+        } catch (e: Exception) {
+            Log.e("setAlarm", "알람 설정 중 오류 발생", e)
+        }
+    }
+
     // 달력 이벤트 핸들러
     private fun showDatePicker() {
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        date = (year+month+day).toString()
 
         DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
             val selectedDate = Calendar.getInstance()

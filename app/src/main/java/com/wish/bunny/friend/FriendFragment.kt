@@ -7,15 +7,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wish.bunny.GlobalApplication
 import com.wish.bunny.R
+import com.wish.bunny.alarm.AlarmFunctions
 import com.wish.bunny.common.ConfirmDialog
 import com.wish.bunny.databinding.FragmentFriendBinding
-import com.wish.bunny.friend.domain.FriendDeleteRequest
 import com.wish.bunny.friend.domain.FriendDeleteResponse
 import com.wish.bunny.friend.domain.FriendListResponse
 import com.wish.bunny.friend.domain.Profiles
@@ -58,8 +59,10 @@ class FriendFragment : Fragment() {
         adapter_profile = ProfileAdapter(profileList)
         rc_friends.adapter = adapter_profile
 
+
         return view
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

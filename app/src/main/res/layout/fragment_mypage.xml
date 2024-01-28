@@ -8,7 +8,52 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="350dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="430dp"
+        android:layout_marginBottom="0dp">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/fragment_tablayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="나의 위시 기록" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="나의 배지" />
+        </com.google.android.material.tabs.TabLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHeight_default="percent"
+            app:layout_constraintHeight_percent="0.8"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_tablayout"
+            app:layout_constraintVertical_bias="1.0"
+            tools:layout_editor_absoluteX="-100dp">
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/fragment_mytab"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </ScrollView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="330dp"
         android:layout_gravity="top"
         android:orientation="vertical">
 
@@ -53,11 +98,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:background="@null"
+            android:fontFamily="@font/spoqahansansneo_bold"
             android:imeOptions="actionDone"
             android:singleLine="true"
             android:text="edit_nickname"
             android:textSize="25sp"
-            android:fontFamily="@font/spoqahansansneo_bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cv_profile" />
@@ -85,8 +130,7 @@
         <TextView
             android:id="@+id/tv_memberId"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="tv_memberId"
+            android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -114,36 +158,122 @@
                 android:textColor="@color/white"
                 android:textSize="17sp" />
         </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="330dp"
+        app:layout_constraintBottom_toTopOf="@+id/cv_confirm"
+        app:layout_constraintTop_toBottomOf="@+id/cv_profile">
+
+        <TextView
+            android:id="@+id/tv_do"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="56dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/wish_do"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_eat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/wish_eat"
+            app:layout_constraintEnd_toStartOf="@+id/tv_get"
+            app:layout_constraintStart_toEndOf="@+id/tv_do"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_get"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="60dp"
+            android:text="@string/wish_get"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_do_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="72dp"
+            android:layout_marginTop="20dp"
+            android:text="10"
+            android:textColor="@color/pink"
+            android:textSize="36dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_do" />
+
+        <TextView
+            android:id="@+id/tv_eat_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="8dp"
+            android:text="15"
+            android:textColor="@color/pink"
+            android:textSize="36dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/tv_get_count"
+            app:layout_constraintHorizontal_bias="0.451"
+            app:layout_constraintStart_toEndOf="@+id/tv_do_count"
+            app:layout_constraintTop_toTopOf="@+id/tv_eat" />
+
+        <TextView
+            android:id="@+id/tv_get_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="72dp"
+            android:text="20"
+            android:textColor="@color/pink"
+            android:textSize="36dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_get" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="20dp"
+        android:layout_gravity="top"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
-        android:gravity="right">
+        android:gravity="left"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/LogoutBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/pink"
-            android:fontFamily="@font/spoqahansansneo_bold"
             android:background="@android:color/transparent"
-            android:textSize="17sp"
-            android:text="로그아웃" />
+            android:fontFamily="@font/spoqahansansneo_bold"
+            android:text="로그아웃"
+            android:textColor="@color/pink"
+            android:textSize="17sp" />
 
         <TextView
             android:id="@+id/DisconnectBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/pink"
-            android:fontFamily="@font/spoqahansansneo_bold"
-            android:background="@android:color/transparent"
-            android:textSize="17sp"
             android:layout_marginStart="20dp"
-            android:text="연결 끊기" />
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/spoqahansansneo_bold"
+            android:text="연결 끊기"
+            android:textColor="@color/pink"
+            android:textSize="17sp" />
     </LinearLayout>
+
 </FrameLayout>
