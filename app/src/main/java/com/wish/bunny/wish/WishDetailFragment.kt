@@ -126,6 +126,9 @@ class WishDetailFragment : Fragment() {
                      Log.d("delete Wish", "삭제 성공 ${wishMapResult}" )
                     //삭제 성공시 이동
                      val newFragment = HomeFragment()
+                     val bundle = Bundle()
+                     bundle.putString("isMine", "1")
+                     newFragment.arguments = bundle
                      replaceFragment(newFragment)
 
                  } else {
