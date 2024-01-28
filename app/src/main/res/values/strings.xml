@@ -30,6 +30,14 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!-- 온보딩 -->
+    <string name="onboarding_1_title">내가 하고 싶은 것을\n고민해본 적 있나요?</string>
+    <string name="onboarding_1_content">하고 싶어요, 먹고 싶어요, 갖고 싶어요\n세 가지 카테고리를 채워보세요</string>
+    <string name="onboarding_2_title">적는 시간은\n30초도 안 걸려요</string>
+    <string name="onboarding_2_content">당장 생각난 나만의 버킷리스트도\n30초면 작성이 가능해요</string>
+    <string name="onboarding_title2">적는 시간은\n30초도 안 걸려요</string>
+    <string name="onboarding_login_content">위시버니와 함께\n소망을 나눠보세요</string>
+
     <!-- 친구 리스트-->
     <string name="hyeyeon">혜연</string>
     <string name="dialog_check">네</string>

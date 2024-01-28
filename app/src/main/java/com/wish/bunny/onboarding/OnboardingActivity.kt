@@ -4,6 +4,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.wish.bunny.databinding.ActivityOnboardingBinding
 
+/**
+    작성자: 엄상은
+    처리 내용: 온보딩 액티비티
+*/
 class OnboardingActivity : AppCompatActivity() {
     private lateinit var binding: ActivityOnboardingBinding
 

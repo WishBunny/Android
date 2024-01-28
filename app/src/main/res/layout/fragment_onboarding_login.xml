@@ -3,21 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <!--
         작성자: 엄상은
         처리 내용: 카카오 로그인 뷰 작성
     -->
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/onboarding_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:text="당신의 소망을\n위시버니와\n나눠주세요"
+        android:layout_marginTop="56dp"
         android:fontFamily="@font/spoqahansansneo_bold"
-        android:textSize="36sp"
+        android:text="@string/onboarding_login_content"
         android:textAlignment="center"
+        android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -29,7 +28,7 @@
         app:layout_constraintBottom_toTopOf="@+id/kakao_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/onboarding_content"
         app:srcCompat="@drawable/wish_bunny" />
 
     <ImageView
@@ -40,5 +39,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/kakao_login_medium_narrow" />
+        app:srcCompat="@drawable/kakao_login_large_narrow" />
 </androidx.constraintlayout.widget.ConstraintLayout>

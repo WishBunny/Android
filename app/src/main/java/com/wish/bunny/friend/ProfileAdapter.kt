@@ -52,7 +52,7 @@ class ProfileAdapter(private var profileList: List<Profiles>) :
 
         Glide.with(holder.itemView.context)
             .load(currentItem.image)
-            .placeholder(R.drawable.default_profile_image)
+            .placeholder(R.drawable.default_profile)
             .into(holder.itemView.findViewById(R.id.iv_profile))
 
         holder.itemView.findViewById<ImageView>(R.id.iv_remove).setOnClickListener {

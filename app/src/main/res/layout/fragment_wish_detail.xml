@@ -1,94 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="horizontal" >
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <View
-            android:id="@+id/some_id"
-            android:layout_width="match_parent"
-            android:layout_height="39dp"
-            android:layout_marginStart="22dp"
-            android:layout_marginEnd="22dp"
-            android:layout_marginTop="173dp"
-            android:background="@drawable/some_id" />
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="30dp"
+            android:fontFamily="@font/spoqahansansneo_bold"
+            android:textColor="@color/wishbunny_gray700"
+            android:text="꿈꾸던 것들을\n확인해보세요!"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_emoji"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="15dp"
+            app:cardCornerRadius="75dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title">
+
+            <TextView
+                android:id="@+id/tv_emoji"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:paddingTop="20dp"
+                android:background="@color/wishbunny_background"
+                android:textSize="50sp"
+                android:gravity="center_vertical|center_horizontal"
+                android:fontFamily="@font/tossface_font"/>
+
+        </androidx.cardview.widget.CardView>
+
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="39dp"
-            android:layout_marginStart="22dp"
-            android:layout_marginEnd="22dp"
-            android:layout_marginTop="173dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="20dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cv_emoji">
 
             <Button
-                android:id="@+id/button1"
+                android:id="@+id/to_do"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:backgroundTint="@color/ivory"
-                android:textColor="@color/black"
+                android:backgroundTint="@color/wishbunny_white"
                 android:text="@string/want_do"
-                />
+                android:textColor="@color/wishbunny_gray500"
+                android:textStyle="bold" />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/to_eat"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:backgroundTint="@color/ivory"
-                android:textColor="@color/black"
-                android:text="@string/want_eat" />
+                android:backgroundTint="@color/wishbunny_white"
+                android:text="@string/want_eat"
+                android:textColor="@color/wishbunny_gray500"
+                android:textStyle="bold" />
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/to_get"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:backgroundTint="@color/ivory"
-                android:textColor="@color/black"
-                android:text="@string/want_get" />
+                android:backgroundTint="@color/wishbunny_white"
+                android:text="@string/want_get"
+                android:textColor="@color/wishbunny_gray500"
+                android:textStyle="bold" />
         </LinearLayout>
 
-        <View
+
+        <TextView
+            android:id="@+id/content"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="22dp"
-            android:layout_marginEnd="22dp"
-            android:layout_marginTop="411dp"
-            android:background="@drawable/select_day" />
+            android:layout_height="100dp"
+            android:background="@drawable/content_id"
+            android:ems="10"
+            android:padding="20dp"
+            android:textSize="16sp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginStart="22dp"
-            android:layout_marginEnd="22dp"
-            android:layout_marginTop="70dp"
-            android:layout_gravity="center"
-            android:orientation="horizontal">
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="20dp"
+            android:background="@drawable/select_day"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <ImageButton
+                android:id="@+id/btnOpenCalendar"
+                android:layout_width="33dp"
+                android:layout_height="33dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/ic_calendar"
+                android:onClick="onCalendarButtonClick" />
 
             <TextView
                 android:id="@+id/tvSelectedDate"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="13dp"
                 android:layout_weight="1"
-                android:layout_gravity="center"
-                android:layout_marginStart="10dp"
-                android:textSize="16sp"
                 android:textColor="@color/black"
-                />
+                android:textSize="16sp" />
+
+            <ImageButton
+                android:id="@+id/reset"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="11dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/ic_reset"
+                android:visibility="gone"/>
+
         </LinearLayout>
 
         <HorizontalScrollView
+            android:id="@+id/horizontalScrollView"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="22dp"
-            android:layout_marginEnd="22dp"
-            android:layout_marginTop="500dp">
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/updateBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -100,56 +166,41 @@
                     android:id="@+id/hashtagButton1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:backgroundTint="@color/wishbunny_background"
                     android:onClick="onHashtagButtonClick"
-                    android:backgroundTint="@color/ivory"
-                    android:textColor="@color/black"
-                    android:text="#Tag1" />
+                    android:text="#여행"
+                    android:textColor="@color/wishbunny_gray500"
+                    android:textStyle="bold" />
             </LinearLayout>
         </HorizontalScrollView>
 
-        <!--     android:textAppearance="@style/some_id" />-->
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="160dp"
-            android:layout_marginTop="80dp"
-            android:text="@string/some_id"
-            android:textStyle="bold" />
-
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/updateBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="120dp"
-            android:layout_marginTop="570dp"
-            android:layout_marginEnd="20dp"
-            android:backgroundTint="@color/pink"
-            android:text="수정" />
+            android:layout_marginVertical="20dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/button_border_white"
+            android:text="수정"
+            android:textColor="@color/wishbunny_pink"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/deleteBtn" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/deleteBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="220dp"
-            android:layout_marginTop="570dp"
-            android:layout_marginEnd="20dp"
-            android:backgroundTint="@color/pink"
-            android:text="@string/delete" />
-
-        <TextView
-            android:id="@+id/content"
-            android:layout_width="match_parent"
-            android:layout_height="130dp"
-            android:layout_marginStart="22dp"
-            android:layout_marginEnd="22dp"
-            android:layout_marginTop="250dp"
-            android:background="@drawable/content_id"
-            android:ems="10"
-            android:textSize="17sp"
-            android:text="@string/wish_content" />
-
-    </FrameLayout>
-
+            android:layout_marginVertical="20dp"
+            android:layout_marginBottom="28dp"
+            android:background="@drawable/button_border_white"
+            android:text="삭제"
+            android:textColor="@color/wishbunny_pink"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/linearLayout" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

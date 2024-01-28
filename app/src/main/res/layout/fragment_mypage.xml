@@ -71,7 +71,7 @@
                 android:id="@+id/img_profile"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:src="@drawable/default_profile_image" />
+                android:src="@drawable/default_profile" />
 
         </androidx.cardview.widget.CardView>
 
@@ -98,11 +98,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:background="@null"
-            android:fontFamily="@font/spoqahansansneo_bold"
             android:imeOptions="actionDone"
             android:singleLine="true"
             android:text="edit_nickname"
             android:textSize="25sp"
+            android:fontFamily="@font/spoqahansansneo_bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cv_profile" />
@@ -121,7 +121,6 @@
             android:id="@+id/tv_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="tv_email"
             android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -153,7 +152,6 @@
                 android:fontFamily="@font/spoqahansansneo_bold"
                 android:paddingHorizontal="15dp"
                 android:paddingVertical="8dp"
-                android:src="@drawable/default_profile_image"
                 android:text="변경 완료"
                 android:textColor="@color/white"
                 android:textSize="17sp" />
@@ -275,5 +273,4 @@
             android:textColor="@color/pink"
             android:textSize="17sp" />
     </LinearLayout>
-
 </FrameLayout>
