@@ -25,6 +25,7 @@ import com.wish.bunny.GlobalApplication
 import com.wish.bunny.databinding.FragmentMypageBinding
 import com.wish.bunny.mypage.domain.ProfileGetResponse
 import com.wish.bunny.mypage.domain.ProfileUpdateRequest
+import com.wish.bunny.onboarding.OnboardingActivity
 import com.wish.bunny.util.RetrofitConnection
 import retrofit2.Call
 import retrofit2.Callback
@@ -271,9 +272,13 @@ class MypageFragment : Fragment() {
     */
     private fun logOutSetting() {
         binding.LogoutBtn.setOnClickListener {
+            val intent = Intent(activity, OnboardingActivity::class.java)
+            startActivity(intent)
             logout()
         }
         binding.DisconnectBtn.setOnClickListener {
+            val intent = Intent(activity, OnboardingActivity::class.java)
+            startActivity(intent)
             disconnect()
         }
     }

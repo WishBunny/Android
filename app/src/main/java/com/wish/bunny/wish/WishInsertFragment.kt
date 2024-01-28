@@ -136,16 +136,6 @@ class WishInsertFragment : Fragment() {
             resetDate()
         }
 
-        // 뒤로가기 버튼 초기화
-        backButton = view.findViewById(R.id.back)
-
-        // 뒤로가기 버튼에 클릭 리스너 추가
-        backButton.setOnClickListener {
-            val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
-            val transaction: FragmentTransaction = fragmentManager.beginTransaction()
-            transaction.replace(R.id.fragment_container, HomeFragment()).commit()
-        }
-
         // Insert API 처리
         val text_content: EditText = view.findViewById(R.id.content)
         val tvSelectedDate: TextView = view.findViewById(R.id.tvSelectedDate)
