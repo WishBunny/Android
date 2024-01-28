@@ -55,7 +55,8 @@ class WishList : AppCompatActivity() {
     private fun updateUI(wishItemList: List<WishItem>, writerYn: String) {
        // adapter = CustomAdapter(this, wishItemList, writerYn)
 
-        adapter = CustomAdapter(this, wishItemList, "N")
+       // adapter = CustomAdapter(this, wishItemList, "N",this)
+
         Log.d("wish Context",this.toString());
         binding.wishListRecyclerView.adapter = adapter
         binding.wishListRecyclerView.layoutManager = LinearLayoutManager(this)

@@ -31,11 +31,14 @@ import androidx.core.content.ContextCompat
 처리 내용: 위시리스트 CustomAdapter
  */
 class CustomAdapter(private val context: Context, private val wishItemList: List<WishItem>,
-                    private val writerYn: String) :
+                    private val writerYn: String, private val wishCompletedListener: OnWishCompletedListener?) :
     RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
     interface OnDetailButtonClickListener {
         fun onDetailButtonClick(wishNo: String)
+    }
+    interface OnWishCompletedListener {
+        fun onWishCompleted()
     }
 
     private var onDetailButtonClickListener: OnDetailButtonClickListener? = null
@@ -114,6 +117,7 @@ class CustomAdapter(private val context: Context, private val wishItemList: List
                     if (wishMapResult != null) {
                         // updateUI(wishMapResult.list)
                         //Log.d("doneWishDetail", wishMapResult.result.toString())
+                        wishCompletedListener?.onWishCompleted() // Notify HomeFragment
                     } else {
                         Log.d("doneWishDetail", "서버 응답이 null입니다.")
                     }
@@ -121,10 +125,10 @@ class CustomAdapter(private val context: Context, private val wishItemList: List
 
                 override fun onFailure(call: Call<WishMapResult>, t: Throwable) {
                     Log.d("doneWishDetail", "불러오기 실패: ${t.message}")
-
                 }
             })
         }
+
 
         fun bind(wishItem: WishItem) {
             val title = wishItem.content

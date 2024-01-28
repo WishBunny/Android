@@ -24,7 +24,7 @@ import com.wish.bunny.GlobalApplication
 import com.wish.bunny.mypage.MyPageService
 import com.wish.bunny.mypage.domain.ProfileGetResponse
 
-class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
+class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener, CustomAdapter.OnWishCompletedListener {
 
     private lateinit var binding: ActivityWishListBinding
     private var adapter: CustomAdapter? = null
@@ -215,7 +215,7 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
     }
 
     private fun updateUI(wishItemList: List<WishItem>, writerYn: String) {
-        adapter = CustomAdapter(requireContext(), wishItemList, writerYn)
+        adapter = CustomAdapter(requireContext(), wishItemList, writerYn, this)
         adapter?.setOnDetailButtonClickListener(this)
 
         binding.wishListRecyclerView.adapter = adapter
@@ -242,5 +242,10 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
             .replace(R.id.fragment_container, fragment)
             .addToBackStack(null)
             .commit()
+    }
+
+    override fun onWishCompleted() {
+        Log.d("onWishCompleted","onWishCompleted 클릭");
+        loadDoneWishSize(requireView(), writerNo.toString())
     }
 }
