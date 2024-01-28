@@ -31,6 +31,9 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener, Cust
     private val accessToken = GlobalApplication.prefs.getString("accessToken", "")
     var writerNo = arguments?.getString("writerNo").toString()
     var isMine = arguments?.getString("isMine").toString()
+    var setCategory = "do"
+    var setAchieveYn ="n"
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -50,14 +53,14 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener, Cust
             loadMyProfileInfo(retrofitAPI, view)
         }
         else{
-            loadWishList("n", writerNo.toString(),accessToken,"do")
+            loadWishList(setAchieveYn, writerNo.toString(),accessToken,setCategory)
             loadDoneWishSize(view, writerNo.toString())
             btnClickEvent(view)
             //지금까지 완료한 리스트 확인하기
             val donsListSize = view.findViewById<Button>(R.id.GetDoneButton)
             donsListSize.setOnClickListener {
                 Log.d("테스트","테스트");
-                loadWishList("Y", writerNo.toString(),accessToken,"do")
+                loadWishList(setAchieveYn, writerNo.toString(),accessToken,setCategory)
             }
         }
     }
@@ -84,8 +87,8 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener, Cust
                             //지금까지 완료한 리스트 확인하기
                             val donsListSize = view.findViewById<Button>(R.id.GetDoneButton)
                             donsListSize.setOnClickListener {
-                                Log.d("테스트2", writerNo.toString());
-                                loadWishList("Y", writerNo.toString(),accessToken,"do")
+                                setAchieveYn="Y"
+                                loadWishList(setAchieveYn, writerNo.toString(),accessToken,setCategory)
                             }
                         }
                     } else {
@@ -127,8 +130,9 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener, Cust
             binding.button2.setTextColor(originalTextColor)
             binding.button3.setBackgroundColor(transparentColor)
             binding.button3.setTextColor(originalTextColor)
+            setCategory ="do"
             if(writerNo!= null){
-                loadWishList("n", writerNo.toString(),accessToken,"do")
+                loadWishList(setAchieveYn, writerNo.toString(),accessToken,setCategory)
             }
         }
 
@@ -139,8 +143,9 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener, Cust
             binding.button1.setTextColor(originalTextColor)
             binding.button3.setBackgroundColor(transparentColor)
             binding.button3.setTextColor(originalTextColor)
+            setCategory ="eat"
             if(writerNo!= null){
-                loadWishList("n", writerNo.toString(),accessToken,"eat")
+                loadWishList(setAchieveYn, writerNo.toString(),accessToken,setCategory)
             }
 
         }
@@ -152,8 +157,9 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener, Cust
             binding.button1.setTextColor(originalTextColor)
             binding.button2.setBackgroundColor(transparentColor)
             binding.button2.setTextColor(originalTextColor)
+            setCategory ="get"
             if(writerNo!= null){
-                loadWishList("n", writerNo.toString(),accessToken,"get")
+                loadWishList(setAchieveYn, writerNo.toString(),accessToken,setCategory)
             }
 
         }
@@ -247,6 +253,7 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener, Cust
     override fun onWishCompleted() {
         Log.d("onWishCompleted","onWishCompleted 클릭");
         loadDoneWishSize(requireView(), writerNo.toString())
-        loadWishList("Y", writerNo.toString(),accessToken,"do")
+        setAchieveYn="Y"
+        loadWishList(setAchieveYn, writerNo.toString(),accessToken,setCategory)
     }
 }
