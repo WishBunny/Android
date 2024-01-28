@@ -30,7 +30,7 @@ interface WishService {
     처리 내용: 위시 데이터 수정 서비스
      */
     @PUT("wish/{wishNo}")
-    fun wishUpdate(@Body wvo2: WishVo2): Call<Response<Message>>
+    fun wishUpdate(@Body wvo2: WishVo2, @Path("wishNo") wishNo: String): Call<Response<Message>>
 
     /**
     작성자: 김은솔

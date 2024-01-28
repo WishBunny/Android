@@ -33,13 +33,15 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
+/**
+작성자: 황수연
+처리 내용: 위시 수정 화면 및 API 구현
+ */
 class WishUpdateFragment : Fragment() {
 
     private val accessToken = GlobalApplication.prefs.getString("accessToken", "")
-//    private val accessToken = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2ZWE3NTFmOS1lNDhlLTQ1OWEtYjYwYi02MzFkMDM4ZmUwZmIiLCJpYXQiOjE3MDYyMjgzMDMsImV4cCI6MTcwODgyMDMwM30.x7mvX8xzWhd-lzB0xooHYIH9pSJfmsgzB7fe7tJhoUI"
     private lateinit var btnOpenCalendar: ImageButton
     private lateinit var tvSelectedDate: TextView
-    private lateinit var backButton: ImageButton
     private lateinit var text_content: EditText
     private var selectedButton: Button? = null
     private lateinit var hashtagNo: String
@@ -56,8 +58,6 @@ class WishUpdateFragment : Fragment() {
 
         // 클라이언트로부터 데이터 값 가져오기
         val wishNo = arguments?.getString("wishNo")
-//        loadWishDetail("8dc58332-ee7f-4806-b492-494e4955bb33")
-
         if (wishNo != null) {
             Log.d("WishUpdateFragment", "Received wishNo: $wishNo")
             // wishNo를 사용하여 상세 정보를 로드하는 함수를 호출합니다.
@@ -134,16 +134,6 @@ class WishUpdateFragment : Fragment() {
             resetDate()
         }
 
-        // 뒤로가기 버튼 초기화
-        backButton = view.findViewById(R.id.back)
-
-        // 뒤로가기 버튼에 클릭 리스너 추가
-        backButton.setOnClickListener {
-            val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
-            val transaction: FragmentTransaction = fragmentManager.beginTransaction()
-            transaction.replace(R.id.fragment_container, HomeFragment()).commit()
-        }
-
         // Update API 처리
         text_content = view.findViewById(R.id.content)
         tvSelectedDate = view.findViewById(R.id.tvSelectedDate)
@@ -178,17 +168,16 @@ class WishUpdateFragment : Fragment() {
                 val updatedHashtag = if (selectedHashtag.isEmpty()) loadedWishDetailFromServer?.tagNo ?: "" else selectedHashtag
 
                 val wvo2 = WishVo2(
+                    wishNo = wishNo,
                     category = updatedCategory,
                     content = updatedContent,
                     deadlineDt = updatedDate,
+                    achieveYn = "n",
                     notifyYn = "Y",
                     tagNo = updatedHashtag,
                     deleteTag = hashtagNo
                 )
-
-            val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
-            val transaction: FragmentTransaction = fragmentManager.beginTransaction()
-            transaction.replace(R.id.fragment_container, HomeFragment()).commit()
+                Log.d("updateJun", wvo2.toString())
 
                 // Retrofit 인스턴스 생성 예시
                 val retrofit = Retrofit.Builder()
@@ -201,14 +190,17 @@ class WishUpdateFragment : Fragment() {
                         chain.proceed(newRequest)
                     }.build())
                     .build()
+                Log.d("API", "1")
 
                 // 위에서 만든 Retrofit 인스턴스를 사용하여 WishService의 구현체 생성
                 val wishService = retrofit.create(WishService::class.java)
-
-                val call: Call<Response<Message>> = wishService.wishUpdate(wvo2)
+                Log.d("API", "2")
+                val call: Call<Response<Message>> = wishService.wishUpdate(wvo2, wishNo)
+                Log.d("API", "3")
 
                 call.enqueue(object : Callback<Response<Message>> {
                     override fun onResponse(call: Call<Response<Message>>, response: retrofit2.Response<Response<Message>>) {
+                        Log.d("API", response.toString())
                         if (response.isSuccessful) {
                             // 서버로부터 정상적인 응답을 받았을 때의 처리
                             Toast.makeText(requireContext(), "성공적으로 값을 전달했습니다", Toast.LENGTH_SHORT).show()
@@ -227,6 +219,14 @@ class WishUpdateFragment : Fragment() {
                                 "서버로부터 예상치 못한 응답을 받았습니다: ${response.errorBody()?.string()}",
                                 Toast.LENGTH_SHORT
                             ).show()
+                            val homeFragment = HomeFragment().apply {
+                                arguments = Bundle().apply {
+                                    putString("isMine", "1")
+                                }
+                            }
+                            val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
+                            val transaction: FragmentTransaction = fragmentManager.beginTransaction()
+                            transaction.replace(R.id.fragment_container, homeFragment).commit()
                         }
                     }
 
@@ -383,6 +383,7 @@ class WishUpdateFragment : Fragment() {
 
                 if (wishItem != null) {
                     loadedWishDetailFromServer = wishItem
+                    Log.d("wishItem", "1")
                     updateUI(wishItem)
                     Log.d("wishItem 수정", wishItem.toString())
                 } else {
@@ -407,7 +408,7 @@ class WishUpdateFragment : Fragment() {
         DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
             val selectedDate = Calendar.getInstance()
             selectedDate.set(selectedYear, selectedMonth, selectedDay)
-            val dateFormat = SimpleDateFormat("yyyy년 MM월 dd일 EEEE까지", Locale.getDefault())
+            val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
             tvSelectedDate.text = dateFormat.format(selectedDate.time)
         }, year, month, day).show()
     }
@@ -427,14 +428,16 @@ class WishUpdateFragment : Fragment() {
             it.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
         }
 
-        // 새로 클릭된 버튼을 선택 상태로 만듭니다.
-        clickedButton.backgroundTintList = ColorStateList.valueOf(
-            ContextCompat.getColor(requireContext(), R.color.pink)
-        )
-        clickedButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+        // 이전에 선택된 버튼과 새로 클릭된 버튼이 다르면, 새로 클릭된 버튼을 활성화 상태로 만듭니다.
+        if (selectedButton?.id != clickedButton.id) {
+            clickedButton.backgroundTintList = ColorStateList.valueOf(
+                ContextCompat.getColor(requireContext(), R.color.pink)
+            )
+            clickedButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
 
-        // 선택된 버튼을 업데이트합니다.
-        selectedButton = clickedButton
+            // 선택된 버튼을 업데이트합니다.
+            selectedButton = clickedButton
+        }
     }
 
     // 버튼 클릭 이벤트 처리

@@ -39,7 +39,6 @@ class WishInsertFragment : Fragment() {
     private lateinit var btnOpenCalendar: ImageButton
     private lateinit var tvSelectedDate: TextView
     private var selectedButton: Button? = null
-    private lateinit var backButton: ImageButton
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -119,16 +118,6 @@ class WishInsertFragment : Fragment() {
 
         view.findViewById<ImageButton>(R.id.reset).setOnClickListener {
             resetDate()
-        }
-
-        // 뒤로가기 버튼 초기화
-        backButton = view.findViewById(R.id.back)
-
-        // 뒤로가기 버튼에 클릭 리스너 추가
-        backButton.setOnClickListener {
-            val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
-            val transaction: FragmentTransaction = fragmentManager.beginTransaction()
-            transaction.replace(R.id.fragment_container, HomeFragment()).commit()
         }
 
         // Insert API 처리
