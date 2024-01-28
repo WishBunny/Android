@@ -31,6 +31,7 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener, Cust
     private val accessToken = GlobalApplication.prefs.getString("accessToken", "")
     var writerNo = arguments?.getString("writerNo").toString()
     var isMine = arguments?.getString("isMine").toString()
+    var friendName = arguments?.getString("friendName").toString()
     var setCategory = "do"
     var setAchieveYn ="n"
 
@@ -40,6 +41,7 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener, Cust
     ): View? {
         isMine = arguments?.getString("isMine").toString()
         writerNo = arguments?.getString("writerNo").toString()
+        friendName = arguments?.getString("friendName").toString()
         binding = ActivityWishListBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -62,9 +64,21 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener, Cust
                 Log.d("테스트","테스트");
                 loadWishList(setAchieveYn, writerNo.toString(),accessToken,setCategory)
             }
+
+            setFriendData(view)
         }
     }
-
+    private fun setFriendData(view: View){
+        if(friendName!=null){
+            view.findViewById<TextView>(R.id.buketBasText).text = friendName+"님의 버킷 리스트 "
+        }
+        //지금까지 완료한 리스트 확인하기
+        val donsListSize = view.findViewById<Button>(R.id.GetDoneButton)
+        donsListSize.setOnClickListener {
+            setAchieveYn="Y"
+            loadWishList(setAchieveYn, writerNo.toString(),accessToken,setCategory)
+        }
+    }
     private fun loadMyProfileInfo(retrofitAPI: MyPageService, view: View) {
         Log.d("loadMyProfileInfo", "프로필 정보 불러오기 시도")
         Log.d("loadMyProfileInfo", accessToken)

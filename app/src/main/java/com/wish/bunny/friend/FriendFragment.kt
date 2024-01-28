@@ -20,6 +20,7 @@ import com.wish.bunny.databinding.FragmentFriendBinding
 import com.wish.bunny.friend.domain.FriendDeleteResponse
 import com.wish.bunny.friend.domain.FriendListResponse
 import com.wish.bunny.friend.domain.Profiles
+import com.wish.bunny.home.HomeFragment
 import com.wish.bunny.util.RetrofitConnection
 import retrofit2.Call
 import retrofit2.Callback
@@ -97,8 +98,25 @@ class FriendFragment : Fragment() {
                 dialog.show(requireActivity().supportFragmentManager, null)
             }
         })
-    }
+        adapter_profile.setOnGoFriendWishListClickListener(object : ProfileAdapter.OnGoFriendWishListClickListener {
+            override fun goFriendList(memberNo: String, name: String) {
+                Log.d("친구리스트 클릭 로그","친구번호 : "+memberNo)
+                goFriendPage(memberNo, name)
+            }
+        })
 
+
+    }
+    private fun goFriendPage(memberNo: String, name:String){
+        val newFragment = HomeFragment()
+        val bundle = Bundle()
+        bundle.putString("writerNo", memberNo)
+        bundle.putString("isMine", "2")
+        Log.d("friendName",name);
+        bundle.putString("friendName", name)
+        newFragment.arguments = bundle
+        replaceFragment(newFragment)
+    }
     private fun removeItem(position: Int) {
         profileList.removeAt(position)
         adapter_profile.notifyItemRemoved(position)
@@ -132,7 +150,8 @@ class FriendFragment : Fragment() {
                                 name = it.nickname,
                                 dday = it.matchedToNowDt,
                                 remove = R.drawable.remove,
-                                friendId = it.friendId
+                                friendId = it.friendId,
+                                memberId= it.memberId
                             )
                         } ?: emptyList()
                         friendListLiveData.postValue(friendList)
