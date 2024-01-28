@@ -44,7 +44,7 @@ class WishInsertFragment : Fragment() {
     private lateinit var tvSelectedDate: TextView
     private var selectedButton: Button? = null
 
-    //알람
+    //알람 이혜연
     private lateinit var alarmFunctions: AlarmFunctions
     private lateinit var date: String
     private lateinit var content: String
@@ -247,7 +247,7 @@ class WishInsertFragment : Fragment() {
 
     //알람 설정
     private fun setAlarm(date: String, content: String) {
-        val alarmTime = date + "21:34:10"
+        val alarmTime = date + "00:00:00"
         val alarmCode = 1
 
         Log.d("setAlarm", "알람 설정: $alarmTime")
@@ -265,10 +265,10 @@ class WishInsertFragment : Fragment() {
     private fun showDatePicker() {
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH)
+        val month = calendar.get(Calendar.MONTH) + 1
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-        date = (year+month+day).toString()
+        date = String.format("%d-%02d-%02d", year, month, day)
 
         DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
             val selectedDate = Calendar.getInstance()

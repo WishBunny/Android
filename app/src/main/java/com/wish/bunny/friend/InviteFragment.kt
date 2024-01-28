@@ -11,8 +11,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.wish.bunny.GlobalApplication
@@ -50,6 +53,12 @@ class InviteFragment : Fragment() {
             val text: String = copyText.text.toString()
             createClipData(text)
             true
+        }
+
+        val backImageView: ImageView = view.findViewById(R.id.iv_back_invite)
+
+        backImageView.setOnClickListener {
+            navigateToPreviousFragment()
         }
         return view
     }
@@ -91,5 +100,11 @@ class InviteFragment : Fragment() {
             })
 
         }
+    }
+
+
+    private fun navigateToPreviousFragment() {
+        val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
+        fragmentManager.popBackStack()
     }
 }

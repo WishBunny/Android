@@ -8,13 +8,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.wish.bunny.GlobalApplication
+import com.wish.bunny.R
 import com.wish.bunny.friend.domain.MatchingRequest
 import com.wish.bunny.friend.domain.MatchingResponse
+import com.wish.bunny.home.HomeFragment
 import com.wish.bunny.util.RetrofitConnection
 import retrofit2.Call
 import retrofit2.Callback
@@ -49,6 +53,7 @@ class MatchFragment : Fragment() {
             Log.d("결과", result.toString())
             if (result != 0) {
                 showAlertDialog(SUCCESS_DIALOG_LAYOUT)
+                navigateToPreviousFragment()
             } else {
                 showAlertDialog(FAILURE_DIALOG_LAYOUT)
             }
@@ -57,6 +62,12 @@ class MatchFragment : Fragment() {
         matchingBtn.setOnClickListener {
             val request = MatchingRequest(inviteCode.text.toString())
             matchResult(retrofitAPI, request)
+        }
+
+        val backImageView: ImageView = view.findViewById(R.id.iv_back_match)
+
+        backImageView.setOnClickListener {
+            navigateToPreviousFragment()
         }
 
         return view
@@ -101,6 +112,8 @@ class MatchFragment : Fragment() {
         }
     }
 
-
-
+    private fun navigateToPreviousFragment() {
+        val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
+        fragmentManager.popBackStack()
+    }
 }

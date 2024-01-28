@@ -386,7 +386,7 @@ class MypageFragment : Fragment() {
         })
     }
 
-    private var chartFragment: ChartFragment? = null
+    private var chartDoFragment: ChartDoFragment? = null
 
     private fun setTabLayout(percentDo: Float, percentEat: Float, percentGet: Float) {
 
@@ -401,7 +401,7 @@ class MypageFragment : Fragment() {
                         //binding.tabHistory.setBackgroundResource(R.color.pink)
                         replaceFragment(
                             R.id.fragment_mytab,
-                            ChartFragment(percentDo, percentEat, percentGet)
+                            ChartDoFragment(percentDo, percentEat, percentGet)
                         )
                     }
 
@@ -409,10 +409,14 @@ class MypageFragment : Fragment() {
                         //binding.tabBadge.setBackgroundResource(R.color.white)
                         replaceFragment(
                             R.id.fragment_mytab,
-                            BadgeFragment()
+                            ChartEatFragment(percentDo, percentEat, percentGet)
                         )
-
-
+                    }
+                    2 -> {
+                        replaceFragment(
+                            R.id.fragment_mytab,
+                            ChartGetFragment(percentDo, percentEat, percentGet)
+                        )
                     }
                 }
             }
@@ -439,16 +443,16 @@ class MypageFragment : Fragment() {
     }
 
     private fun showChartFragment(percentDo: Float, percentEat: Float, percentGet: Float) {
-        if (chartFragment == null) {
+        if (chartDoFragment == null) {
             // 프래그먼트가 생성되지 않았다면 생성하고 추가
-            chartFragment = ChartFragment(percentDo, percentEat, percentGet)
+            chartDoFragment = ChartDoFragment(percentDo, percentEat, percentGet)
             requireActivity().supportFragmentManager.beginTransaction()
-                .add(R.id.fragment_mytab, chartFragment!!)
+                .add(R.id.fragment_mytab, chartDoFragment!!)
                 .commit()
         } else {
             // 이미 생성된 프래그먼트가 있다면 show를 호출하여 보여줌
             requireActivity().supportFragmentManager.beginTransaction()
-                .show(chartFragment!!)
+                .show(chartDoFragment!!)
                 .commit()
         }
     }

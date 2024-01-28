@@ -60,7 +60,7 @@ class FriendFragment : Fragment() {
         adapter_profile = ProfileAdapter(profileList)
         rc_friends.adapter = adapter_profile
 
-
+        adapter_profile.notifyDataSetChanged()
         return view
     }
 
@@ -88,7 +88,8 @@ class FriendFragment : Fragment() {
                         // 확인 버튼을 눌렀을 때의 처리
                         Log.d("친구 관계id", friendId)
 
-                        val retrofitAPI = RetrofitConnection.getInstance().create(FriendService::class.java)
+                        val retrofitAPI =
+                            RetrofitConnection.getInstance().create(FriendService::class.java)
                         deleteFriend(retrofitAPI, friendId, position)
                     },
                     "확인",
@@ -98,13 +99,13 @@ class FriendFragment : Fragment() {
                 dialog.show(requireActivity().supportFragmentManager, null)
             }
         })
-        adapter_profile.setOnGoFriendWishListClickListener(object : ProfileAdapter.OnGoFriendWishListClickListener {
+        adapter_profile.setOnGoFriendWishListClickListener(object :
+            ProfileAdapter.OnGoFriendWishListClickListener {
             override fun goFriendList(memberNo: String, name: String) {
-                Log.d("친구리스트 클릭 로그","친구번호 : "+memberNo)
+                Log.d("친구리스트 클릭 로그", "친구번호 : " + memberNo)
                 goFriendPage(memberNo, name)
             }
         })
-
 
     }
     private fun goFriendPage(memberNo: String, name:String){
@@ -192,7 +193,16 @@ class FriendFragment : Fragment() {
         })
     }
 
+    fun refreshFragment() {
+        val ft = requireFragmentManager().beginTransaction()
+        ft.detach(this).attach(this).commit()
+    }
 
+    override fun onResume() {
+        super.onResume()
 
+        val retrofitAPI = RetrofitConnection.getInstance().create(FriendService::class.java)
+        getFriendList(retrofitAPI)
+    }
 
 }
