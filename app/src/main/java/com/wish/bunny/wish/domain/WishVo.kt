@@ -9,5 +9,6 @@ data class WishVo(
     val deadlineDt: String,
     val category: String,
     val notifyYn: String,
-    val tagNo: String
+    val tagNo: String,
+    val emoji: String?
 )

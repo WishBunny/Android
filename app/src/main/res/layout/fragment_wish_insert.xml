@@ -17,6 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="52dp"
             android:fontFamily="@font/spoqahansansneo_bold"
+            android:textColor="@color/wishbunny_gray700"
             android:text="작은 것부터\n시작해보세요!"
             android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +37,12 @@
                 android:id="@+id/tv_emoji"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:background="@color/wishbunny_background" />
+                android:paddingTop="20dp"
+                android:background="@color/wishbunny_background"
+                android:textSize="50sp"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="🥰"
+                android:fontFamily="@font/tossface_font"/>
 
         </androidx.cardview.widget.CardView>
 
@@ -179,28 +185,6 @@
                     android:textStyle="bold" />
 
                 <Button
-                    android:id="@+id/hashtagButton2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:backgroundTint="@color/wishbunny_background"
-                    android:onClick="onHashtagButtonClick"
-                    android:text="#데이트"
-                    android:textColor="@color/wishbunny_gray500"
-                    android:textStyle="bold" />
-
-                <Button
-                    android:id="@+id/hashtagButton3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:backgroundTint="@color/wishbunny_background"
-                    android:onClick="onHashtagButtonClick"
-                    android:text="#취업"
-                    android:textColor="@color/wishbunny_gray500"
-                    android:textStyle="bold" />
-
-                <Button
                     android:id="@+id/hashtagButton4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -219,6 +203,29 @@
                     android:backgroundTint="@color/wishbunny_background"
                     android:onClick="onHashtagButtonClick"
                     android:text="#자기계발"
+                    android:textColor="@color/wishbunny_gray500"
+                    android:textStyle="bold" />
+
+
+                <Button
+                    android:id="@+id/hashtagButton2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:backgroundTint="@color/wishbunny_background"
+                    android:onClick="onHashtagButtonClick"
+                    android:text="#데이트"
+                    android:textColor="@color/wishbunny_gray500"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/hashtagButton3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:backgroundTint="@color/wishbunny_background"
+                    android:onClick="onHashtagButtonClick"
+                    android:text="#취업"
                     android:textColor="@color/wishbunny_gray500"
                     android:textStyle="bold" />
 

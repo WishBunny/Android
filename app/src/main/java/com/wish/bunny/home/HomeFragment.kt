@@ -44,8 +44,10 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         defaultClick(view)
+        btnClickEvent(view)
 
         if(isMine.equals("1")){
+            btnClickEvent(view)
             val retrofitAPI = RetrofitConnection.getInstance().create(MyPageService::class.java)
             loadMyProfileInfo(retrofitAPI, view)
         }
@@ -84,6 +86,19 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
                             //지금까지 완료한 리스트 확인하기
                             val donsListSize = view.findViewById<Button>(R.id.GetDoneButton)
                             donsListSize.setOnClickListener {
+                                val changeTextColor = ContextCompat.getColor(requireContext(), R.color.white)
+                                val transparentColor = ContextCompat.getColor(requireContext(), R.color.wishbunny_background)
+                                val originalTextColor = ContextCompat.getColor(requireContext(), R.color.black) // 원래의 글
+                                binding.GetDoneButton.setBackgroundResource(R.drawable.button_border_pink)
+                                binding.GetDoneButton.setTextColor(changeTextColor) // 글자색을 원래대로
+                                binding.tvAcheivetext.setText("지금까지 이룬 것들")
+                                binding.button1.setBackgroundColor(transparentColor) // 다른 버튼은 원래 색으로
+                                binding.button1.setTextColor(originalTextColor)
+                                binding.button2.setBackgroundColor(transparentColor)
+                                binding.button2.setTextColor(originalTextColor)
+                                binding.button3.setBackgroundColor(transparentColor)
+                                binding.button3.setTextColor(originalTextColor)
+
                                 Log.d("테스트2", writerNo.toString());
                                 loadWishList("Y", writerNo.toString(),accessToken,"do")
                             }
@@ -120,7 +135,10 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
         val transparentColor = ContextCompat.getColor(requireContext(), R.color.wishbunny_background)
         val originalTextColor = ContextCompat.getColor(requireContext(), R.color.black) // 원래의 글자색 저장
 
-        binding.button1.setOnClickListener {
+        binding.button1.setOnClickListener{
+            binding.GetDoneButton.setBackgroundResource(R.drawable.button_border)
+            binding.GetDoneButton.setTextColor(pinkColor)
+            binding.tvAcheivetext.setText("꼭 이룰 거예요")
             binding.button1.setBackgroundColor(pinkColor) // 핑크색으로 변경
             binding.button1.setTextColor(changeTextColor) // 글자색을 원래대로
             binding.button2.setBackgroundColor(transparentColor) // 다른 버튼은 원래 색으로
@@ -133,6 +151,9 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
         }
 
         binding.button2.setOnClickListener {
+            binding.GetDoneButton.setBackgroundResource(R.drawable.button_border)
+            binding.GetDoneButton.setTextColor(pinkColor)
+            binding.tvAcheivetext.setText("꼭 이룰 거예요")
             binding.button2.setBackgroundColor(pinkColor)
             binding.button2.setTextColor(changeTextColor) // 글자색을 원래대로
             binding.button1.setBackgroundColor(transparentColor) // 다른 버튼은 원래 색으로
@@ -146,6 +167,9 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
         }
 
         binding.button3.setOnClickListener {
+            binding.GetDoneButton.setBackgroundResource(R.drawable.button_border)
+            binding.GetDoneButton.setTextColor(pinkColor)
+            binding.tvAcheivetext.setText("꼭 이룰 거예요")
             binding.button3.setBackgroundColor(pinkColor)
             binding.button3.setTextColor(changeTextColor) // 글자색을 원래대로
             binding.button1.setBackgroundColor(transparentColor) // 다른 버튼은 원래 색으로
@@ -160,7 +184,7 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener {
     }
     private fun setMyProfileInfo(it: ProfileGetResponse, view: View) : String {
         Log.d("setMyProfileInfo",it.data.toString())
-        view.findViewById<TextView>(R.id.buketBasText).text = it.data.nickname+"님의 버킷 리스트 "
+        view.findViewById<TextView>(R.id.buketBasText).text = it.data.nickname
         writerNo = it.data.memberId
         Log.d("writerNo: ", writerNo.toString());
         return it.data.memberId
