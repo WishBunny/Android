@@ -28,6 +28,7 @@ import com.wish.bunny.databinding.FragmentMypageBinding
 import com.wish.bunny.mypage.domain.ProfileGetResponse
 import com.wish.bunny.mypage.domain.ProfileUpdateRequest
 import com.wish.bunny.mypage.domain.WishCountResponse
+import com.wish.bunny.onboarding.OnboardingActivity
 import com.wish.bunny.util.RetrofitConnection
 import retrofit2.Call
 import retrofit2.Callback
@@ -94,9 +95,9 @@ class MypageFragment : Fragment() {
     }
 
     /**
-    작성자: 엄상은
-    처리 내용: 프로필 정보 업데이트 (통신)
-     */
+        작성자: 엄상은
+        처리 내용: 프로필 정보 업데이트 (통신)
+    */
     private fun updateMemberInfo(retrofitAPI: MyPageService) {
         var profileUpdateRequest = ProfileUpdateRequest(
             email = binding.tvEmail.text.toString(),
@@ -134,9 +135,9 @@ class MypageFragment : Fragment() {
     }
 
     /**
-    작성자: 엄상은
-    처리 내용: 프로필 사진 변경 세팅
-     */
+        작성자: 엄상은
+        처리 내용: 프로필 사진 변경 세팅
+    */
     private fun pictureForEditSetting() {
         binding.imgEditphoto.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK)
@@ -151,9 +152,9 @@ class MypageFragment : Fragment() {
     }
 
     /**
-    작성자: 엄상은
-    처리 내용: 이미지 업로드
-     */
+        작성자: 엄상은
+        처리 내용: 이미지 업로드
+    */
     private fun uploadFileByUri(selectedImageUri: Uri?): String {
         // 확장자 추출
         val mimeType = selectedImageUri?.let { context?.contentResolver?.getType(it) }
@@ -165,9 +166,9 @@ class MypageFragment : Fragment() {
     }
 
     /**
-    작성자: 엄상은
-    처리 내용: URI로부터 File 객체 생성
-     */
+        작성자: 엄상은
+        처리 내용: URI로부터 File 객체 생성
+    */
     private fun uriToFile(context: Context, uri: Uri): File {
         val inputStream = context.contentResolver.openInputStream(uri)
         val file = File(context.cacheDir, "tempFile")
@@ -179,9 +180,9 @@ class MypageFragment : Fragment() {
     }
 
     /**
-    작성자: 엄상은
-    처리 내용: S3에 이미지 업로드
-     */
+        작성자: 엄상은
+        처리 내용: S3에 이미지 업로드
+    */
     private fun uploadToS3(file: File, fileName: String): String {
         val s3Client = AWSS3Manager.getInstance()
         val transferUtility = TransferUtility.builder().s3Client(s3Client).context(context).build()
@@ -204,10 +205,7 @@ class MypageFragment : Fragment() {
             override fun onProgressChanged(id: Int, bytesCurrent: Long, bytesTotal: Long) {
                 val percentDonef = bytesCurrent.toFloat() / bytesTotal.toFloat() * 100
                 val percentDone = percentDonef.toInt()
-                Log.d(
-                    "uploadToS3",
-                    "ID:$id bytesCurrent: $bytesCurrent bytesTotal: $bytesTotal $percentDone%"
-                )
+                Log.d("uploadToS3", "ID:$id bytesCurrent: $bytesCurrent bytesTotal: $bytesTotal $percentDone%")
             }
 
             override fun onError(id: Int, ex: Exception) {
@@ -218,33 +216,31 @@ class MypageFragment : Fragment() {
     }
 
     /**
-    작성자: 엄상은
-    처리 내용: 키보드 액션 설정
-     */
+        작성자: 엄상은
+        처리 내용: 키보드 액션 설정
+    */
     private fun keyboardSetting() {
         // edit 이미지 클릭 시 키보드 입력 받기
         binding.imgEditnickname.setOnClickListener {
             binding.editNickname.requestFocus()
-            val imm =
-                requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.showSoftInput(binding.editNickname, InputMethodManager.SHOW_IMPLICIT)
             // 텍스트의 맨 뒤로 커서 이동
             binding.editNickname.setSelection(binding.editNickname.text.length)
         }
 
         // 다른 화면 클릭 시 키보드 내리기
-        binding.root.setOnClickListener {
-            val imm =
-                requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        binding.root.setOnClickListener{
+            val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
             binding.editNickname.clearFocus()
         }
     }
 
     /**
-    작성자: 엄상은
-    처리 내용: 카카오 프로필 정보 가져오기
-     */
+        작성자: 엄상은
+        처리 내용: 카카오 프로필 정보 가져오기
+    */
     private fun loadMyProfileInfo(retrofitAPI: MyPageService) {
         Log.d("loadMyProfileInfo", "프로필 정보 불러오기 시도")
         var accessToken = GlobalApplication.prefs.getString("accessToken", "")
@@ -276,9 +272,9 @@ class MypageFragment : Fragment() {
     }
 
     /**
-    작성자: 엄상은
-    처리 내용: 프로필 정보 UI 세팅
-     */
+        작성자: 엄상은
+        처리 내용: 프로필 정보 UI 세팅
+    */
     private fun setMyProfileInfo(it: ProfileGetResponse) {
         memberNo = it.data.memberId
         binding.tvMemberId.text = it.data.memberId
@@ -291,9 +287,9 @@ class MypageFragment : Fragment() {
     }
 
     /**
-    작성자: 엄상은
-    처리 내용: 로그아웃, 계정 연결 끊기 버튼 세팅
-     */
+        작성자: 엄상은
+        처리 내용: 로그아웃, 계정 연결 끊기 버튼 세팅
+    */
     private fun logOutSetting() {
         binding.LogoutBtn.setOnClickListener {
             logout()
@@ -304,24 +300,25 @@ class MypageFragment : Fragment() {
     }
 
     /**
-    작성자: 엄상은
-    처리 내용: 카카오 연결 끊기 처리
-     */
+        작성자: 엄상은
+        처리 내용: 카카오 연결 끊기 처리
+    */
     private fun disconnect() {
         Log.d("MyPageFragement", "회원탈퇴 시도")
         GlobalApplication.prefs.removeKeyWithValue("accessToken")
         UserApiClient.instance.unlink { error ->
             if (error != null) {
                 Log.e("MyPageFragement", "연결 끊기 실패", error)
-            } else {
+            }
+            else {
                 Log.i("MyPageFragement", "연결 끊기 성공. SDK에서 토큰 삭제 됨")
             }
         }
     }
 
     /**
-    작성자: 엄상은
-    처리 내용: 로그아웃 처리
+        작성자: 엄상은
+        처리 내용: 로그아웃 처리
      */
     private fun logout() {
         Log.d("MyPageFragement", "로그아웃 시도")

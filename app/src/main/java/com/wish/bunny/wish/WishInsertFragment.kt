@@ -19,6 +19,7 @@ import androidx.fragment.app.FragmentTransaction
 import com.wish.bunny.GlobalApplication
 import com.wish.bunny.R
 import com.wish.bunny.alarm.AlarmFunctions
+import com.wish.bunny.emoji.EmojiDialog
 import com.wish.bunny.home.HomeFragment
 import com.wish.bunny.wish.domain.Message
 import com.wish.bunny.wish.domain.WishVo
@@ -63,6 +64,16 @@ class WishInsertFragment : Fragment() {
         val button2: Button = view.findViewById(R.id.to_eat)
         val button3: Button = view.findViewById(R.id.to_get)
         val categoryButtons = arrayOf(button1, button2, button3)
+
+        // 이모지 처리: 엄상은
+        val editText = view.findViewById(R.id.tv_emoji) as TextView
+        val emojiDialog = EmojiDialog(this.requireContext())
+
+        editText.setOnClickListener {
+            emojiDialog.show { emoji ->
+                editText.setText(emoji)
+            }
+        }
 
         // 해시태그 버튼 처리
         val hashtagButton1: Button = view.findViewById(R.id.hashtagButton1)
@@ -124,6 +135,10 @@ class WishInsertFragment : Fragment() {
             showDatePicker()
         }
 
+        view.findViewById<TextView>(R.id.tvSelectedDate).setOnClickListener {
+            showDatePicker()
+        }
+
         view.findViewById<ImageButton>(R.id.reset).setOnClickListener {
             resetDate()
         }
@@ -167,7 +182,8 @@ class WishInsertFragment : Fragment() {
                 content = text_content.text.toString(),
                 deadlineDt = tvSelectedDate.text.toString(),
                 notifyYn = "Y",
-                tagNo = selectedHashtag
+                tagNo = selectedHashtag,
+                emoji = editText.text.toString()
             )
 
             // Retrofit 인스턴스 생성 예시
