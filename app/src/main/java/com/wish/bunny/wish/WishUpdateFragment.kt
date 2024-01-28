@@ -129,6 +129,9 @@ class WishUpdateFragment : Fragment() {
         view.findViewById<ImageButton>(R.id.btnOpenCalendar).setOnClickListener {
             showDatePicker()
         }
+        view.findViewById<TextView>(R.id.tvSelectedDate).setOnClickListener {
+            showDatePicker()
+        }
 
         view.findViewById<ImageButton>(R.id.reset).setOnClickListener {
             resetDate()
@@ -333,8 +336,8 @@ class WishUpdateFragment : Fragment() {
             // 버튼의 UI 상태를 업데이트합니다.
             val pinkColor = ContextCompat.getColor(requireContext(), R.color.pink)
             val changeTextColor = ContextCompat.getColor(requireContext(), R.color.white)
-            val transparentColor = ContextCompat.getColor(requireContext(), R.color.ivory)
-            val originalTextColor = ContextCompat.getColor(requireContext(), R.color.black)
+            val transparentColor = ContextCompat.getColor(requireContext(), R.color.wishbunny_white)
+            val originalTextColor = ContextCompat.getColor(requireContext(), R.color.wishbunny_gray500)
 
             hashtagButtons?.let {button ->
                 if (button.isSelected) {
@@ -361,8 +364,8 @@ class WishUpdateFragment : Fragment() {
         categoryButtons.forEach { button ->
             val pinkColor = ContextCompat.getColor(requireContext(), R.color.pink)
             val changeTextColor = ContextCompat.getColor(requireContext(), R.color.white)
-            val transparentColor = ContextCompat.getColor(requireContext(), R.color.ivory)
-            val originalTextColor = ContextCompat.getColor(requireContext(), R.color.black)
+            val transparentColor = ContextCompat.getColor(requireContext(), R.color.wishbunny_white)
+            val originalTextColor = ContextCompat.getColor(requireContext(), R.color.wishbunny_gray500)
 
             if (button.isSelected) {
                 button.setBackgroundColor(pinkColor)
@@ -405,7 +408,7 @@ class WishUpdateFragment : Fragment() {
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-        DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
+        DatePickerDialog(requireContext(), R.style.WishbunnyDatePickerDialogTheme, { _, selectedYear, selectedMonth, selectedDay ->
             val selectedDate = Calendar.getInstance()
             selectedDate.set(selectedYear, selectedMonth, selectedDay)
             val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
@@ -423,9 +426,9 @@ class WishUpdateFragment : Fragment() {
         // 이전에 선택된 버튼의 상태를 복원합니다.
         selectedButton?.let {
             it.backgroundTintList = ColorStateList.valueOf(
-                ContextCompat.getColor(requireContext(), R.color.ivory)
+                ContextCompat.getColor(requireContext(), R.color.wishbunny_background)
             )
-            it.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+            it.setTextColor(ContextCompat.getColor(requireContext(), R.color.wishbunny_gray500))
         }
 
         // 이전에 선택된 버튼과 새로 클릭된 버튼이 다르면, 새로 클릭된 버튼을 활성화 상태로 만듭니다.
@@ -434,7 +437,6 @@ class WishUpdateFragment : Fragment() {
                 ContextCompat.getColor(requireContext(), R.color.pink)
             )
             clickedButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-
             // 선택된 버튼을 업데이트합니다.
             selectedButton = clickedButton
         }
@@ -444,8 +446,8 @@ class WishUpdateFragment : Fragment() {
     private fun updateCategoryButtons(selectedButton: Button, allButtons: Array<Button>) {
         val pinkColor = ContextCompat.getColor(requireContext(), R.color.pink)
         val changeTextColor = ContextCompat.getColor(requireContext(), R.color.white)
-        val transparentColor = ContextCompat.getColor(requireContext(), R.color.ivory)
-        val originalTextColor = ContextCompat.getColor(requireContext(), R.color.black)
+        val transparentColor = ContextCompat.getColor(requireContext(), R.color.wishbunny_white)
+        val originalTextColor = ContextCompat.getColor(requireContext(), R.color.wishbunny_gray500)
 
         for (button in allButtons) {
             if (button == selectedButton) {
