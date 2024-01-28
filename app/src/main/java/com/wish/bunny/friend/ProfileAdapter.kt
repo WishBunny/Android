@@ -18,13 +18,21 @@ class ProfileAdapter(private var profileList: List<Profiles>) :
     RecyclerView.Adapter<ProfileAdapter.ProfileViewHolder>() {
     // 클릭 리스너
     private var onItemClickListener: OnItemClickListener? = null
+    //친구 클릭 리스너
+    private var onGoFriendWishListClickListener: OnGoFriendWishListClickListener? = null
 
     interface OnItemClickListener {
         fun onRemoveClick(position: Int, friendId: String)
     }
+    interface OnGoFriendWishListClickListener {
+        fun goFriendList(memberNo: String, name: String)
+    }
 
     fun setOnItemClickListener(listener: OnItemClickListener) {
         this.onItemClickListener = listener
+    }
+    fun setOnGoFriendWishListClickListener(listener: OnGoFriendWishListClickListener) {
+        this.onGoFriendWishListClickListener = listener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfileViewHolder {
@@ -50,6 +58,9 @@ class ProfileAdapter(private var profileList: List<Profiles>) :
         holder.itemView.findViewById<ImageView>(R.id.iv_remove).setOnClickListener {
             onItemClickListener?.onRemoveClick(position, currentItem.friendId)
         }
+        holder.itemView.findViewById<TextView>(R.id.tv_name).setOnClickListener {
+            onGoFriendWishListClickListener?.goFriendList(currentItem.memberId, currentItem.name)
+        }
     }
 
     class ProfileViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -59,4 +70,5 @@ class ProfileAdapter(private var profileList: List<Profiles>) :
         val tvDday: TextView = itemView.findViewById(R.id.tv_dday)
         val ivRemove: ImageView = itemView.findViewById(R.id.iv_remove)
     }
+
 }
