@@ -25,7 +25,7 @@ class ProfileAdapter(private var profileList: List<Profiles>) :
         fun onRemoveClick(position: Int, friendId: String)
     }
     interface OnGoFriendWishListClickListener {
-        fun goFriendList(memberNo: String)
+        fun goFriendList(memberNo: String, name: String)
     }
 
     fun setOnItemClickListener(listener: OnItemClickListener) {
@@ -59,7 +59,7 @@ class ProfileAdapter(private var profileList: List<Profiles>) :
             onItemClickListener?.onRemoveClick(position, currentItem.friendId)
         }
         holder.itemView.findViewById<TextView>(R.id.tv_name).setOnClickListener {
-            onGoFriendWishListClickListener?.goFriendList(currentItem.memberId)
+            onGoFriendWishListClickListener?.goFriendList(currentItem.memberId, currentItem.name)
         }
     }
 

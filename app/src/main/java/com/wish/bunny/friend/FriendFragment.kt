@@ -96,19 +96,21 @@ class FriendFragment : Fragment() {
             }
         })
         adapter_profile.setOnGoFriendWishListClickListener(object : ProfileAdapter.OnGoFriendWishListClickListener {
-            override fun goFriendList(memberNo: String) {
+            override fun goFriendList(memberNo: String, name: String) {
                 Log.d("친구리스트 클릭 로그","친구번호 : "+memberNo)
-                goFriendPage(memberNo)
+                goFriendPage(memberNo, name)
             }
         })
 
 
     }
-    private fun goFriendPage(memberNo: String){
+    private fun goFriendPage(memberNo: String, name:String){
         val newFragment = HomeFragment()
         val bundle = Bundle()
         bundle.putString("writerNo", memberNo)
         bundle.putString("isMine", "2")
+        Log.d("friendName",name);
+        bundle.putString("friendName", name)
         newFragment.arguments = bundle
         replaceFragment(newFragment)
     }
