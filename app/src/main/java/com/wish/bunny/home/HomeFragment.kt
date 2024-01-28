@@ -247,5 +247,6 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener, Cust
     override fun onWishCompleted() {
         Log.d("onWishCompleted","onWishCompleted 클릭");
         loadDoneWishSize(requireView(), writerNo.toString())
+        loadWishList("Y", writerNo.toString(),accessToken,"do")
     }
 }
