@@ -17,6 +17,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.wish.bunny.GlobalApplication
 import com.wish.bunny.R
+import com.wish.bunny.emoji.EmojiDialog
 import com.wish.bunny.home.HomeFragment
 import com.wish.bunny.wish.domain.Message
 import com.wish.bunny.wish.domain.WishVo
@@ -39,7 +40,6 @@ class WishInsertFragment : Fragment() {
     private lateinit var btnOpenCalendar: ImageButton
     private lateinit var tvSelectedDate: TextView
     private var selectedButton: Button? = null
-    private lateinit var backButton: ImageButton
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,6 +56,16 @@ class WishInsertFragment : Fragment() {
         val button2: Button = view.findViewById(R.id.to_eat)
         val button3: Button = view.findViewById(R.id.to_get)
         val categoryButtons = arrayOf(button1, button2, button3)
+
+        // 이모지 처리: 엄상은
+        val editText = view.findViewById(R.id.tv_emoji) as TextView
+        val emojiDialog = EmojiDialog(this.requireContext())
+
+        editText.setOnClickListener {
+            emojiDialog.show { emoji ->
+                editText.setText(emoji)
+            }
+        }
 
         // 해시태그 버튼 처리
         val hashtagButton1: Button = view.findViewById(R.id.hashtagButton1)
@@ -117,18 +127,12 @@ class WishInsertFragment : Fragment() {
             showDatePicker()
         }
 
-        view.findViewById<ImageButton>(R.id.reset).setOnClickListener {
-            resetDate()
+        view.findViewById<TextView>(R.id.tvSelectedDate).setOnClickListener {
+            showDatePicker()
         }
 
-        // 뒤로가기 버튼 초기화
-        backButton = view.findViewById(R.id.back)
-
-        // 뒤로가기 버튼에 클릭 리스너 추가
-        backButton.setOnClickListener {
-            val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
-            val transaction: FragmentTransaction = fragmentManager.beginTransaction()
-            transaction.replace(R.id.fragment_container, HomeFragment()).commit()
+        view.findViewById<ImageButton>(R.id.reset).setOnClickListener {
+            resetDate()
         }
 
         // Insert API 처리
@@ -160,7 +164,8 @@ class WishInsertFragment : Fragment() {
                 content = text_content.text.toString(),
                 deadlineDt = tvSelectedDate.text.toString(),
                 notifyYn = "Y",
-                tagNo = selectedHashtag
+                tagNo = selectedHashtag,
+                emoji = editText.text.toString()
             )
 
             // Retrofit 인스턴스 생성 예시
@@ -226,7 +231,7 @@ class WishInsertFragment : Fragment() {
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-        DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
+        DatePickerDialog(requireContext(), R.style.WishbunnyDatePickerDialogTheme, { _, selectedYear, selectedMonth, selectedDay ->
             val selectedDate = Calendar.getInstance()
             selectedDate.set(selectedYear, selectedMonth, selectedDay)
             val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())

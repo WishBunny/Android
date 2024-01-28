@@ -26,4 +26,8 @@
         <item name="android:itemBackground">@android:color/transparent</item>
         <item name="android:colorControlHighlight">@android:color/transparent</item>
     </style>
+
+    <style name="WishbunnyDatePickerDialogTheme" parent="ThemeOverlay.AppCompat.Dialog">
+        <item name="colorAccent">@color/wishbunny_pink</item>
+    </style>
 </resources>
