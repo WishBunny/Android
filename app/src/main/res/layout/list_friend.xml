@@ -27,7 +27,7 @@
             android:id="@+id/iv_profile"
             android:layout_width="65dp"
             android:layout_height="65dp"
-            android:src="@drawable/default_profile_image" />
+            android:src="@drawable/default_profile" />
     </androidx.cardview.widget.CardView>
 
 
@@ -45,7 +45,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/spoqahansansneo_bold"
-            android:text="@string/hyeyeon"
             android:textColor="#DF646E"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -55,7 +54,6 @@
             android:id="@+id/tv_dday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="버니된지 D+15"
             android:textColor="#70000000"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
