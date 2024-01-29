@@ -293,9 +293,13 @@ class MypageFragment : Fragment() {
     private fun logOutSetting() {
         binding.LogoutBtn.setOnClickListener {
             logout()
+            val intent = Intent(activity, OnboardingActivity::class.java)
+            startActivity(intent)
         }
         binding.DisconnectBtn.setOnClickListener {
             disconnect()
+            val intent = Intent(activity, OnboardingActivity::class.java)
+            startActivity(intent)
         }
     }
 

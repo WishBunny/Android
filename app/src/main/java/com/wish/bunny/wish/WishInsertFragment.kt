@@ -270,7 +270,7 @@ class WishInsertFragment : Fragment() {
 
         date = String.format("%d-%02d-%02d", year, month, day)
 
-        DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
+        DatePickerDialog(requireContext(), R.style.WishbunnyDatePickerDialogTheme, { _, selectedYear, selectedMonth, selectedDay ->
             val selectedDate = Calendar.getInstance()
             selectedDate.set(selectedYear, selectedMonth, selectedDay)
             val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
