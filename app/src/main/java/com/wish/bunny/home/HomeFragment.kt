@@ -291,6 +291,18 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener, Cust
         Log.d("onWishCompleted","onWishCompleted 클릭");
         loadDoneWishSize(requireView(), writerNo.toString())
         setAchieveYn="Y"
+        val changeTextColor = ContextCompat.getColor(requireContext(), R.color.white)
+        val transparentColor = ContextCompat.getColor(requireContext(), R.color.wishbunny_background)
+        val originalTextColor = ContextCompat.getColor(requireContext(), R.color.black)
+        binding.GetDoneButton.setBackgroundResource(R.drawable.button_border_pink)
+        binding.GetDoneButton.setTextColor(changeTextColor) // 글자색을 원래대로
+        binding.tvAcheivetext.setText("지금까지 이룬 것들")
+        binding.button1.setBackgroundColor(transparentColor) // 다른 버튼은 원래 색으로
+        binding.button1.setTextColor(originalTextColor)
+        binding.button2.setBackgroundColor(transparentColor)
+        binding.button2.setTextColor(originalTextColor)
+        binding.button3.setBackgroundColor(transparentColor)
+        binding.button3.setTextColor(originalTextColor)
         loadWishList(setAchieveYn, writerNo.toString(),accessToken,setCategory)
     }
 }
