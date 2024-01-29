@@ -249,7 +249,7 @@
             android:layout_marginStart="20dp"
             android:background="@android:color/transparent"
             android:fontFamily="@font/spoqahansansneo_bold"
-            android:text="연결 끊기"
+            android:text="회원 탈퇴"
             android:textColor="@color/pink"
             android:textSize="17sp" />
     </LinearLayout>
