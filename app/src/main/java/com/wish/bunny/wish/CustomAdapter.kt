@@ -103,7 +103,7 @@ class CustomAdapter(private val context: Context, private val wishItemList: List
             alertDialog.show()
         }
 
-        //버킷리스트 상세 완료 처리
+        // 버킷리스트 상세 완료 처리
         private fun doneWishDetail(wishNo : String) {
             val retrofitAPI = RetrofitConnection.getInstance().create(WishService::class.java)
             retrofitAPI.finishWish(wishNo).enqueue(object : Callback<WishMapResult> {
@@ -112,7 +112,7 @@ class CustomAdapter(private val context: Context, private val wishItemList: List
 
                     if (wishMapResult != null) {
                         // updateUI(wishMapResult.list)
-                        //Log.d("doneWishDetail", wishMapResult.result.toString())
+                        // Log.d("doneWishDetail", wishMapResult.result.toString())
                         wishCompletedListener?.onWishCompleted() // Notify HomeFragment
                     } else {
                         Log.d("doneWishDetail", "서버 응답이 null입니다.")

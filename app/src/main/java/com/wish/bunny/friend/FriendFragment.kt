@@ -150,7 +150,7 @@ class FriendFragment : Fragment() {
                                 image = it.imgUrl,
                                 name = it.nickname,
                                 dday = it.matchedToNowDt,
-                                remove = R.drawable.remove,
+                                remove = R.drawable.ic_heart_broken,
                                 friendId = it.friendId,
                                 memberId= it.memberId
                             )

@@ -19,7 +19,7 @@
             android:id="@+id/cv_profile"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="75dp"
             app:cardCornerRadius="75dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -267,6 +267,7 @@
             android:id="@+id/fragment_tablayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/wishbunny_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -300,7 +301,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="344dp"
                 android:orientation="vertical">
 
                 <androidx.fragment.app.FragmentContainerView
