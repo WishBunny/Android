@@ -16,9 +16,9 @@
 
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/pieChartEat"
-            android:layout_width="200dp"
+            android:layout_width="300dp"
             android:layout_height="300dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
