@@ -364,8 +364,6 @@ class MypageFragment : Fragment() {
                         countEat = it.data.countEat
                         countGet = it.data.countGet
 
-                        Log.d("하고싶어요 전체 개수", countDo.toString())
-                        Log.d("하고싶어요 이룬 개수", countAchievedDo.toString())
                         //탭 레이아웃
                         val percentDo: Float =
                             if (countDo != 0) (countAchievedDo.toFloat() / countDo.toFloat()) * 100 else 0.0f
@@ -373,8 +371,6 @@ class MypageFragment : Fragment() {
                             if (countEat != 0) (countAchievedEat.toFloat() / countEat.toFloat()) * 100 else 0.0f
                         val percentGet: Float =
                             if (countGet != 0) (countAchievedGet.toFloat() / countGet.toFloat()) * 100 else 0.0f
-
-                        Log.d("하고싶어요 퍼센트", percentDo.toString())
                         setTabLayout(percentDo, percentEat, percentGet)
                     }
                 } else {
@@ -402,7 +398,6 @@ class MypageFragment : Fragment() {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when (tab!!.position) {
                     0 -> {
-                        //binding.tabHistory.setBackgroundResource(R.color.pink)
                         replaceFragment(
                             R.id.fragment_mytab,
                             ChartDoFragment(percentDo, percentEat, percentGet)
@@ -410,7 +405,6 @@ class MypageFragment : Fragment() {
                     }
 
                     1 -> {
-                        //binding.tabBadge.setBackgroundResource(R.color.white)
                         replaceFragment(
                             R.id.fragment_mytab,
                             ChartEatFragment(percentDo, percentEat, percentGet)
