@@ -223,7 +223,6 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener, Cust
 
             override fun onFailure(call: Call<WishMapResult>, t: Throwable) {
                 Log.d("loadDoneWishSize", "불러오기 실패: ${t.message}")
-                // TODO: 실패 시 처리 구현
             }
         })
     }

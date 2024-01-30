@@ -53,7 +53,6 @@ class AlarmReceiver() : BroadcastReceiver() {
             );
         }
 
-
         val notification = builder.setContentTitle("오늘 마감인 위시리스트가 있어요")
             .setContentText(title)
             .setSmallIcon(R.drawable.bg_friend_common_button)

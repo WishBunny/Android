@@ -100,7 +100,6 @@ class FriendFragment : Fragment() {
                 goFriendPage(memberNo, name)
             }
         })
-
     }
 
     private fun goFriendPage(memberNo: String, name: String) {
@@ -131,7 +130,6 @@ class FriendFragment : Fragment() {
         Log.d("loadMyProfileInfo", accessToken)
         accessToken?.let { token ->
             val fragmentContext = requireContext()
-
             retrofitAPI.getFriendList(token).enqueue(object :
                 Callback<FriendListResponse> {
                 override fun onResponse(

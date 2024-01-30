@@ -62,7 +62,6 @@ class AlarmFunctions(private val context: Context) {
             calendar.timeInMillis,
             pendingIntent
         )
-
     }
 
     fun cancelAlarm(alarm_code: Int) {
@@ -79,7 +78,6 @@ class AlarmFunctions(private val context: Context) {
                 PendingIntent.FLAG_UPDATE_CURRENT
             )
         }
-
         alarmManager.cancel(pendingIntent)
     }
 }

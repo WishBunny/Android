@@ -6,7 +6,7 @@ import retrofit2.http.GET
 
 /**
     작성자: 엄상은
-    처리 내용: 이모지 얻기
+    처리 내용: 이모지 통신
 */
 interface EmojiService {
     @GET("/emojis")

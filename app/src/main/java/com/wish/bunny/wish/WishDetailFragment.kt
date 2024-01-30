@@ -229,5 +229,4 @@ class WishDetailFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }

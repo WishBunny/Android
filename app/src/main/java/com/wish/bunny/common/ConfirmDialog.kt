@@ -9,7 +9,6 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.DialogFragment
 import com.wish.bunny.R
 
-
 /**
 작성자:  이혜연
 처리 내용: custom dialog 구현

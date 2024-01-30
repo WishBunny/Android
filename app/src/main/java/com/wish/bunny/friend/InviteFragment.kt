@@ -90,9 +90,7 @@ class InviteFragment : Fragment() {
                 override fun onFailure(call: Call<FriendResponse>, t: Throwable) {
                     t.printStackTrace()
                 }
-
             })
-
         }
     }
 
