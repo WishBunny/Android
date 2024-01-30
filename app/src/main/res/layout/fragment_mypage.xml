@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".mypage.MypageFragment" >
 
+    <!--
+     작성자: 엄상은
+     처리 내용: 프로필 조회&수정
+    -->
+
+    <!--
+     작성자: 이혜연
+     처리 내용: 위시리스트 달성 차트
+    -->
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_header"
         android:layout_width="match_parent"

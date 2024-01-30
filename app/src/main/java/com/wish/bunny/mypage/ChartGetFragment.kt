@@ -11,10 +11,17 @@ import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
-import com.github.mikephil.charting.utils.ColorTemplate
 import com.wish.bunny.databinding.FragmentChartGetBinding
 
-class ChartGetFragment(private val percentDo:Float, private val percentEat:Float, private val percentGet:Float) : Fragment() {
+/**
+작성자: 이혜연
+처리 내용: chart fragment(갖고 싶어요) 구현
+ */
+class ChartGetFragment(
+    private val percentDo: Float,
+    private val percentEat: Float,
+    private val percentGet: Float
+) : Fragment() {
     private var _binding: FragmentChartGetBinding? = null
     private val binding get() = _binding!!
 
@@ -33,7 +40,7 @@ class ChartGetFragment(private val percentDo:Float, private val percentEat:Float
         _binding?.let { binding ->
             val entries = ArrayList<PieEntry>()
 
-            entries.add(PieEntry(100-achieve, "🥕"))
+            entries.add(PieEntry(100 - achieve, "🥕"))
             entries.add(PieEntry(achieve, "달성 위시🐰"))
             val colorsItems = ArrayList<Int>()
             colorsItems.add(Color.parseColor("#DADADA"))

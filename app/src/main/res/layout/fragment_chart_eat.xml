@@ -6,6 +6,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".mypage.ChartDoFragment">
 
+    <!--
+    작성자: 이혜연
+    처리 내용: 먹고 싶어요 차트 프래그먼트
+    -->
+
     <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
