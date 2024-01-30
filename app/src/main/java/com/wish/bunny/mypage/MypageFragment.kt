@@ -85,8 +85,6 @@ class MypageFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == PICK_IMAGE && resultCode == Activity.RESULT_OK && data!!.data != null) {
-            Log.d("MyPageFragment", data.toString())
-            // data로부터 content uri 가져오기
             val selectedImageUri = data.data
             binding.imgProfile.setImageURI(selectedImageUri)
             updatedImageUri = selectedImageUri!!
@@ -104,7 +102,6 @@ class MypageFragment : Fragment() {
             nickname = binding.editNickname.text.toString(),
             memberId = binding.tvMemberId.text.toString()
         )
-        // 이미지 변경이 있다면 S3에 새 이미지 업로드
         if (updatedImageUri != null) {
             profileUpdateRequest.imgUrl = uploadFileByUri(updatedImageUri)
             Glide.with(this)
@@ -348,13 +345,9 @@ class MypageFragment : Fragment() {
                 if (response.isSuccessful) {
                     Log.d("countWish", "위시 리스트 개수 조회 성공")
                     response.body()?.let {
-                        Log.d("하고 싶어요 개수", it.data.toString())
-
                         binding.tvDoCount.text = it.data.countAchievedDo.toString()
                         binding.tvEatCount.text = it.data.countAchievedEat.toString()
                         binding.tvGetCount.text = it.data.countAchievedGet.toString()
-
-                        Log.d("하고 싶어요 전체 개수",it.data.toString())
 
                         countAchievedDo = it.data.countAchievedDo
                         countAchievedEat = it.data.countAchievedEat
@@ -363,7 +356,6 @@ class MypageFragment : Fragment() {
                         countEat = it.data.countEat
                         countGet = it.data.countGet
 
-                        //탭 레이아웃
                         val percentDo: Float =
                             if (countDo != 0) (countAchievedDo.toFloat() / countDo.toFloat()) * 100 else 0.0f
                         val percentEat: Float =
@@ -374,7 +366,6 @@ class MypageFragment : Fragment() {
                     }
                 } else {
                     Log.d("countWish", "위시 리스트 개수 조회 실패")
-                    Log.d("countWish", response.toString())
                 }
             }
 
@@ -387,13 +378,16 @@ class MypageFragment : Fragment() {
 
     private var chartDoFragment: ChartDoFragment? = null
 
+    /**
+    작성자: 이혜연
+    처리 내용: TabLayout 선택시 fragment 전환
+     */
     private fun setTabLayout(percentDo: Float, percentEat: Float, percentGet: Float) {
 
         showChartFragment(percentDo, percentEat, percentGet)
 
         binding.fragmentTablayout.addOnTabSelectedListener(object :
             TabLayout.OnTabSelectedListener {
-            // tab이 선택되었을 때
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when (tab!!.position) {
                     0 -> {
@@ -409,6 +403,7 @@ class MypageFragment : Fragment() {
                             ChartEatFragment(percentDo, percentEat, percentGet)
                         )
                     }
+
                     2 -> {
                         replaceFragment(
                             R.id.fragment_mytab,
@@ -435,26 +430,28 @@ class MypageFragment : Fragment() {
                 .commit()
         } catch (e: Exception) {
             e.printStackTrace()
-            Log.e("replaceFragment", "Fragment transaction failed: ${e.message}")
         }
     }
 
+    /**
+    작성자:  이혜연
+    처리 내용: 차트 프래그먼트 전환
+     */
     private fun showChartFragment(percentDo: Float, percentEat: Float, percentGet: Float) {
         if (chartDoFragment == null) {
-            // 프래그먼트가 생성되지 않았다면 생성하고 추가
             chartDoFragment = ChartDoFragment(percentDo, percentEat, percentGet)
             requireActivity().supportFragmentManager.beginTransaction()
                 .add(R.id.fragment_mytab, chartDoFragment!!)
                 .commit()
         } else {
-            // 이미 생성된 프래그먼트가 있다면 show를 호출하여 보여줌
             requireActivity().supportFragmentManager.beginTransaction()
                 .show(chartDoFragment!!)
                 .commit()
         }
     }
-        override fun onDestroyView() {
-            super.onDestroyView()
-            _binding = null
-        }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
+}

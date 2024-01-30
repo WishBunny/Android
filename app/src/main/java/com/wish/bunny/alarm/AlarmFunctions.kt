@@ -11,6 +11,10 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 
+/**
+작성자:  이혜연
+처리 내용: AlarmFunctions 구현
+ */
 class AlarmFunctions(private val context: Context) {
 
     private lateinit var pendingIntent: PendingIntent
@@ -26,10 +30,20 @@ class AlarmFunctions(private val context: Context) {
             putExtra("alarm_content", content)
         }
 
-        val pendingIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S){
-            PendingIntent.getBroadcast(context,alarm_code,receiverIntent,PendingIntent.FLAG_IMMUTABLE)
-        }else{
-            PendingIntent.getBroadcast(context,alarm_code,receiverIntent,PendingIntent.FLAG_UPDATE_CURRENT)
+        val pendingIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            PendingIntent.getBroadcast(
+                context,
+                alarm_code,
+                receiverIntent,
+                PendingIntent.FLAG_IMMUTABLE
+            )
+        } else {
+            PendingIntent.getBroadcast(
+                context,
+                alarm_code,
+                receiverIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT
+            )
         }
 
         val dateFormat = SimpleDateFormat("yyyy-MM-dd H:mm:ss")
@@ -43,18 +57,29 @@ class AlarmFunctions(private val context: Context) {
         val calendar = Calendar.getInstance()
         calendar.time = datetime
 
-        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
+        alarmManager.setExactAndAllowWhileIdle(
+            AlarmManager.RTC_WAKEUP,
+            calendar.timeInMillis,
+            pendingIntent
+        )
+
     }
 
     fun cancelAlarm(alarm_code: Int) {
         val alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, AlarmReceiver::class.java)
 
-        pendingIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S){
-            PendingIntent.getBroadcast(context,alarm_code,intent,PendingIntent.FLAG_IMMUTABLE)
-        }else{
-            PendingIntent.getBroadcast(context,alarm_code,intent,PendingIntent.FLAG_UPDATE_CURRENT)
+        pendingIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            PendingIntent.getBroadcast(context, alarm_code, intent, PendingIntent.FLAG_IMMUTABLE)
+        } else {
+            PendingIntent.getBroadcast(
+                context,
+                alarm_code,
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT
+            )
         }
+
         alarmManager.cancel(pendingIntent)
     }
 }

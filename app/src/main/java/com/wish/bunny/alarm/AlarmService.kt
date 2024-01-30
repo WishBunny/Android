@@ -4,6 +4,10 @@ import android.app.Service
 import android.content.Intent
 import android.os.IBinder
 
+/**
+작성자:  이혜연
+처리 내용: AlarmService 구현
+ */
 class AlarmService : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -11,6 +15,6 @@ class AlarmService : Service() {
     }
 
     override fun onBind(intent: Intent?): IBinder? {
-        throw UnsupportedOperationException("Not yet implemented");
+        throw UnsupportedOperationException("실행 실패");
     }
 }

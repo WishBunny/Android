@@ -11,8 +11,8 @@
 
     <!--
      작성자: 이혜연
-     처리 내용: 다이얼로그 구현
- -->
+     처리 내용: 친구 삭제 다이얼로그 구현
+    -->
 
     <TextView
         android:id="@+id/dialog_title_tv"

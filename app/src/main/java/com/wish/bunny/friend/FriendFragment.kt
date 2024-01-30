@@ -31,7 +31,7 @@ import retrofit2.Response
 class FriendFragment : Fragment() {
     lateinit var rc_friends: RecyclerView
     lateinit var adapter_profile: ProfileAdapter
-    var profileList: MutableList<Profiles> = ArrayList() // 변경된 부분: List를 MutableList로 변경
+    var profileList: MutableList<Profiles> = ArrayList()
 
     private var _binding: FragmentFriendBinding? = null
     private val binding get() = _binding!!
@@ -50,7 +50,7 @@ class FriendFragment : Fragment() {
         val retrofitAPI = RetrofitConnection.getInstance().create(FriendService::class.java)
         getFriendList(retrofitAPI)
         friendListLiveData.observe(viewLifecycleOwner, Observer { friendList ->
-            profileList.clear() // 변경된 부분: 리스트를 clear 후에 새로운 데이터 추가
+            profileList.clear()
             profileList.addAll(friendList)
             adapter_profile.notifyDataSetChanged()
         })
@@ -83,9 +83,6 @@ class FriendFragment : Fragment() {
                     "친구 삭제",
                     "친구를 정말 삭제하시겠습니까?",
                     {
-                        // 확인 버튼을 눌렀을 때의 처리
-                        Log.d("친구 관계id", friendId)
-
                         val retrofitAPI =
                             RetrofitConnection.getInstance().create(FriendService::class.java)
                         deleteFriend(retrofitAPI, friendId, position)
@@ -100,22 +97,23 @@ class FriendFragment : Fragment() {
         adapter_profile.setOnGoFriendWishListClickListener(object :
             ProfileAdapter.OnGoFriendWishListClickListener {
             override fun goFriendList(memberNo: String, name: String) {
-                Log.d("친구리스트 클릭 로그", "친구번호 : " + memberNo)
                 goFriendPage(memberNo, name)
             }
         })
 
     }
-    private fun goFriendPage(memberNo: String, name:String){
+
+    private fun goFriendPage(memberNo: String, name: String) {
         val newFragment = HomeFragment()
         val bundle = Bundle()
         bundle.putString("writerNo", memberNo)
         bundle.putString("isMine", "2")
-        Log.d("friendName",name);
+        Log.d("friendName", name);
         bundle.putString("friendName", name)
         newFragment.arguments = bundle
         replaceFragment(newFragment)
     }
+
     private fun removeItem(position: Int) {
         profileList.removeAt(position)
         adapter_profile.notifyItemRemoved(position)
@@ -150,7 +148,7 @@ class FriendFragment : Fragment() {
                                 dday = it.matchedToNowDt,
                                 remove = R.drawable.ic_heart_broken,
                                 friendId = it.friendId,
-                                memberId= it.memberId
+                                memberId = it.memberId
                             )
                         } ?: emptyList()
                         friendListLiveData.postValue(friendList)
@@ -176,7 +174,6 @@ class FriendFragment : Fragment() {
                     Log.d("deleteFriend", "친구 삭제하기 성공")
                     val deleteSuccess = response.body()!!.data
                     friendDeleteLiveData.postValue(deleteSuccess)
-                    // 성공적으로 삭제된 후에 목록에서 항목을 제거합니다.
                     removeItem(position)
                 } else {
                     Log.d("deleteFriend", "친구 삭제하기 실패: ${response.code()}, ${response.message()}")
@@ -184,7 +181,6 @@ class FriendFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<FriendDeleteResponse>, t: Throwable) {
-                Log.e("deleteFriend", "친구 삭제하기 실패", t)
                 t.printStackTrace()
             }
         })

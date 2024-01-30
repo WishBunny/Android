@@ -13,6 +13,10 @@ import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.wish.bunny.databinding.FragmentChartEatBinding
 
+/**
+작성자: 이혜연
+처리 내용: chart fragment(먹고 싶어요) 구현
+ */
 class ChartEatFragment(private val percentDo:Float, private val percentEat:Float, private val percentGet:Float) : Fragment() {
     private var _binding: FragmentChartEatBinding? = null
     private val binding get() = _binding!!

@@ -12,9 +12,9 @@
      -->
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
         <ImageView
             android:id="@+id/ic_message"
@@ -46,26 +46,26 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             android:ems="10"
-            android:inputType="text"
             android:hint="@string/match_input"
-            android:textStyle="bold"
+            android:inputType="text"
             android:textAlignment="center"
             android:textColor="@color/wishbunny_pink"
             android:textColorHighlight="@color/wishbunny_pink"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_matchText" />
 
         <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_match_end"
+            android:id="@+id/btn_match_end"
             android:layout_width="280dp"
             android:layout_height="58dp"
             android:layout_marginTop="52dp"
             android:background="@drawable/button_border_white"
             android:text="@string/match_start"
-            android:textStyle="bold"
             android:textAlignment="center"
             android:textColor="@color/Pink"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_match" />

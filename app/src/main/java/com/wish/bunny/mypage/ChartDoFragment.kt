@@ -13,7 +13,15 @@ import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.wish.bunny.databinding.FragmentChartDoBinding
 
-class ChartDoFragment(private val percentDo:Float, private val percentEat:Float, private val percentGet:Float) : Fragment() {
+/**
+작성자: 이혜연
+처리 내용: chart fragment(하고 싶어요) 구현
+ */
+class ChartDoFragment(
+    private val percentDo: Float,
+    private val percentEat: Float,
+    private val percentGet: Float
+) : Fragment() {
     private var _binding: FragmentChartDoBinding? = null
     private val binding get() = _binding!!
 
@@ -21,7 +29,8 @@ class ChartDoFragment(private val percentDo:Float, private val percentEat:Float,
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentChartDoBinding.inflate(inflater, container, false)
-        setBarChartDo("하고 싶어요",percentDo)
+        setBarChartDo("하고 싶어요", percentDo)
+
         return _binding?.root
     }
 
@@ -31,7 +40,7 @@ class ChartDoFragment(private val percentDo:Float, private val percentEat:Float,
         _binding?.let { binding ->
             val entries = ArrayList<PieEntry>()
 
-            entries.add(PieEntry(100-achieve, "🥕"))
+            entries.add(PieEntry(100 - achieve, "🥕"))
             entries.add(PieEntry(achieve, "달성 위시🐰"))
 
             val colorsItems = ArrayList<Int>()
@@ -65,6 +74,8 @@ class ChartDoFragment(private val percentDo:Float, private val percentEat:Float,
                 animateY(1400, Easing.EaseInOutQuad)
                 animate()
             }
+
         }
     }
+
 }

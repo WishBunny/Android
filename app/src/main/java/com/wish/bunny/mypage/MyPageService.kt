@@ -26,8 +26,8 @@ interface MyPageService {
     fun updateMyProfile(@Header("Authorization") accessToken: String, @Body updatedMember: ProfileUpdateRequest): Call<ProfileGetResponse>
 
     /**
-        작성자: 이혜연
-        처리 내용: 마이페이지 차트 조회
+    작성자:  이혜연
+    처리 내용: 위시리스트 남은 개수 및 달성 개수 반환 API 통신
      */
     @GET("wish/count/{memberId}")
     fun countWish(@Path("memberId") memberId: String): Call<WishCountResponse>

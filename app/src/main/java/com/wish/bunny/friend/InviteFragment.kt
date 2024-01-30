@@ -26,13 +26,13 @@ import retrofit2.Response
 
 /**
 작성자:  이혜연
-처리 내용: 초대 코드 발급 구현
+처리 내용: 초대 코드 발급 및 클립보드 복사 구현
  */
 class InviteFragment : Fragment() {
-
     private val inviteCodeLiveData = MutableLiveData<String>()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_invite, container, false)
@@ -42,13 +42,13 @@ class InviteFragment : Fragment() {
         val retrofitAPI = RetrofitConnection.getInstance().create(FriendService::class.java)
         createInviteCode(retrofitAPI)
         inviteCodeLiveData.observe(viewLifecycleOwner, Observer { inviteCode ->
-            Log.d("초대코드", inviteCode)
             copyText.text = inviteCode
         })
 
-        copyBtn.setOnClickListener{
+        copyBtn.setOnClickListener {
             val text: String = copyText.text.toString()
             createClipData(text)
+            true
         }
 
         val backImageView: ImageView = view.findViewById(R.id.iv_back_invite)
@@ -59,7 +59,7 @@ class InviteFragment : Fragment() {
         return view
     }
 
-    private fun createClipData(message: String){
+    private fun createClipData(message: String) {
         val clipboardManager: ClipboardManager = requireActivity()
             .getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         val clipData: ClipData = ClipData.newPlainText("message", message)
@@ -72,7 +72,6 @@ class InviteFragment : Fragment() {
 
     fun createInviteCode(retrofitAPI: FriendService) {
         var accessToken = GlobalApplication.prefs.getString("accessToken", "")
-        Log.d("loadMyProfileInfo", accessToken)
         accessToken?.let {
             retrofitAPI.createInviteCode(it).enqueue(object :
                 Callback<FriendResponse> {
@@ -81,7 +80,6 @@ class InviteFragment : Fragment() {
                     response: Response<FriendResponse>
                 ) {
                     if (response.isSuccessful) {
-                        Log.d("createInviteCode", "초대 코드 발급하기")
                         val inviteCode = response.body()!!.data.inviteCode
                         inviteCodeLiveData.postValue(inviteCode)
                     } else {
