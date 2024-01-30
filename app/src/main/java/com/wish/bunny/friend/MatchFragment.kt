@@ -65,7 +65,6 @@ class MatchFragment : Fragment() {
         backImageView.setOnClickListener {
             navigateToPreviousFragment()
         }
-
         return view
     }
 

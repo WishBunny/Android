@@ -35,7 +35,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
 import java.io.FileOutputStream
-import kotlin.properties.Delegates
 
 class MypageFragment : Fragment() {
 

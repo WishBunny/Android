@@ -164,7 +164,6 @@ class FriendFragment : Fragment() {
         }
     }
 
-
     private fun deleteFriend(retrofitAPI: FriendService, friendId: String, position: Int) {
         retrofitAPI.deleteFriend(friendId).enqueue(object : Callback<FriendDeleteResponse> {
             override fun onResponse(

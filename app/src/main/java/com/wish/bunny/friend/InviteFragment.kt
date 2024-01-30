@@ -96,7 +96,6 @@ class InviteFragment : Fragment() {
         }
     }
 
-
     private fun navigateToPreviousFragment() {
         val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
         fragmentManager.popBackStack()

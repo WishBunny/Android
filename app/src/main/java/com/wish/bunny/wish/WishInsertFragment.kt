@@ -23,7 +23,6 @@ import com.wish.bunny.emoji.EmojiDialog
 import com.wish.bunny.home.HomeFragment
 import com.wish.bunny.wish.domain.Message
 import com.wish.bunny.wish.domain.WishVo
-import com.wish.bunny.wish.domain.WishVo2
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -177,7 +176,7 @@ class WishInsertFragment : Fragment() {
             Log.d("알림 날짜",date)
             Toast.makeText(requireContext(), "당일에 알림을 드릴게요", Toast.LENGTH_LONG).show()
 
-
+            //  서버로 보내기 위한 입력 내용 저장
             val wvo = WishVo(
                 category = selectedCategory,
                 content = text_content.text.toString(),
@@ -187,7 +186,7 @@ class WishInsertFragment : Fragment() {
                 emoji = editText.text.toString()
             )
 
-            // Retrofit 인스턴스 생성 예시
+            // Retrofit 인스턴스 생성
             val retrofit = Retrofit.Builder()
                 .baseUrl("http://10.0.2.2:8080/")
                 .addConverterFactory(GsonConverterFactory.create()) // JSON 컨버터 사용
@@ -201,7 +200,6 @@ class WishInsertFragment : Fragment() {
 
             // 위에서 만든 Retrofit 인스턴스를 사용하여 WishService의 구현체 생성
             val wishService = retrofit.create(WishService::class.java)
-
             val call: Call<Response<Message>> = wishService.wishInsert(wvo)
 
             call.enqueue(object : Callback<Response<Message>> {
@@ -209,6 +207,8 @@ class WishInsertFragment : Fragment() {
                     if (response.isSuccessful) {
                         // 서버로부터 정상적인 응답을 받았을 때의 처리
                         Toast.makeText(requireContext(), "성공적으로 값을 전달했습니다", Toast.LENGTH_SHORT).show()
+
+                        // 정상적으로 업데이트가 되었다면 메인화면으로 이동
                         val homeFragment = HomeFragment().apply {
                             arguments = Bundle().apply {
                                 putString("isMine", "1")
@@ -217,7 +217,6 @@ class WishInsertFragment : Fragment() {
                         val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
                         val transaction: FragmentTransaction = fragmentManager.beginTransaction()
                         transaction.replace(R.id.fragment_container, homeFragment).commit()
-
 
                     } else {
                         // 서버로부터 정상적인 응답을 받지 못했을 때의 처리
@@ -232,6 +231,7 @@ class WishInsertFragment : Fragment() {
                 override fun onFailure(call: Call<Response<Message>>, t: Throwable) {
                     // 네트워크 요청 자체가 실패했을 때의 처리
                     t.printStackTrace()
+
                     val homeFragment = HomeFragment().apply {
                         arguments = Bundle().apply {
                             putString("isMine", "1")
@@ -303,7 +303,7 @@ class WishInsertFragment : Fragment() {
         selectedButton = clickedButton
     }
 
-    // 버튼 클릭 이벤트 처리
+    // 카테고리 버튼 클릭 이벤트 처리
     private fun updateCategoryButtons(selectedButton: Button, allButtons: Array<Button>) {
         val pinkColor = ContextCompat.getColor(requireContext(), R.color.pink)
         val changeTextColor = ContextCompat.getColor(requireContext(), R.color.white)
@@ -322,5 +322,4 @@ class WishInsertFragment : Fragment() {
             }
         }
     }
-
 }

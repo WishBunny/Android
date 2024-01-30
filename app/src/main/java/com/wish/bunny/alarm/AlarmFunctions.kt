@@ -5,8 +5,6 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -17,10 +15,13 @@ import java.util.Date
 처리 내용: AlarmFunctions 구현
  */
 class AlarmFunctions(private val context: Context) {
-    private lateinit var pendingIntent: PendingIntent
-    private val ioScope by lazy { CoroutineScope(Dispatchers.IO) }
 
-    fun callAlarm(time: String, alarm_code: Int, content: String) {
+    private lateinit var pendingIntent: PendingIntent
+
+    fun callAlarm(time : String, alarm_code : Int, content : String){
+
+        Log.d("전달한 내용",content)
+
         val alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val receiverIntent = Intent(context, AlarmReceiver::class.java)
         receiverIntent.apply {

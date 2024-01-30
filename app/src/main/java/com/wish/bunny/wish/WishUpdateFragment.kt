@@ -56,7 +56,7 @@ class WishUpdateFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // 클라이언트로부터 데이터 값 가져오기
+        // 클라이언트로부터 위시리스트 데이터 값 가져오기
         val wishNo = arguments?.getString("wishNo")
         if (wishNo != null) {
             Log.d("WishUpdateFragment", "Received wishNo: $wishNo")
@@ -69,6 +69,23 @@ class WishUpdateFragment : Fragment() {
         val button2: Button = view.findViewById(R.id.to_eat)
         val button3: Button = view.findViewById(R.id.to_get)
         val categoryButtons = arrayOf(button1, button2, button3)
+
+        var selectedCategory = ""
+
+        button1.setOnClickListener {
+            selectedCategory = "do"
+            updateCategoryButtons(button1, categoryButtons)
+        }
+
+        button2.setOnClickListener {
+            selectedCategory = "eat"
+            updateCategoryButtons(button2, categoryButtons)
+        }
+
+        button3.setOnClickListener {
+            selectedCategory = "get"
+            updateCategoryButtons(button3, categoryButtons)
+        }
 
         // 해시태그 버튼 처리
         val hashtagButton1: Button = view.findViewById(R.id.hashtagButton1)
@@ -137,27 +154,10 @@ class WishUpdateFragment : Fragment() {
             resetDate()
         }
 
-        // Update API 처리
+        // 위시 작성 내용 처리
         text_content = view.findViewById(R.id.content)
-        tvSelectedDate = view.findViewById(R.id.tvSelectedDate)
 
-        var selectedCategory = ""
-
-        button1.setOnClickListener {
-            selectedCategory = "do"
-            updateCategoryButtons(button1, categoryButtons)
-        }
-
-        button2.setOnClickListener {
-            selectedCategory = "eat"
-            updateCategoryButtons(button2, categoryButtons)
-        }
-
-        button3.setOnClickListener {
-            selectedCategory = "get"
-            updateCategoryButtons(button3, categoryButtons)
-        }
-
+        // Update API 처리
         wishNo?.let { nonNullWishNo ->
             Log.d("WishUpdateFragment", "Received wishNo: $nonNullWishNo")
             loadWishDetail(nonNullWishNo)
@@ -165,11 +165,13 @@ class WishUpdateFragment : Fragment() {
             val btn_update: Button = view.findViewById(R.id.update)
 
             btn_update.setOnClickListener {
+                // 새로 업데이트할 내용을 수정하지 않는다면 기존 값을 업로드
                 val updatedContent = if (text_content.text.isEmpty()) loadedWishDetailFromServer?.content ?: "" else text_content.text.toString()
                 val updatedDate = if (tvSelectedDate.text.isEmpty()) loadedWishDetailFromServer?.deadlineDt ?: "" else tvSelectedDate.text.toString()
                 val updatedCategory = if (selectedCategory.isEmpty()) loadedWishDetailFromServer?.category ?: "" else selectedCategory
                 val updatedHashtag = if (selectedHashtag.isEmpty()) loadedWishDetailFromServer?.tagNo ?: "" else selectedHashtag
 
+                // 서버로 보낼 값
                 val wvo2 = WishVo2(
                     wishNo = wishNo,
                     category = updatedCategory,
@@ -180,9 +182,9 @@ class WishUpdateFragment : Fragment() {
                     tagNo = updatedHashtag,
                     deleteTag = hashtagNo
                 )
-                Log.d("updateJun", wvo2.toString())
+                Log.d("Update status", wvo2.toString())
 
-                // Retrofit 인스턴스 생성 예시
+                // Retrofit 인스턴스 생성
                 val retrofit = Retrofit.Builder()
                     .baseUrl("http://10.0.2.2:8080/")
                     .addConverterFactory(GsonConverterFactory.create()) // JSON 컨버터 사용
@@ -193,13 +195,10 @@ class WishUpdateFragment : Fragment() {
                         chain.proceed(newRequest)
                     }.build())
                     .build()
-                Log.d("API", "1")
 
                 // 위에서 만든 Retrofit 인스턴스를 사용하여 WishService의 구현체 생성
                 val wishService = retrofit.create(WishService::class.java)
-                Log.d("API", "2")
                 val call: Call<Response<Message>> = wishService.wishUpdate(wvo2, wishNo)
-                Log.d("API", "3")
 
                 call.enqueue(object : Callback<Response<Message>> {
                     override fun onResponse(call: Call<Response<Message>>, response: retrofit2.Response<Response<Message>>) {
@@ -207,6 +206,8 @@ class WishUpdateFragment : Fragment() {
                         if (response.isSuccessful) {
                             // 서버로부터 정상적인 응답을 받았을 때의 처리
                             Toast.makeText(requireContext(), "위시리스트가 수정되었습니다", Toast.LENGTH_SHORT).show()
+                            
+                            // 정상적으로 업데이트가 되었다면 메인화면으로 이동
                             val homeFragment = HomeFragment().apply {
                                 arguments = Bundle().apply {
                                     putString("isMine", "1")
@@ -222,6 +223,7 @@ class WishUpdateFragment : Fragment() {
                                 "서버로부터 예상치 못한 응답을 받았습니다: ${response.errorBody()?.string()}",
                                 Toast.LENGTH_SHORT
                             ).show()
+
                             val homeFragment = HomeFragment().apply {
                                 arguments = Bundle().apply {
                                     putString("isMine", "1")
@@ -236,6 +238,7 @@ class WishUpdateFragment : Fragment() {
                     override fun onFailure(call: Call<Response<Message>>, t: Throwable) {
                         // 네트워크 요청 자체가 실패했을 때의 처리
                         t.printStackTrace()
+                        
                         val homeFragment = HomeFragment().apply {
                             arguments = Bundle().apply {
                                 putString("isMine", "1")
@@ -253,15 +256,21 @@ class WishUpdateFragment : Fragment() {
     }
 
     // UI 업데이트 함수
+    // 서버로부터 받은 데이터로 UI 업데이트
     private fun updateUI(wishItem: WishItem) {
+        // 내용
         val text_content: EditText = view?.findViewById(R.id.content) ?: EditText(requireContext()).apply {
             Log.e("WishUpdateFragment", "content EditText를 찾지 못했습니다.")
         }
-
+        text_content.setText(wishItem.content)
+        
+        // 날짜
         val tvSelectedDate: TextView = view?.findViewById(R.id.tvSelectedDate) ?: TextView(requireContext()).apply {
             Log.e("WishUpdateFragment", "tvSelectedDate TextView를 찾지 못했습니다.")
         }
+        tvSelectedDate.text = wishItem.deadlineDt
 
+        // 카테고리 버튼
         val button1: Button = view?.findViewById(R.id.to_do) ?: Button(requireContext()).apply {
             Log.e("WishUpdateFragment", "to_do Button을 찾지 못했습니다.")
         }
@@ -275,10 +284,7 @@ class WishUpdateFragment : Fragment() {
         }
         val categoryButtons = arrayOf(button1, button2, button3)
 
-        // 서버로부터 받은 데이터로 UI 업데이트
-        text_content.setText(wishItem.content)
-        tvSelectedDate.text = wishItem.deadlineDt
-
+        // 해시태그 버튼
         hashtagNo = wishItem.tagNo
         val hashtagButtons : Button? = when (hashtagNo) {
             "1" -> view?.findViewById(R.id.hashtagButton1) ?: run {
@@ -316,11 +322,11 @@ class WishUpdateFragment : Fragment() {
             else -> null
         }
 
-        // 찾은 버튼이 있으면 선택 상태로 설정합니다.
+        // 찾은 버튼이 있으면 선택 상태로 설정
         hashtagButtons?.isSelected = true
 
-        // 서버로부터 받은 tagNo에 해당하는 버튼을 활성화 시킴
-            // 버튼의 UI 상태를 업데이트합니다.
+        // 서버로부터 받은 해시태그에 해당하는 버튼을 활성화 시킴
+            // 버튼의 UI 상태를 업데이트
             val pinkColor = ContextCompat.getColor(requireContext(), R.color.pink)
             val changeTextColor = ContextCompat.getColor(requireContext(), R.color.white)
             val transparentColor = ContextCompat.getColor(requireContext(), R.color.wishbunny_white)
@@ -347,7 +353,7 @@ class WishUpdateFragment : Fragment() {
             "get" -> button3.isSelected = true
         }
 
-        // 선택된 버튼의 UI를 갱신하는 코드가 필요합니다. 예를 들어:
+        // 선택된 버튼의 UI를 갱신
         categoryButtons.forEach { button ->
             val pinkColor = ContextCompat.getColor(requireContext(), R.color.pink)
             val changeTextColor = ContextCompat.getColor(requireContext(), R.color.white)
@@ -365,6 +371,7 @@ class WishUpdateFragment : Fragment() {
         }
     }
 
+    // 상세보기 불러오기
     private fun loadWishDetail(wishNo: String) {
         val retrofitAPI = RetrofitConnection.getInstance().create(WishService::class.java)
         retrofitAPI.getWishDetail(wishNo, "$accessToken").enqueue(object : Callback<WishItem> {
@@ -373,7 +380,6 @@ class WishUpdateFragment : Fragment() {
 
                 if (wishItem != null) {
                     loadedWishDetailFromServer = wishItem
-                    Log.d("wishItem", "1")
                     updateUI(wishItem)
                     Log.d("wishItem 수정", wishItem.toString())
                 } else {
@@ -383,7 +389,6 @@ class WishUpdateFragment : Fragment() {
 
             override fun onFailure(call: Call<WishItem>, t: Throwable) {
                 Log.d("wishItem", "불러오기 실패: ${t.message}")
-                // TODO: 실패 시 처리 구현
             }
         })
     }
@@ -403,6 +408,7 @@ class WishUpdateFragment : Fragment() {
         }, year, month, day).show()
     }
 
+    // x 버튼을 클릭시 선택한 일자 초기화
     private fun resetDate() {
         tvSelectedDate.hint = getString(R.string.select_date)
     }
@@ -429,7 +435,7 @@ class WishUpdateFragment : Fragment() {
         }
     }
 
-    // 버튼 클릭 이벤트 처리
+    // 카테고리 버튼 클릭 이벤트 처리
     private fun updateCategoryButtons(selectedButton: Button, allButtons: Array<Button>) {
         val pinkColor = ContextCompat.getColor(requireContext(), R.color.pink)
         val changeTextColor = ContextCompat.getColor(requireContext(), R.color.white)

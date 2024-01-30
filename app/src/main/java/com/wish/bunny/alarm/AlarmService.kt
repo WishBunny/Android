@@ -17,5 +17,4 @@ class AlarmService : Service() {
     override fun onBind(intent: Intent?): IBinder? {
         throw UnsupportedOperationException("실행 실패");
     }
-
 }

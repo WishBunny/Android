@@ -72,5 +72,4 @@ class ChartEatFragment(private val percentDo:Float, private val percentEat:Float
             }
         }
     }
-
 }
