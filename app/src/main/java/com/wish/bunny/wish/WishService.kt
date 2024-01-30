@@ -38,15 +38,11 @@ interface WishService {
      */
     @GET("wish/list/{achieveYn}/{writerNo}/{category}")
     fun getWishList(@Path("achieveYn") achieveYn: String, @Path("writerNo") writerNo: String, @Header("Authorization") accessToken: String,@Path("category") category: String): Call<WishMapResult>
+
     /**
     작성자: 김은솔
     처리 내용: 위시리스트 상세 조회
      */
-
-    @GET("wish/list")
-    fun getWishList(): Call<WishMapResult>
-
-
     @GET("wish/{wishNo}")
     fun getWishDetail(@Path("wishNo") wishNo: String,  @Header("Authorization") accessToken: String): Call<WishItem>
     /**
