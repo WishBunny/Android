@@ -11,12 +11,24 @@ import retrofit2.http.PATCH
 import retrofit2.http.Path
 
 interface MyPageService {
+    /**
+        작성자: 엄상은
+        처리 내용: 마이페이지 조회
+    */
     @GET("member/with-email")
     fun loadMyProfile(@Header("Authorization") accessToken: String): Call<ProfileGetResponse>
 
+    /**
+        작성자: 엄상은
+        처리 내용: 마이페이지 수정
+     */
     @PATCH("member")
     fun updateMyProfile(@Header("Authorization") accessToken: String, @Body updatedMember: ProfileUpdateRequest): Call<ProfileGetResponse>
 
+    /**
+        작성자: 이혜연
+        처리 내용: 마이페이지 차트 조회
+     */
     @GET("wish/count/{memberId}")
     fun countWish(@Path("memberId") memberId: String): Call<WishCountResponse>
 }

@@ -29,7 +29,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/onboarding_content"
-        app:srcCompat="@drawable/wish_bunny" />
+        app:srcCompat="@drawable/img_wishbunny" />
 
     <ImageView
         android:id="@+id/kakao_login"
@@ -39,5 +39,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/kakao_login_large_narrow" />
+        app:srcCompat="@drawable/img_kakao_login_button" />
 </androidx.constraintlayout.widget.ConstraintLayout>

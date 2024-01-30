@@ -52,7 +52,6 @@ class InviteFragment : Fragment() {
         copyBtn.setOnClickListener{
             val text: String = copyText.text.toString()
             createClipData(text)
-            true
         }
 
         val backImageView: ImageView = view.findViewById(R.id.iv_back_invite)

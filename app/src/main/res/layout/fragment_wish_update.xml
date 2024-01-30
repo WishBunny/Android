@@ -41,7 +41,7 @@
                 android:paddingTop="20dp"
                 android:background="@color/wishbunny_background"
                 android:textSize="50sp"
-                android:text="&#x1F60A;"
+                android:text="🏃"
                 android:gravity="center_vertical|center_horizontal"
                 android:fontFamily="@font/tossface_font"/>
 
@@ -95,7 +95,7 @@
             android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:background="@drawable/content_id"
+            android:background="@drawable/ic_background_content_id"
             android:ems="10"
             android:padding="20dp"
             android:textSize="16sp"
@@ -111,7 +111,7 @@
             android:layout_height="50dp"
             android:layout_marginHorizontal="20dp"
             android:layout_marginVertical="20dp"
-            android:background="@drawable/select_day"
+            android:background="@drawable/img_background_select_day"
             android:orientation="horizontal"
             app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
             app:layout_constraintEnd_toEndOf="parent"

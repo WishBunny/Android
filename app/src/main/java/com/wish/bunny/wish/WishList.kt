@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.wish.bunny.databinding.ActivityWishListBinding
+import com.wish.bunny.databinding.FragmentWishListBinding
 import com.wish.bunny.util.RetrofitConnection
 import com.wish.bunny.wish.domain.WishItem
 import retrofit2.Call
@@ -16,13 +16,13 @@ import retrofit2.Response
 
 class WishList : AppCompatActivity() {
 
-    private lateinit var binding: ActivityWishListBinding
+    private lateinit var binding: FragmentWishListBinding
     private var  adapter: CustomAdapter? = null
    //  private var wishList = listOf<CustomAdapter.WishModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityWishListBinding.inflate(layoutInflater)
+        binding = FragmentWishListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
        //  setRecyclerView()
