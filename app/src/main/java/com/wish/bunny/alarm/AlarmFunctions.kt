@@ -5,6 +5,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import android.util.Log
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Calendar
