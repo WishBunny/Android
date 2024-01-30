@@ -61,10 +61,8 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener, Cust
             //지금까지 완료한 리스트 확인하기
             val donsListSize = view.findViewById<Button>(R.id.GetDoneButton)
             donsListSize.setOnClickListener {
-                Log.d("테스트","테스트");
                 loadWishList(setAchieveYn, writerNo.toString(),accessToken,setCategory)
             }
-
             setFriendData(view)
         }
     }
@@ -243,15 +241,14 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener, Cust
                     updateUI(wishMapResult.list, wishMapResult.writerYn)
                     view?.let { loadDoneWishSize(it, writerNo.toString()) }
 
-                    Log.d("WishList2", wishMapResult.list.toString())
+                    Log.d("WishList", wishMapResult.list.toString())
                 } else {
-                    Log.d("WishList2", "서버 응답이 null입니다.")
+                    Log.d("WishList", "서버 응답이 null입니다.")
                 }
             }
 
             override fun onFailure(call: Call<WishMapResult>, t: Throwable) {
-                Log.d("WishList2", "불러오기 실패: ${t.message}")
-                // TODO: 실패 시 처리 구현
+                Log.d("WishList", "불러오기 실패: ${t.message}")
             }
         })
     }
@@ -264,15 +261,11 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener, Cust
         binding.wishListRecyclerView.layoutManager = LinearLayoutManager(requireContext())
     }
 
-
-
-
     override fun onDetailButtonClick(wishNo: String) {
         val newFragment = WishDetailFragment()
 
         val bundle = Bundle()
         bundle.putString("wishNo", wishNo)
-        // bundle.putString("writerNo", memberNo)
         newFragment.arguments = bundle
 
         replaceFragment(newFragment)
