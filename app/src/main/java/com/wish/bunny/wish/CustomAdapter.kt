@@ -81,7 +81,10 @@ class CustomAdapter(private val context: Context, private val wishItemList: List
             }
         }
 
-        //버킷리스트 완료 확인 메세지
+        /**
+        작성자: 김은솔
+        처리 내용: 버킷리스트 확인 메시지
+         */
         private fun showConfirmationDialog(wishNo: String) {
             val context = itemView.context
             val alertDialogBuilder = AlertDialog.Builder(context)
@@ -103,7 +106,10 @@ class CustomAdapter(private val context: Context, private val wishItemList: List
             alertDialog.show()
         }
 
-        // 버킷리스트 상세 완료 처리
+        /**
+        작성자: 김은솔
+        처리 내용: 버킷리스트 상세 완료 처리
+         */
         private fun doneWishDetail(wishNo : String) {
             val retrofitAPI = RetrofitConnection.getInstance().create(WishService::class.java)
             retrofitAPI.finishWish(wishNo).enqueue(object : Callback<WishMapResult> {
@@ -111,9 +117,7 @@ class CustomAdapter(private val context: Context, private val wishItemList: List
                     val wishMapResult = response.body()
 
                     if (wishMapResult != null) {
-                        // updateUI(wishMapResult.list)
-                        // Log.d("doneWishDetail", wishMapResult.result.toString())
-                        wishCompletedListener?.onWishCompleted() // Notify HomeFragment
+                        wishCompletedListener?.onWishCompleted()
                     } else {
                         Log.d("doneWishDetail", "서버 응답이 null입니다.")
                     }
@@ -124,7 +128,6 @@ class CustomAdapter(private val context: Context, private val wishItemList: List
                 }
             })
         }
-
 
         fun bind(wishItem: WishItem) {
             val title = wishItem.content
@@ -150,7 +153,10 @@ class CustomAdapter(private val context: Context, private val wishItemList: List
                 doneBtn.visibility = View.GONE
             }
         }
-
+        /**
+        작성자: 김은솔
+        처리 내용: 버킷리스트 D-Day확인
+         */
         private fun calculateDDay(deadlineDt: String): String {
             if (deadlineDt == null)
                 return "먼훗날"

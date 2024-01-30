@@ -32,9 +32,7 @@ class WishDetailFragment : Fragment() {
 
     private val selectedDate: Calendar = Calendar.getInstance()
     private val selectedButtons: MutableList<Button> = mutableListOf()
-
      private val accessToken = GlobalApplication.prefs.getString("accessToken", "")
-     //private val accessToken = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2ZWE3NTFmOS1lNDhlLTQ1OWEtYjYwYi02MzFkMDM4ZmUwZmIiLCJpYXQiOjE3MDYyMjgzMDMsImV4cCI6MTcwODgyMDMwM30.x7mvX8xzWhd-lzB0xooHYIH9pSJfmsgzB7fe7tJhoUI"
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -66,13 +64,20 @@ class WishDetailFragment : Fragment() {
         }
 
     }
-
+     /*
+       작성자: 김은솔
+       처리 내용: Fragment 이동
+     */
      private fun replaceFragment(fragment: Fragment) {
          requireActivity().supportFragmentManager.beginTransaction()
              .replace(R.id.fragment_container, fragment)
              .addToBackStack(null)
              .commit()
      }
+     /*
+      작성자: 김은솔
+      처리 내용: 위시리스트 디테일 상세 API 호출
+     */
     private fun loadWishDetail(wishNo: String, accessToken:String) {
         val retrofitAPI = RetrofitConnection.getInstance().create(WishService::class.java)
         retrofitAPI.getWishDetail(wishNo, "$accessToken").enqueue(object : Callback<WishItem> {
@@ -94,6 +99,10 @@ class WishDetailFragment : Fragment() {
             }
         })
     }
+     /*
+       작성자: 김은솔
+       처리 내용: 삭제 확인 메시지
+     */
      private fun showConfirmationDialog(wishNo: String) {
 
          val alertDialogBuilder = AlertDialog.Builder(context)
@@ -114,6 +123,10 @@ class WishDetailFragment : Fragment() {
          val alertDialog = alertDialogBuilder.create()
          alertDialog.show()
      }
+     /*
+      작성자: 김은솔
+      처리 내용: 위시리스트 삭제 API 호출
+    */
      private fun deleteWishDetail(wishNo: String){
          val retrofitAPI = RetrofitConnection.getInstance().create(WishService::class.java)
          val call = retrofitAPI.deleteWish(wishNo)
@@ -136,11 +149,14 @@ class WishDetailFragment : Fragment() {
              }
 
              override fun onFailure(call: Call<WishMapResult>, t: Throwable) {
-                 Log.d("WishList2", "불러오기 실패: ${t.message}")
-                 // TODO: 실패 시 처리 구현
+                 Log.d("delete Wish", "불러오기 실패: ${t.message}")
              }
          })
      }
+     /*
+      작성자: 김은솔
+      처리 내용: 위시리스트 상세 UI 변경
+    */
     private fun updateUI(wishItem: WishItem) {
         binding.tvEmoji.text = wishItem.emoji
         binding.content.text = wishItem.content
@@ -149,7 +165,10 @@ class WishDetailFragment : Fragment() {
         EditDeleteButtonShowYn(wishItem.writerYn)
         setCategroy(wishItem.category)
     }
-
+     /*
+        작성자: 김은솔
+       처리 내용: 작성자 여부 Y인 경우 수정버튼과 삭제 버튼 노출
+     */
     private fun EditDeleteButtonShowYn(writerYn: String) {
         val editBtn = binding.updateBtn
         val deleteBtn = binding.deleteBtn
@@ -162,8 +181,10 @@ class WishDetailFragment : Fragment() {
             deleteBtn.visibility = View.GONE
         }
     }
-
-
+     /*
+       작성자: 김은솔
+       처리 내용: 카테고리 데이터에 따른 UI 변경
+     */
     private fun setCategroy(category: String) {
         val button1 = binding.toDo
         val button2 = binding.toEat
