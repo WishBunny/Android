@@ -29,7 +29,7 @@
                 android:id="@+id/img_profile"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:src="@drawable/default_profile" />
+                android:src="@drawable/img_default_profile" />
 
         </androidx.cardview.widget.CardView>
 
@@ -47,7 +47,7 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_gravity="center"
-                android:src="@drawable/camera_white" />
+                android:src="@drawable/ic_camera_white" />
         </androidx.cardview.widget.CardView>
 
         <EditText

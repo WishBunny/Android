@@ -1,15 +1,11 @@
 package com.wish.bunny.alarm
 
-import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.util.Log
-import com.wish.bunny.friend.FriendFragment
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -18,9 +14,6 @@ import java.util.Date
 class AlarmFunctions(private val context: Context) {
 
     private lateinit var pendingIntent: PendingIntent
-    private val ioScope by lazy { CoroutineScope(Dispatchers.IO) }
-
-
 
     fun callAlarm(time : String, alarm_code : Int, content : String){
 
@@ -50,9 +43,7 @@ class AlarmFunctions(private val context: Context) {
         val calendar = Calendar.getInstance()
         calendar.time = datetime
 
-
         alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
-
     }
 
     fun cancelAlarm(alarm_code: Int) {
@@ -64,7 +55,6 @@ class AlarmFunctions(private val context: Context) {
         }else{
             PendingIntent.getBroadcast(context,alarm_code,intent,PendingIntent.FLAG_UPDATE_CURRENT)
         }
-
         alarmManager.cancel(pendingIntent)
     }
 }

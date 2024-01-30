@@ -11,7 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wish.bunny.R
-import com.wish.bunny.databinding.ActivityWishListBinding
+import com.wish.bunny.databinding.FragmentWishListBinding
 import com.wish.bunny.util.RetrofitConnection
 import com.wish.bunny.wish.CustomAdapter
 import com.wish.bunny.wish.WishService
@@ -26,7 +26,7 @@ import com.wish.bunny.mypage.domain.ProfileGetResponse
 
 class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener, CustomAdapter.OnWishCompletedListener {
 
-    private lateinit var binding: ActivityWishListBinding
+    private lateinit var binding: FragmentWishListBinding
     private var adapter: CustomAdapter? = null
     private val accessToken = GlobalApplication.prefs.getString("accessToken", "")
     var writerNo = arguments?.getString("writerNo").toString()
@@ -42,7 +42,7 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener, Cust
         isMine = arguments?.getString("isMine").toString()
         writerNo = arguments?.getString("writerNo").toString()
         friendName = arguments?.getString("friendName").toString()
-        binding = ActivityWishListBinding.inflate(inflater, container, false)
+        binding = FragmentWishListBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -270,7 +270,6 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener, Cust
 
         replaceFragment(newFragment)
     }
-
 
     private fun replaceFragment(fragment: Fragment) {
         requireActivity().supportFragmentManager.beginTransaction()

@@ -36,7 +36,7 @@ class ProfileAdapter(private var profileList: List<Profiles>) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfileViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_friend, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_friend, parent, false)
         return ProfileViewHolder(view)
     }
 
@@ -52,7 +52,7 @@ class ProfileAdapter(private var profileList: List<Profiles>) :
 
         Glide.with(holder.itemView.context)
             .load(currentItem.image)
-            .placeholder(R.drawable.default_profile)
+            .placeholder(R.drawable.img_default_profile)
             .into(holder.itemView.findViewById(R.id.iv_profile))
 
         holder.itemView.findViewById<ImageView>(R.id.iv_remove).setOnClickListener {

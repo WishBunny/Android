@@ -18,7 +18,6 @@ import com.wish.bunny.GlobalApplication
 import com.wish.bunny.R
 import com.wish.bunny.friend.domain.MatchingRequest
 import com.wish.bunny.friend.domain.MatchingResponse
-import com.wish.bunny.home.HomeFragment
 import com.wish.bunny.util.RetrofitConnection
 import retrofit2.Call
 import retrofit2.Callback
@@ -69,7 +68,6 @@ class MatchFragment : Fragment() {
         backImageView.setOnClickListener {
             navigateToPreviousFragment()
         }
-
         return view
     }
 

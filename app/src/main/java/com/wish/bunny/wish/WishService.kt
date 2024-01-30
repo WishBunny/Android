@@ -16,7 +16,6 @@ import retrofit2.http.PATCH
 import retrofit2.http.PUT
 import retrofit2.http.Path
 
-
 interface WishService {
     /**
     작성자: 황수연

@@ -1,5 +1,6 @@
 package com.wish.bunny.util
 
+import com.wish.bunny.BuildConfig.SERVER_BASE_URL
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -9,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 */
 class RetrofitConnection {
     companion object {
-        private const val BASE_URL = "http://10.0.2.2:8080/"
+        private const val BASE_URL = "${SERVER_BASE_URL}"
         private var INSTANCE: Retrofit? = null
 
         fun getInstance(): Retrofit {

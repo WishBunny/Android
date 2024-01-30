@@ -33,7 +33,6 @@ class EmojiDialog(private val context: Context) {
                     notifyEmojisLoaded()
                 }
             }
-
             override fun onFailure(call: Call<EmojiList>, t: Throwable) {
                 Log.d("EmojiDialog", "Failed to load emojis")
             }

@@ -27,7 +27,7 @@
             android:id="@+id/iv_profile"
             android:layout_width="65dp"
             android:layout_height="65dp"
-            android:src="@drawable/default_profile" />
+            android:src="@drawable/img_default_profile" />
     </androidx.cardview.widget.CardView>
 
 

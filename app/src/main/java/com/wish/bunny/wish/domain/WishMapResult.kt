@@ -1,6 +1,5 @@
 package com.wish.bunny.wish.domain
 
-import com.wish.bunny.wish.domain.WishItem
 import java.util.Objects
 
 /***
