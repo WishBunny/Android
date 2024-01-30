@@ -43,7 +43,6 @@ class AlarmReceiver() : BroadcastReceiver() {
         val title = intent.extras?.getString("alarm_content")
         Log.d("전달받은 제목", title ?: "null")
 
-
         Log.d("AlarmReceiver", "PendingIntent 생성 전")
         val pendingIntent = if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.S){
             PendingIntent.getActivity(context,requestCode,intent2,PendingIntent.FLAG_IMMUTABLE);
@@ -51,9 +50,7 @@ class AlarmReceiver() : BroadcastReceiver() {
             PendingIntent.getActivity(context,requestCode,intent2,PendingIntent.FLAG_UPDATE_CURRENT);
         }
 
-
         Log.d("AlarmReceiver", "알람 트리거: $title, requestCode: $requestCode")
-
 
         val notification = builder.setContentTitle("오늘 마감인 위시리스트가 있어요")
             .setContentText(title)

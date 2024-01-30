@@ -130,7 +130,6 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener, Cust
         }
     }
 
-
     private fun defaultClick(view: View){
         val pinkColor = ContextCompat.getColor(requireContext(), R.color.pink)
         val changeTextColor = ContextCompat.getColor(requireContext(), R.color.white)
@@ -278,7 +277,6 @@ class HomeFragment : Fragment(), CustomAdapter.OnDetailButtonClickListener, Cust
 
         replaceFragment(newFragment)
     }
-
 
     private fun replaceFragment(fragment: Fragment) {
         requireActivity().supportFragmentManager.beginTransaction()

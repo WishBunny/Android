@@ -11,7 +11,6 @@ import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
-import com.github.mikephil.charting.utils.ColorTemplate
 import com.wish.bunny.databinding.FragmentChartEatBinding
 
 class ChartEatFragment(private val percentDo:Float, private val percentEat:Float, private val percentGet:Float) : Fragment() {
@@ -69,5 +68,4 @@ class ChartEatFragment(private val percentDo:Float, private val percentEat:Float
             }
         }
     }
-
 }

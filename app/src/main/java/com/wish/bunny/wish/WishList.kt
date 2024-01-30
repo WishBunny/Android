@@ -12,8 +12,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
-
 class WishList : AppCompatActivity() {
 
     private lateinit var binding: FragmentWishListBinding

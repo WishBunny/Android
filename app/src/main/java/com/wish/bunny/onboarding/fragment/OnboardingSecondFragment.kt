@@ -14,7 +14,6 @@ import com.wish.bunny.R
 class OnboardingSecondFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(

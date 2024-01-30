@@ -23,7 +23,6 @@ import com.wish.bunny.emoji.EmojiDialog
 import com.wish.bunny.home.HomeFragment
 import com.wish.bunny.wish.domain.Message
 import com.wish.bunny.wish.domain.WishVo
-import com.wish.bunny.wish.domain.WishVo2
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback

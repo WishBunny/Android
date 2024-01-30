@@ -11,8 +11,6 @@ import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
-import com.github.mikephil.charting.utils.ColorTemplate
-import com.github.mikephil.charting.utils.ColorTemplate.COLORFUL_COLORS
 import com.wish.bunny.databinding.FragmentChartDoBinding
 
 class ChartDoFragment(private val percentDo:Float, private val percentEat:Float, private val percentGet:Float) : Fragment() {
@@ -24,7 +22,6 @@ class ChartDoFragment(private val percentDo:Float, private val percentEat:Float,
     ): View? {
         _binding = FragmentChartDoBinding.inflate(inflater, container, false)
         setBarChartDo("하고 싶어요",percentDo)
-
         return _binding?.root
     }
 
@@ -68,8 +65,6 @@ class ChartDoFragment(private val percentDo:Float, private val percentEat:Float,
                 animateY(1400, Easing.EaseInOutQuad)
                 animate()
             }
-
         }
     }
-
 }
